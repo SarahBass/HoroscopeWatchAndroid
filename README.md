@@ -30,6 +30,10 @@ Aries
 
 <img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/aries.png" width="300" height="300">
 
+Cancer
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/cancer.png" width="300" height="300">
+
 Capricorn
 
 <img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/capricorn.png" width="300" height="300">
