@@ -71,40 +71,40 @@ Virgo
 
 New moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/summerround.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/newmoon.png" width="300" height="300">
 
 Waxing Crescent Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/fallexample.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/rightcrescent.png" width="300" height="300">
 
 Waxing Half Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/winterexample.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/halfmoonright.png" width="300" height="300">
 
 Waxing Gibbous Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/winterexample.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/gibright.png" width="300" height="300">
 
 Full Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/springround.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/fulloon.png" width="300" height="300">
 
 Waning Gibbous Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/winterexample.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/gibleft.png" width="300" height="300">
 
 Waxing half Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/winterexample.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/halfmoonleft.png" width="300" height="300">
 
 Waxing Crescent Moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/winterexample.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/rightcrescent.png" width="300" height="300">
 
 
 New moon
 
-<img src="https://github.com/SarahBass/AndroidTicWatchE3/blob/main/summerround.png" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/newmoon.png" width="300" height="300">
 
 
 -----------
