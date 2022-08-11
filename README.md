@@ -58,6 +58,10 @@ Sagitarius
 
 <img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/sagitarius.png" width="300" height="300">
 
+Scorpio
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/scorpio.png" width="300" height="300">
+
 Taurus
 
 <img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/taurus.png" width="300" height="300">
