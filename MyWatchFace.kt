@@ -20,12 +20,13 @@ import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
+import java.text.SimpleDateFormat
 import android.widget.Toast
-
+import android.util.Log
 import java.lang.ref.WeakReference
 import java.util.Calendar
 import java.util.TimeZone
-
+import java.util.*
 /**
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
  * second hand.
@@ -37,7 +38,7 @@ private const val INTERACTIVE_UPDATE_RATE_MS = 1000
  */
 private const val MSG_UPDATE_TIME = 0
 
-private const val HOUR_STROKE_WIDTH = 5f
+private const val HOUR_STROKE_WIDTH = 7f
 private const val MINUTE_STROKE_WIDTH = 3f
 private const val SECOND_TICK_STROKE_WIDTH = 2f
 
@@ -133,12 +134,78 @@ class MyWatchFace : CanvasWatchFaceService() {
             initializeWatchFace()
         }
 
+        private fun getHoroscope(): String {
+
+            val sdf = SimpleDateFormat("EEE")
+            val sdf1 = SimpleDateFormat("EEEE")
+            val sdf2 = SimpleDateFormat("MMMM")
+            val sdf3 = SimpleDateFormat("d")
+            val sdf4 = SimpleDateFormat("yyyy")
+            val sdf5 = SimpleDateFormat("MMMM d yyyy")
+            val d = Date()
+            val dayOfTheWeek: String = sdf.format(d)
+            val dayOfTheWeekLong: String = sdf1.format(d)
+            val monthOfYear: String = sdf2.format(d)
+            val dayOfMonth: String = sdf3.format(d)
+            val year4digits: String = sdf4.format(d)
+            val fullDateSpaces: String = sdf5.format(d)
+
+            val horoscopeString = when(monthOfYear){
+                "January" -> if(Integer.parseInt(dayOfMonth) in 1..19){ "Capricorn" }
+                else {"Aquarius" }
+                "February" ->  if(Integer.parseInt(dayOfMonth) in 1..18 ){"Aquarius"}
+                else {"Pisces"}
+                "March" -> if(Integer.parseInt(dayOfMonth) in 1..20 ){"Pisces"}
+                else{ "Aries"}
+                "April" -> if(Integer.parseInt(dayOfMonth) in 1..19 ){"Aries"}
+                else {"Taurus"}
+                "May" -> {"Taurus"}
+                "June" -> if(Integer.parseInt(dayOfMonth) in 1..20 ){"Gemini"}
+                else{"Cancer"}
+                "July" -> if(Integer.parseInt(dayOfMonth) in 1..22) {"Cancer"}
+                else {"Leo"}
+                "August" ->if(Integer.parseInt(dayOfMonth) in 1..22){ "Leo"}
+                else {"Virgo"}
+                "September" -> if(Integer.parseInt(dayOfMonth) in 1..22) {"Virgo"}
+                else{"Libra"}
+                "October" -> if(Integer.parseInt(dayOfMonth) in 1..22) {"Libra"}
+                else {"Scorpio"}
+                "November" ->if(Integer.parseInt(dayOfMonth) in 1..21) { "Scorpio"}
+                else {"Sagittarius"}
+                "December" -> if(Integer.parseInt(dayOfMonth) in 1..21) { "Sagittarius"}
+                else{ "Capricorn"}
+                else -> "Cancer" }
+            return horoscopeString
+        }
+
+
         private fun initializeBackground() {
             mBackgroundPaint = Paint().apply {
                 color = Color.BLACK
             }
-            mBackgroundBitmap =
-                BitmapFactory.decodeResource(resources, R.drawable.watchface_service_bg)
+
+            val frameTime = INTERACTIVE_UPDATE_RATE_MS
+
+            val starsCount = 2
+            val timeTimeSwitch = 20000
+
+
+            mBackgroundBitmap = when (getHoroscope()) {
+                    "Aquarius" -> BitmapFactory.decodeResource(resources,R.drawable.aquarius)
+                    "Aries" -> BitmapFactory.decodeResource(resources,R.drawable.aries)
+                    "Cancer" -> BitmapFactory.decodeResource(resources,R.drawable.cancer)
+                    "Capricorn" -> BitmapFactory.decodeResource(resources,R.drawable.capricorn)
+                    "Gemini" -> BitmapFactory.decodeResource(resources,R.drawable.gemini)
+                    "Leo" -> BitmapFactory.decodeResource(resources,R.drawable.leo)
+                    "Libra" -> BitmapFactory.decodeResource(resources,R.drawable.libra)
+                    "Pisces" -> BitmapFactory.decodeResource(resources,R.drawable.pisces)
+                    "Sagittarius" -> BitmapFactory.decodeResource(resources,R.drawable.sagitarius)
+                    "Scorpio" -> BitmapFactory.decodeResource(resources,R.drawable.scorpio)
+                    "Taurus" -> BitmapFactory.decodeResource(resources,R.drawable.taurus)
+                    "Virgo" -> BitmapFactory.decodeResource(resources,R.drawable.virgo)
+                    else -> BitmapFactory.decodeResource(resources,R.drawable.cancer) }
+
+
 
             /* Extracts colors from background image to improve watchface style. */
             Palette.from(mBackgroundBitmap).generate {
@@ -300,9 +367,9 @@ class MyWatchFace : CanvasWatchFaceService() {
             /*
              * Calculate lengths of different hands based on watch screen size.
              */
-            mSecondHandLength = (mCenterX * 0.875).toFloat()
-            sMinuteHandLength = (mCenterX * 0.75).toFloat()
-            sHourHandLength = (mCenterX * 0.5).toFloat()
+            mSecondHandLength = (mCenterX * 0.7).toFloat()
+            sMinuteHandLength = (mCenterX * 0.6).toFloat()
+            sHourHandLength = (mCenterX * 0.6).toFloat()
 
             /* Scale loaded background image (more efficient) if surface dimensions change. */
             val scale = width.toFloat() / mBackgroundBitmap.width.toFloat()
@@ -358,7 +425,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 WatchFaceService.TAP_TYPE_TAP ->
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    Toast.makeText(applicationContext, R.string.message, Toast.LENGTH_SHORT)
+                    Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)
                         .show()
             }
             invalidate()
@@ -392,7 +459,7 @@ class MyWatchFace : CanvasWatchFaceService() {
              */
             val innerTickRadius = mCenterX - 10
             val outerTickRadius = mCenterX
-            for (tickIndex in 0..11) {
+           /* for (tickIndex in 0..11) {
                 val tickRot = (tickIndex.toDouble() * Math.PI * 2.0 / 12).toFloat()
                 val innerX = Math.sin(tickRot.toDouble()).toFloat() * innerTickRadius
                 val innerY = (-Math.cos(tickRot.toDouble())).toFloat() * innerTickRadius
@@ -402,7 +469,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     mCenterX + innerX, mCenterY + innerY,
                     mCenterX + outerX, mCenterY + outerY, mTickAndCirclePaint
                 )
-            }
+            } */
 
             /*
              * These calculations reflect the rotation in degrees per unit of time, e.g.,
