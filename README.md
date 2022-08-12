@@ -166,6 +166,4 @@ AndroidManifest.xml | Extra Code to bypass security to make the workflow better 
 ------------- | -------------
 MyWatchFace.kt | Kotlin/Java Code for Changing Background, using Clock rotation animations, samples BG colors
 ------------- | -------------
-Animated.xml | Used only to Preview Animations, not in final Code
-------------- | -------------
-Star.xml      | Used to Preview Layout , not used in final Code
+Strings.xml      | Strings shown when clock is clicked
