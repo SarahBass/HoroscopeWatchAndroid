@@ -31,7 +31,7 @@ import java.util.*
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
  * second hand.
  */
-private const val INTERACTIVE_UPDATE_RATE_MS = 800
+private const val INTERACTIVE_UPDATE_RATE_MS = 900
 
 /**
  * Handler message id for updating the time periodically in interactive mode.
@@ -191,7 +191,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
 
             mBackgroundBitmap =
-                when ((mCalendar.timeInMillis % (3 * frameTime)) / frameTime) {
+                when ((mCalendar.timeInMillis % (4 * frameTime)) / frameTime) {
                     0L-> when (getHoroscope()) {
                         "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
                         "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
@@ -229,7 +229,7 @@ class MyWatchFace : CanvasWatchFaceService() {
         private fun initializeWatchFace() {
             /* Set defaults for colors */
             mWatchHandColor = Color.WHITE
-            mWatchHandHighlightColor = Color.RED
+            mWatchHandHighlightColor = Color.WHITE
             mWatchHandShadowColor = Color.BLACK
 
             mHourPaint = Paint().apply {
@@ -423,6 +423,11 @@ class MyWatchFace : CanvasWatchFaceService() {
          * used for implementing specific logic to handle the gesture.
          */
         override fun onTapCommand(tapType: Int, x: Int, y: Int, eventTime: Long) {
+            val frameTime = INTERACTIVE_UPDATE_RATE_MS
+
+            val starsCount = 2
+            val timeTimeSwitch = 20000
+
             when (tapType) {
                 WatchFaceService.TAP_TYPE_TOUCH -> {
                     // The user has started touching the screen.
@@ -433,7 +438,14 @@ class MyWatchFace : CanvasWatchFaceService() {
                 WatchFaceService.TAP_TYPE_TAP ->
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)
+                    when ((mCalendar.timeInMillis % (4 * frameTime)) / frameTime) {
+                   0L -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
+                        1L -> Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)
+                        2L -> Toast.makeText(applicationContext, R.string.planet0, Toast.LENGTH_SHORT)
+                        3L -> Toast.makeText(applicationContext, R.string.Sunset, Toast.LENGTH_SHORT)
+                            else ->  Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)}
+
+
                         .show()
             }
             invalidate()
