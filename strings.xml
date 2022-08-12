@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Horoscope Watch</string>
+
+    <string name="horoscope0">Aquarius</string>
+    <string name="horoscope1">Aries</string>
+    <string name="horoscope2">Cancer</string>
+    <string name="horoscope3">Capricorn</string>
+    <string name="horoscope4">Gemini</string>
+    <string name="horoscope5">Leo</string>
+    <string name="horoscope6">Libra</string>
+    <string name="horoscope7">Pisces</string>
+    <string name="horoscope8">Sagittarius</string>
+    <string name="horoscope9">Scorpio</string>
+    <string name="horoscope10">Taurus</string>
+    <string name="horoscope11">Virgo</string>
+
+    <string name="moon0">New Moon</string>
+    <string name="moon1">Waxing Crescent Moon</string>
+    <string name="moon2">Waxing Half Moon</string>
+    <string name="moon3">Waxing Gibbous Moon</string>
+    <string name="moon4">Full Moon</string>
+    <string name="moon5">Waning Gibbous Moon</string>
+    <string name="moon6">Waxing half Moon</string>
+    <string name="moon7">Waxing Crescent Moon</string>
+
+    <string name="planet0">Mercury in Night Sky</string>
+    <string name="planet1">Venus in Night Sky</string>
+    <string name="planet2">Earth is the Night Sky</string>
+    <string name="planet3">Mars in Night Sky</string>
+    <string name="planet4">Jupiter in Night Sky</string>
+    <string name="planet5">Saturn in Night Sky</string>
+    <string name="planet6">Uranus in Night Sky</string>
+    <string name="planet7">Neptune in Night Sky</string>
+    <string name="planet8">Pluto in Night Sky</string>
+
+    <string name="Time">Current Time: </string>
+    <string name="Time0">4:56:09</string>
+    <string name="Sunset">Sunset: </string>
+    <string name="Sunrise">Sunrise: </string>
+    <string name="Sunset0">7:45</string>
+    <string name="Sunrise1">6:00</string>
+    <string name="AM">AM</string>
+    <string name="PM">AM</string>
+
+
+
+    <string name="my_analog_name">My Analog</string>
+</resources>
