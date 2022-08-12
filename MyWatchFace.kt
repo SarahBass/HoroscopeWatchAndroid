@@ -31,7 +31,7 @@ import java.util.*
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
  * second hand.
  */
-private const val INTERACTIVE_UPDATE_RATE_MS = 1000
+private const val INTERACTIVE_UPDATE_RATE_MS = 800
 
 /**
  * Handler message id for updating the time periodically in interactive mode.
@@ -190,21 +190,27 @@ class MyWatchFace : CanvasWatchFaceService() {
             val timeTimeSwitch = 20000
 
 
-            mBackgroundBitmap = when (getHoroscope()) {
-                    "Aquarius" -> BitmapFactory.decodeResource(resources,R.drawable.aquarius)
-                    "Aries" -> BitmapFactory.decodeResource(resources,R.drawable.aries)
-                    "Cancer" -> BitmapFactory.decodeResource(resources,R.drawable.cancer)
-                    "Capricorn" -> BitmapFactory.decodeResource(resources,R.drawable.capricorn)
-                    "Gemini" -> BitmapFactory.decodeResource(resources,R.drawable.gemini)
-                    "Leo" -> BitmapFactory.decodeResource(resources,R.drawable.leo)
-                    "Libra" -> BitmapFactory.decodeResource(resources,R.drawable.libra)
-                    "Pisces" -> BitmapFactory.decodeResource(resources,R.drawable.pisces)
-                    "Sagittarius" -> BitmapFactory.decodeResource(resources,R.drawable.sagitarius)
-                    "Scorpio" -> BitmapFactory.decodeResource(resources,R.drawable.scorpio)
-                    "Taurus" -> BitmapFactory.decodeResource(resources,R.drawable.taurus)
-                    "Virgo" -> BitmapFactory.decodeResource(resources,R.drawable.virgo)
-                    else -> BitmapFactory.decodeResource(resources,R.drawable.cancer) }
-
+            mBackgroundBitmap =
+                when ((mCalendar.timeInMillis % (3 * frameTime)) / frameTime) {
+                    0L-> when (getHoroscope()) {
+                        "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
+                        "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
+                        "Cancer" -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
+                        "Capricorn" -> BitmapFactory.decodeResource(resources, R.drawable.capricorn)
+                        "Gemini" -> BitmapFactory.decodeResource(resources, R.drawable.gemini)
+                        "Leo" -> BitmapFactory.decodeResource(resources, R.drawable.leo)
+                        "Libra" -> BitmapFactory.decodeResource(resources, R.drawable.libra)
+                        "Pisces" -> BitmapFactory.decodeResource(resources, R.drawable.pisces)
+                        "Sagittarius" -> BitmapFactory.decodeResource(resources, R.drawable.sagitarius)
+                        "Scorpio" -> BitmapFactory.decodeResource(resources, R.drawable.scorpio)
+                        "Taurus" -> BitmapFactory.decodeResource(resources, R.drawable.taurus)
+                        "Virgo" -> BitmapFactory.decodeResource(resources, R.drawable.virgo)
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.cancer) }
+                    1L -> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                    2L ->  BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                    3L ->  BitmapFactory.decodeResource(resources, R.drawable.sun)
+                    else -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
+                }
 
 
             /* Extracts colors from background image to improve watchface style. */
@@ -215,6 +221,8 @@ class MyWatchFace : CanvasWatchFaceService() {
                     mWatchHandShadowColor = it.getDarkMutedColor(Color.BLACK)
                     updateWatchHandStyle()
                 }
+
+
             }
         }
 
@@ -407,7 +415,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             colorMatrix.setSaturation(0f)
             val filter = ColorMatrixColorFilter(colorMatrix)
             grayPaint.colorFilter = filter
-            canvas.drawBitmap(mBackgroundBitmap, 0f, 0f, grayPaint)
+            //canvas.drawBitmap(mBackgroundBitmap, 0f, 0f, grayPaint)
         }
 
         /**
