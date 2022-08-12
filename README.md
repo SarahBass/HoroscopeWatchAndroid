@@ -74,6 +74,47 @@ Virgo
 -----------------------
 
 
+## PLANETS
+
+
+MERCURY
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/mercury.png" width="300" height="300">
+
+VENUS
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/venus.png" width="300" height="300">
+
+MARS
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/mars.png" width="300" height="300">
+
+JUPITER
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/jupiter.png" width="300" height="300">
+
+SATURN
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/saturn.png" width="300" height="300">
+
+NEPTUNE
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/neptune.png" width="300" height="300">
+
+URANUS
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/uranus.png" width="300" height="300">
+
+PLUTO
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/pluto.png" width="300" height="300">
+
+
+
+
+
+-----------
+
 ## MOON PHASES
 
 
@@ -114,8 +155,6 @@ New moon
 
 <img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/newmoon.png" width="300" height="300">
 
-
------------
 
 ## Contents:
 
