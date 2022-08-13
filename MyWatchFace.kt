@@ -135,8 +135,57 @@ class MyWatchFace : CanvasWatchFaceService() {
             val dayOfMonth: String = sdf1.format(d)
             val LUNAR_MONTH = 29.530588853;
             val newMoonDate = when(yearMonth){
+                "2022 January" -> 2
+                "2022 February" -> 1
+                "2022 March" -> 2
                 "2022 April" -> 1
                 "2022 May" -> 30
+                "2022 June" -> 28
+                "2022 July" -> 28
+                "2022 August" -> 27
+                "2022 September" -> 25
+                "2022 October" -> 25
+                "2022 November" -> 23
+                "2022 December" -> 23
+                "2023 January" -> 21
+                "2023 February" -> 19
+                "2023 March" -> 21
+                "2023 April" -> 19
+                "2023 May" -> 19
+                "2023 June" -> 17
+                "2023 July" -> 17
+                "2023 August" -> 16
+                "2023 September" -> 14
+                "2023 October" -> 14
+                "2023 November" -> 13
+                "2023 December" -> 12
+                else -> 1
+            }
+            val fullMoonDate = when(yearMonth){
+                "2022 January" -> 17
+                "2022 February" -> 16
+                "2022 March" -> 18
+                "2022 April" -> 16
+                "2022 May" -> 16
+                "2022 June" -> 14
+                "2022 July" -> 13
+                "2022 August" -> 11
+                "2022 September" -> 10
+                "2022 October" -> 9
+                "2022 November" -> 8
+                "2022 December" -> 7
+                "2023 January" -> 6
+                "2023 February" -> 5
+                "2023 March" -> 7
+                "2023 April" -> 5
+                "2023 May" -> 5
+                "2023 June" -> 3
+                "2023 July" -> 3
+                "2023 August" -> 1
+                "2023 September" -> 29
+                "2023 October" -> 28
+                "2023 November" -> 27
+                "2023 December" -> 26
                 else -> 1
             }
 
