@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.time.temporal.TemporalField
 import java.util.*
-
+import kotlin.math.abs
 
 /**
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
@@ -129,13 +129,37 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         private fun getMoonPhase(): String {
             val d = Date()
-            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-            val ISOdate: String = sdf.format(d)
-            val JULIAN_DAY: TemporalField
-            val MODIFIED_JULIAN_DAY: TemporalField
-            val RATA_DIE: TemporalField
+            val sdf0 = SimpleDateFormat("yyyy MMMM")
+            val sdf1 = SimpleDateFormat("d")
+            val yearMonth: String = sdf0.format(d)
+            val dayOfMonth: String = sdf1.format(d)
             val LUNAR_MONTH = 29.530588853;
-            val moonString = "full"
+            val newMoonDate = when(yearMonth){
+                "2022 April" -> 1
+                "2022 May" -> 30
+                else -> 1
+            }
+            
+            val newMoondifference = abs((Integer.parseInt(dayOfMonth)) - newMoonDate)
+            val moonPercent: Double = newMoondifference / LUNAR_MONTH
+            val moonString : String = if(moonPercent < 0.05 ){"New Moon"}
+            else if (moonPercent >= .05 && moonPercent < 25 ){"Waxing Crescent Moon"}
+            else if(moonPercent >=25 && moonPercent < 35){"Waxing Half Moon"}
+            else if(moonPercent >=35 && moonPercent < 45){"Waxing Gibbous Moon"}
+            else if(moonPercent >=45 && moonPercent < 55){"Full Moon"}
+            else if(moonPercent >=55 && moonPercent < 65){"Waning Gibbous Moon"}
+            else if(moonPercent >=65 && moonPercent < 75){"Waning half Moon"}
+            else if(moonPercent >=75 && moonPercent < 95){"Waning Crescent Moon"}
+            else {"New Moon"}
+            //0% - 5% new moon | USE : ARRAY EXACT DATE
+            //5% - 25% crescent right
+            //25% - 35% half moon right
+            //35 - 45% gib moon right
+            // 45% - 55%  full moon | USE : ARRAY EXACT DATE
+            // 55% - 65%  gib left moon
+            //65% - 75% half moon left
+            //75% - 90% crescent left
+            //90% - 100% new moon | USE : ARRAY EXACT DATE
             return moonString
         }
         private fun getSunrise(): String {
@@ -507,7 +531,6 @@ class MyWatchFace : CanvasWatchFaceService() {
                         4L -> Toast.makeText(applicationContext, "Sunset : " + "" + "PM", Toast.LENGTH_SHORT)
                         5L -> Toast.makeText(applicationContext, "Sunrise : " + "" + "AM" , Toast.LENGTH_SHORT)
                             else ->  Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)}
-
 
                         .show()
             }
