@@ -4,34 +4,27 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
-import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import androidx.palette.graphics.Palette
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
 import android.view.SurfaceHolder
-import java.text.SimpleDateFormat
 import android.widget.Toast
-import android.util.Log
+import androidx.palette.graphics.Palette
 import java.lang.ref.WeakReference
-import java.util.Calendar
-import java.util.TimeZone
+import java.text.SimpleDateFormat
+import java.time.temporal.TemporalField
 import java.util.*
+
+
 /**
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
  * second hand.
  */
-private const val INTERACTIVE_UPDATE_RATE_MS = 900
+private const val INTERACTIVE_UPDATE_RATE_MS = 1000
 
 /**
  * Handler message id for updating the time periodically in interactive mode.
@@ -65,8 +58,8 @@ class MyWatchFace : CanvasWatchFaceService() {
         return Engine()
     }
 
-    private class EngineHandler(reference: MyWatchFace.Engine) : Handler() {
-        private val mWeakReference: WeakReference<MyWatchFace.Engine> = WeakReference(reference)
+    private class EngineHandler(reference: Engine) : Handler() {
+        private val mWeakReference: WeakReference<Engine> = WeakReference(reference)
 
         override fun handleMessage(msg: Message) {
             val engine = mWeakReference.get()
@@ -134,6 +127,28 @@ class MyWatchFace : CanvasWatchFaceService() {
             initializeWatchFace()
         }
 
+        private fun getMoonPhase(): String {
+            val d = Date()
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            val ISOdate: String = sdf.format(d)
+            val JULIAN_DAY: TemporalField
+            val MODIFIED_JULIAN_DAY: TemporalField
+            val RATA_DIE: TemporalField
+            val LUNAR_MONTH = 29.530588853;
+            val moonString = "full"
+            return moonString
+        }
+        private fun getSunrise(): String {
+            val d = Date()
+            val sdf = SimpleDateFormat("dd/MM")
+            val dateStringMMDD: String = sdf.format(d)
+            //val finalURL = "http://www.earthtools.org/sun/" + LatCoord.getText().toString().trim().toString() + "/" + LongCoord.getText().toString().trim().toString() + "/" + dateStringMMDD + "/99/0"
+            //var httpGet: HttpGet = HttpGet(finalURL)
+            val sun = "full"
+            return sun
+        }
+
+
         private fun getHoroscope(): String {
 
             val sdf = SimpleDateFormat("EEE")
@@ -177,17 +192,29 @@ class MyWatchFace : CanvasWatchFaceService() {
                 else -> "Cancer" }
             return horoscopeString
         }
+        private fun getDayorNight(): String {
+            val sdf = SimpleDateFormat("k")
+            val d = Date()
+            val militaryTime: String = sdf.format(d)
 
+            val timeTypeString = when (Integer.parseInt(militaryTime)){
+                in 0..5 -> "Night"
+                in 6..18 -> "Day"
+                in 19..23 -> "Night"
+                else-> "Night"
+            }
+            return timeTypeString
+        }
 
         private fun initializeBackground() {
             mBackgroundPaint = Paint().apply {
                 color = Color.BLACK
             }
 
+
             val frameTime = INTERACTIVE_UPDATE_RATE_MS
 
-            val starsCount = 2
-            val timeTimeSwitch = 20000
+
 
 
             mBackgroundBitmap =
@@ -206,9 +233,14 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Taurus" -> BitmapFactory.decodeResource(resources, R.drawable.taurus)
                         "Virgo" -> BitmapFactory.decodeResource(resources, R.drawable.virgo)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.cancer) }
-                    1L -> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
-                    2L ->  BitmapFactory.decodeResource(resources, R.drawable.saturn)
-                    3L ->  BitmapFactory.decodeResource(resources, R.drawable.sun)
+                    1L -> when (getDayorNight()){
+                        "Day" -> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                        "Night" -> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun) }
+                    2L->  BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                    3L ->when(getMoonPhase()){
+                        "Full" -> BitmapFactory.decodeResource(resources, R.drawable.fulloon)
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)}
                     else -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
                 }
 
@@ -281,10 +313,10 @@ class MyWatchFace : CanvasWatchFaceService() {
         override fun onPropertiesChanged(properties: Bundle) {
             super.onPropertiesChanged(properties)
             mLowBitAmbient = properties.getBoolean(
-                WatchFaceService.PROPERTY_LOW_BIT_AMBIENT, false
+                PROPERTY_LOW_BIT_AMBIENT, false
             )
             mBurnInProtection = properties.getBoolean(
-                WatchFaceService.PROPERTY_BURN_IN_PROTECTION, false
+                PROPERTY_BURN_IN_PROTECTION, false
             )
         }
 
@@ -349,7 +381,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         override fun onInterruptionFilterChanged(interruptionFilter: Int) {
             super.onInterruptionFilterChanged(interruptionFilter)
-            val inMuteMode = interruptionFilter == WatchFaceService.INTERRUPTION_FILTER_NONE
+            val inMuteMode = interruptionFilter == INTERRUPTION_FILTER_NONE
 
             /* Dim display in mute mode. */
             if (mMuteMode != inMuteMode) {
@@ -415,7 +447,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             colorMatrix.setSaturation(0f)
             val filter = ColorMatrixColorFilter(colorMatrix)
             grayPaint.colorFilter = filter
-            //canvas.drawBitmap(mBackgroundBitmap, 0f, 0f, grayPaint)
+            canvas.drawBitmap(mBackgroundBitmap, 0f, 0f, grayPaint)
         }
 
         /**
@@ -424,25 +456,56 @@ class MyWatchFace : CanvasWatchFaceService() {
          */
         override fun onTapCommand(tapType: Int, x: Int, y: Int, eventTime: Long) {
             val frameTime = INTERACTIVE_UPDATE_RATE_MS
+            val sdf = SimpleDateFormat("EEE")
+            val sdf1 = SimpleDateFormat("EEEE")
+            val sdf2 = SimpleDateFormat("MMMM")
+            val sdf3 = SimpleDateFormat("d")
+            val sdf4 = SimpleDateFormat("yyyy")
+            val sdf5 = SimpleDateFormat("MMMM d yyyy")
+            val sdf6 = SimpleDateFormat("h:m:s a")
+            val sdf7 = SimpleDateFormat("a")
+            val d = Date()
+            val dayOfTheWeek: String = sdf.format(d)
+            val dayOfTheWeekLong: String = sdf1.format(d)
+            val monthOfYear: String = sdf2.format(d)
+            val dayOfMonth: String = sdf3.format(d)
+            val year4digits: String = sdf4.format(d)
+            val fullDateSpaces: String = sdf5.format(d)
+            val timeSpecific : String = sdf6.format(d)
+            val amPM : String = sdf7.format(d)
 
-            val starsCount = 2
-            val timeTimeSwitch = 20000
-
+            //Shows different methods to call strings
             when (tapType) {
-                WatchFaceService.TAP_TYPE_TOUCH -> {
+                TAP_TYPE_TOUCH -> {
                     // The user has started touching the screen.
                 }
-                WatchFaceService.TAP_TYPE_TOUCH_CANCEL -> {
+                TAP_TYPE_TOUCH_CANCEL -> {
                     // The user has started a different gesture or otherwise cancelled the tap.
                 }
-                WatchFaceService.TAP_TYPE_TAP ->
+                TAP_TYPE_TAP ->
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    when ((mCalendar.timeInMillis % (4 * frameTime)) / frameTime) {
-                   0L -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
-                        1L -> Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)
-                        2L -> Toast.makeText(applicationContext, R.string.planet0, Toast.LENGTH_SHORT)
-                        3L -> Toast.makeText(applicationContext, R.string.Sunset, Toast.LENGTH_SHORT)
+                    when ((mCalendar.timeInMillis % (5 * frameTime)) / frameTime) {
+                   0L -> when (getHoroscope()){
+                       "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
+                       "Aries" -> Toast.makeText(applicationContext, R.string.horoscope1, Toast.LENGTH_SHORT)
+                       "Cancer" -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)
+                       "Capricorn" -> Toast.makeText(applicationContext, R.string.horoscope3, Toast.LENGTH_SHORT)
+                       "Gemini" -> Toast.makeText(applicationContext, R.string.horoscope4, Toast.LENGTH_SHORT)
+                       "Leo" -> Toast.makeText(applicationContext, R.string.horoscope5, Toast.LENGTH_SHORT)
+                       "Libra" -> Toast.makeText(applicationContext, R.string.horoscope6, Toast.LENGTH_SHORT)
+                       "Pisces" -> Toast.makeText(applicationContext, R.string.horoscope7, Toast.LENGTH_SHORT)
+                       "Sagittarius" -> Toast.makeText(applicationContext, R.string.horoscope8, Toast.LENGTH_SHORT)
+                       "Scorpio" -> Toast.makeText(applicationContext, R.string.horoscope9, Toast.LENGTH_SHORT)
+                       "Taurus" -> Toast.makeText(applicationContext, R.string.horoscope10, Toast.LENGTH_SHORT)
+                       "Virgo" -> Toast.makeText(applicationContext, R.string.horoscope11, Toast.LENGTH_SHORT)
+                        else -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)}
+                        1L -> Toast.makeText(applicationContext,
+                            "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
+                        2L -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
+                        3L -> Toast.makeText(applicationContext, R.string.planet0, Toast.LENGTH_SHORT)
+                        4L -> Toast.makeText(applicationContext, "Sunset : " + "" + "PM", Toast.LENGTH_SHORT)
+                        5L -> Toast.makeText(applicationContext, "Sunrise : " + "" + "AM" , Toast.LENGTH_SHORT)
                             else ->  Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)}
 
 
