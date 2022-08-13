@@ -23,25 +23,15 @@
     <string name="moon6">Waxing half Moon</string>
     <string name="moon7">Waxing Crescent Moon</string>
 
-    <string name="planet0">Mercury in Night Sky</string>
-    <string name="planet1">Venus in Night Sky</string>
-    <string name="planet2">Earth is the Night Sky</string>
-    <string name="planet3">Mars in Night Sky</string>
-    <string name="planet4">Jupiter in Night Sky</string>
-    <string name="planet5">Saturn in Night Sky</string>
-    <string name="planet6">Uranus in Night Sky</string>
-    <string name="planet7">Neptune in Night Sky</string>
-    <string name="planet8">Pluto in Night Sky</string>
-
-    <string name="Time">Current Time: </string>
-    <string name="Time0">4:56:09</string>
-    <string name="Sunset">Sunset: </string>
-    <string name="Sunrise">Sunrise: </string>
-    <string name="Sunset0">7:45</string>
-    <string name="Sunrise1">6:00</string>
-    <string name="AM">AM</string>
-    <string name="PM">AM</string>
-
+    <string name="planet0">Mercury is Visible</string>
+    <string name="planet1">Venus is Visible</string>
+    <string name="planet2">Earth</string>
+    <string name="planet3">Mars is in opposition!</string>
+    <string name="planet4">Jupiter is in opposition!</string>
+    <string name="planet5">Saturn is in opposition!</string>
+    <string name="planet6">Uranus is in opposition!</string>
+    <string name="planet7">Neptune is in opposition!</string>
+    <string name="planet8">Pluto is in opposition!y</string>
 
 
     <string name="my_analog_name">Horoscope Watch</string>
