@@ -139,17 +139,17 @@ class MyWatchFace : CanvasWatchFaceService() {
                 "2022 May" -> 30
                 else -> 1
             }
-            
+
             val newMoondifference = abs((Integer.parseInt(dayOfMonth)) - newMoonDate)
             val moonPercent: Double = newMoondifference / LUNAR_MONTH
             val moonString : String = if(moonPercent < 0.05 ){"New Moon"}
-            else if (moonPercent >= .05 && moonPercent < 25 ){"Waxing Crescent Moon"}
-            else if(moonPercent >=25 && moonPercent < 35){"Waxing Half Moon"}
-            else if(moonPercent >=35 && moonPercent < 45){"Waxing Gibbous Moon"}
-            else if(moonPercent >=45 && moonPercent < 55){"Full Moon"}
-            else if(moonPercent >=55 && moonPercent < 65){"Waning Gibbous Moon"}
-            else if(moonPercent >=65 && moonPercent < 75){"Waning half Moon"}
-            else if(moonPercent >=75 && moonPercent < 95){"Waning Crescent Moon"}
+            else if (moonPercent >= .05 && moonPercent < 0.25 ){"Waxing Crescent Moon"}
+            else if(moonPercent >=0.25 && moonPercent < 0.35){"Waxing Half Moon"}
+            else if(moonPercent >=0.35 && moonPercent < 0.47){"Waxing Gibbous Moon"}
+            else if(moonPercent >=0.47 && moonPercent < 0.55){"Full Moon"}
+            else if(moonPercent >=0.55 && moonPercent < 0.65){"Waning Gibbous Moon"}
+            else if(moonPercent >=0.65 && moonPercent < 0.75){"Waning half Moon"}
+            else if(moonPercent >=0.75 && moonPercent < 0.95){"Waning Crescent Moon"}
             else {"New Moon"}
             //0% - 5% new moon | USE : ARRAY EXACT DATE
             //5% - 25% crescent right
@@ -527,10 +527,10 @@ class MyWatchFace : CanvasWatchFaceService() {
                         1L -> Toast.makeText(applicationContext,
                             "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
                         2L -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
-                        3L -> Toast.makeText(applicationContext, R.string.planet0, Toast.LENGTH_SHORT)
+                        3L -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
                         4L -> Toast.makeText(applicationContext, "Sunset : " + "" + "PM", Toast.LENGTH_SHORT)
                         5L -> Toast.makeText(applicationContext, "Sunrise : " + "" + "AM" , Toast.LENGTH_SHORT)
-                            else ->  Toast.makeText(applicationContext, R.string.moon0, Toast.LENGTH_SHORT)}
+                            else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
                         .show()
             }
