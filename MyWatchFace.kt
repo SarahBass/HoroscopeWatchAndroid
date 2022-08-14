@@ -412,8 +412,8 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "Aries" -> "Monthly Ruling Planet: Mars"
                     "Taurus" -> "Monthly Ruling Planet: Venus"
                     "Gemini" -> "Monthly Ruling Planet: Mercury"
-                    "Cancer" -> "Monthly Ruling Planet: Moon"
-                    "Leo" -> "Monthly Ruling Planet: Sun"
+                    "Cancer" -> "Monthly Ruling in Sky: Moon"
+                    "Leo" -> "Monthly Ruling in Sky: Sun"
                     "Virgo" -> "Monthly Ruling Planet: Mercury"
                     "Libra" -> "Monthly Ruling Planet: Venus"
                     "Scorpio" ->"Monthly Ruling Planet: Pluto"
@@ -519,32 +519,15 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         }
 
-        private fun getSunrise(): String {
-            val d = Date()
-            val sdf = SimpleDateFormat("dd/MM")
-            val dateStringMMDD: String = sdf.format(d)
-            //val finalURL = "http://www.earthtools.org/sun/" + LatCoord.getText().toString().trim().toString() + "/" + LongCoord.getText().toString().trim().toString() + "/" + dateStringMMDD + "/99/0"
-            //var httpGet: HttpGet = HttpGet(finalURL)
-            val sun = "full"
-            return sun
-        }
 
 
         private fun getHoroscope(): String {
 
-            val sdf = SimpleDateFormat("EEE")
-            val sdf1 = SimpleDateFormat("EEEE")
             val sdf2 = SimpleDateFormat("MMMM")
             val sdf3 = SimpleDateFormat("d")
-            val sdf4 = SimpleDateFormat("yyyy")
-            val sdf5 = SimpleDateFormat("MMMM d yyyy")
             val d = Date()
-            val dayOfTheWeek: String = sdf.format(d)
-            val dayOfTheWeekLong: String = sdf1.format(d)
             val monthOfYear: String = sdf2.format(d)
             val dayOfMonth: String = sdf3.format(d)
-            val year4digits: String = sdf4.format(d)
-            val fullDateSpaces: String = sdf5.format(d)
 
             val horoscopeString = when(monthOfYear){
                 "January" -> if(Integer.parseInt(dayOfMonth) in 1..19){ "Capricorn" }
@@ -619,8 +602,86 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Night" -> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun) }
                     2L->  BitmapFactory.decodeResource(resources, R.drawable.saturn)
-                    3L ->when(getMoonPhase()){
-                        "Full" -> BitmapFactory.decodeResource(resources, R.drawable.fulloon)
+                    3L -> when(getMoonPhase()){
+                            "New Moon" -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
+                       "Waxing Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.rightcrescent)
+                       "Waxing Half Moon" -> BitmapFactory.decodeResource(resources, R.drawable.halfmoonright)
+                "Waxing Gibbous Moon" -> BitmapFactory.decodeResource(resources, R.drawable.gibright)
+                        "Full Moon" -> BitmapFactory.decodeResource(resources, R.drawable.fulloon)
+                        "Waning Gibbous Moon" -> BitmapFactory.decodeResource(resources, R.drawable.gibleft)
+                       "Waning half Moon" -> BitmapFactory.decodeResource(resources, R.drawable.halfmoonleft)
+                        "Waning Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.leftcrescent)
+                        /* 4L -> when(getPlanetType(PlanetEvent1())){
+                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
+                "Solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "Equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
+                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
+                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
+                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
+                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
+                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
+                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
+                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
+                "Meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "None" -> when (getPlanetType(PlanetEvent3)
+                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
+                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
+                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
+                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
+                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
+                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
+                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
+                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
+                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
+                else-> BitmapFactory.decodeResource(resources, R.drawable.sun
+
+               5L -> when(getPlanetType(PlanetEvent2())){
+
+                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
+                "Solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "Equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
+                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
+                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
+                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
+                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
+                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
+                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
+                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
+                "Meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                "None" -> when (getPlanetType(PlanetEvent3)
+                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
+                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
+                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
+                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
+                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
+                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
+                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
+                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
+                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
+                else-> BitmapFactory.decodeResource(resources, R.drawable.sun
+
+
+                6L -> when (getPlanetType(PlanetEvent3)
+                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
+                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
+                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
+                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
+                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
+                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
+                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
+                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
+                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
+                else-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                         */
+
                         else -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)}
                     else -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
                 }
@@ -866,7 +927,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 TAP_TYPE_TAP ->
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    when ((mCalendar.timeInMillis % (5 * frameTime)) / frameTime) {
+                    when ((mCalendar.timeInMillis % (7 * frameTime)) / frameTime) {
                    0L -> when (getHoroscope()){
                        "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
                        "Aries" -> Toast.makeText(applicationContext, R.string.horoscope1, Toast.LENGTH_SHORT)
@@ -885,8 +946,9 @@ class MyWatchFace : CanvasWatchFaceService() {
                             "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
                         2L -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
                         3L -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
-                        4L -> Toast.makeText(applicationContext, "Sunset : " + "" + "PM", Toast.LENGTH_SHORT)
-                        5L -> Toast.makeText(applicationContext, "Sunrise : " + "" + "AM" , Toast.LENGTH_SHORT)
+                        4L -> Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
+                        5L -> Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
+                        6L -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
                             else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
                         .show()
