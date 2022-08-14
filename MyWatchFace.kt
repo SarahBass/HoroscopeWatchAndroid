@@ -333,7 +333,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2025 November" -> "2025 Uranus opposition – November 21"
                     "2025 December" -> "None"
 
-                    else -> "Saturn"
+                    else -> "None"
                 }
             return planetOpposition
 
@@ -398,7 +398,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2025 November" -> "None"
                     "2025 December" -> "Winter Solstice Dec 21 2025"
 
-                    else -> "Saturn"
+                    else -> "None"
                 }
             return planetOpposition
 
