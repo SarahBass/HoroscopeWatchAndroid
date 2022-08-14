@@ -303,35 +303,35 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2023 July" -> "Pluto at Opposition : 22 Jul 2023"
                     "2023 August" -> "Saturn is in Opposition on August 27" // Uranus begins retrograde motion
                     "2023 September" -> "September 19, 2023: Neptune at opposition"
-                    "2023 October" -> ""
+                    "2023 October" -> "None"
                     "2023 November" -> "Jupiter opposition 2023 – November 2" // 2023 Uranus opposition – November 13
-                    "2023 December" -> ""
+                    "2023 December" -> "None"
 
-                    "2024 January" -> ""
-                    "2024 February" -> ""
+                    "2024 January" -> "None"
+                    "2024 February" -> "None"
                     "2024 March" -> "Mercury Visible at Sunset"
-                    "2024 April" -> ""
+                    "2024 April" -> "None"
                     "2024 May" -> "Mercury Visible at Sunrise"
                     "2024 June" -> "Venus at superior solar conjunction : 04 Jun 2024"
                     "2024 July" -> "Pluto at Opposition : 23 Jul 2024" //Mercury visible at Sunset
-                    "2024 August" -> ""
+                    "2024 August" -> "None"
                     "2024 September" -> "Saturn is in Opposition on September 8" //Mercury visible at Sunrise
-                    "2024 October" -> ""
+                    "2024 October" -> "None"
                     "2024 November" -> "2024 Uranus opposition – November 16" //Mercury visible at sunset
                     "2024 December" -> "Jupiter opposition 2024 – December 7"
 
                     "2025 January" -> "Jupiter opposition 2025 – January 10" // "Mars is in Opposition on January 16th"
                     "2025 February" -> "Venus at greatest brightness: 16 Feb 2025"
                     "2025 March" -> "Mercury visible at Sunset"
-                    "2025 April" -> ""
-                    "2025 May" -> ""
-                    "2025 June" -> ""
+                    "2025 April" -> "None"
+                    "2025 May" -> "None"
+                    "2025 June" -> "None"
                     "2025 July" -> "Pluto at Opposition :25 Jul 2025"
-                    "2025 August" -> ""
+                    "2025 August" -> "None"
                     "2025 September" -> "Saturn is in Opposition on September 25"
-                    "2025 October" -> ""
+                    "2025 October" -> "None"
                     "2025 November" -> "2025 Uranus opposition – November 21"
-                    "2025 December" -> ""
+                    "2025 December" -> "None"
 
                     else -> "Saturn"
                 }
@@ -339,69 +339,6 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         }
 
-        private fun getPlanetEventTYPE1(): String {
-            val d = Date()
-            val sdf0 = SimpleDateFormat("yyyy MMMM")
-            val yearMonth: String = sdf0.format(d)
-            val planetOpposition =
-                when(yearMonth){
-                    "2022 January" -> "Jupiter" //Mercury
-                    "2022 February" -> "Venus" //Pluto
-                    "2022 March" -> "Equinox" //Moon
-                    "2022 April" -> "Mercury" //Moon
-                    "2022 May" -> "Moon" // Meteors
-                    "2022 June" -> "Neptune" //Mercury
-                    "2022 July" -> "Jupiter" // Pluto
-                    "2022 August" -> "Saturn" //Uranus
-                    "2022 September" -> "Jupiter" //Neptune
-                    "2022 October" -> "Saturn" //Mars
-                    "2022 November" -> "Jupiter" //Uranus
-                    "2022 December" -> "Mars" //Solstice
-
-                    "2023 January" -> "Uranus" //Mercury
-                    "2023 February" -> "Saturn"
-                    "2023 March" -> "Neptune" //Uranus
-                    "2023 April" -> "Jupiter"
-                    "2023 May" -> "Venus" // Mercury
-                    "2023 June" -> "Neptune"
-                    "2023 July" -> "Pluto"
-                    "2023 August" -> "Saturn " // Uranus
-                    "2023 September" -> "Neptune"
-                    "2023 October" -> ""
-                    "2023 November" -> "Jupiter" //Uranus
-                    "2023 December" -> "Winter Solstice Dec 21 2023"
-
-                    "2024 January" -> ""
-                    "2024 February" -> ""
-                    "2024 March" -> "Mercury"
-                    "2024 April" -> ""
-                    "2024 May" -> "Mercury"
-                    "2024 June" -> "Venus"
-                    "2024 July" -> "Pluto" //Mercury
-                    "2024 August" -> ""
-                    "2024 September" -> "Saturn" //Mercury
-                    "2024 October" -> ""
-                    "2024 November" -> "Uranus" //Mercury
-                    "2024 December" -> "Jupiter"
-
-                    "2025 January" -> "Jupiter" // "Mars"
-                    "2025 February" -> "Venus"
-                    "2025 March" -> "Mercury"
-                    "2025 April" -> ""
-                    "2025 May" -> ""
-                    "2025 June" -> ""
-                    "2025 July" -> "Pluto"
-                    "2025 August" -> ""
-                    "2025 September" -> "Saturn"
-                    "2025 October" -> ""
-                    "2025 November" -> "Uranus"
-                    "2025 December" -> ""
-
-                    else -> "Saturn"
-                }
-            return planetOpposition
-
-        }
 
         private fun getPlanetEvent2(): String {
             val d = Date()
@@ -423,45 +360,68 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2022 December" -> "Dec 21: December Solstice"
 
                     "2023 January" -> "Jan 7, 2023: Inferior conjunction Mercury"
-                    "2023 February" -> ""
+                    "2023 February" -> "None"
                     "2023 March" -> "Uranus at solar conjunction"
-                    "2023 April" -> ""
+                    "2023 April" -> "None"
                     "2023 May" -> "Mercury Visible at Sunrise"
                     "2023 June" -> "June 21 2023 Summer Solstice"
-                    "2023 July" -> ""
+                    "2023 July" -> "None"
                     "2023 August" -> "Uranus begins retrograde motion"
                     "2023 September" -> "Fall Equinox Sep 23 2023"
-                    "2023 October" -> ""
+                    "2023 October" -> "None"
                     "2023 November" -> "2023 Uranus opposition – November 13"
                     "2023 December" -> "Winter Solstice Dec 21 2023"
 
-                    "2024 January" -> ""
-                    "2024 February" -> ""
+                    "2024 January" -> "None"
+                    "2024 February" -> "None"
                     "2024 March" -> "Spring Equinox Mar 19 2024"
-                    "2024 April" -> ""
-                    "2024 May" -> ""
+                    "2024 April" -> "None"
+                    "2024 May" -> "None"
                     "2024 June" -> "Summer Solstice Jun 20 2024"
                     "2024 July" -> "Mercury visible at Sunset"
-                    "2024 August" -> ""
+                    "2024 August" -> "None"
                     "2024 September" -> "Mercury visible at Sunrise"
-                    "2024 October" -> ""
+                    "2024 October" -> "None"
                     "2024 November" -> "Mercury visible at sunset"
                     "2024 December" -> "Winter Solstice Dec 21 2024"
 
                     "2025 January" -> "Mars is in Opposition on January 16th"
-                    "2025 February" -> ""
+                    "2025 February" -> "None"
                     "2025 March" -> "Spring Equinox Mar 20 2025"
-                    "2025 April" -> ""
-                    "2025 May" -> ""
+                    "2025 April" -> "None"
+                    "2025 May" -> "None"
                     "2025 June" -> "Summer Solstice Jun 20 2025"
-                    "2025 July" -> ""
-                    "2025 August" -> ""
+                    "2025 July" -> "None"
+                    "2025 August" -> "None"
                     "2025 September" -> "Fall Equinox September 22 2025"
-                    "2025 October" -> ""
-                    "2025 November" -> ""
+                    "2025 October" -> "None"
+                    "2025 November" -> "None"
                     "2025 December" -> "Winter Solstice Dec 21 2025"
 
                     else -> "Saturn"
+                }
+            return planetOpposition
+
+        }
+        private fun getPlanetEvent3(): String {
+            val d = Date()
+            val sdf0 = SimpleDateFormat("MMMM")
+            val Month: String = sdf0.format(d)
+            val planetOpposition =
+                when(getHoroscope()){
+                    "Aries" -> "Monthly Ruling Planet: Mars"
+                    "Taurus" -> "Monthly Ruling Planet: Venus"
+                    "Gemini" -> "Monthly Ruling Planet: Mercury"
+                    "Cancer" -> "Monthly Ruling Planet: Moon"
+                    "Leo" -> "Monthly Ruling Planet: Sun"
+                    "Virgo" -> "Monthly Ruling Planet: Mercury"
+                    "Libra" -> "Monthly Ruling Planet: Venus"
+                    "Scorpio" ->"Monthly Ruling Planet: Pluto"
+                    "Sagittarius" -> "Monthly Ruling Planet: Jupiter"
+                    "Capricorn" -> "Monthly Ruling Planet: Saturn"
+                    "Aquarius" -> "Monthly Ruling Planet: Uranus"
+                    "Pisces" -> "Monthly Ruling Planet: Neptune"
+                    else -> "Monthly Ruling Planet: Saturn"
                 }
             return planetOpposition
 
@@ -484,6 +444,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 "Pluto",
                 "Meteor",
                 "meteor",
+                "None"
 
             )
             val planetType = (planetTypes in getPlanetEvent())
@@ -491,6 +452,8 @@ class MyWatchFace : CanvasWatchFaceService() {
 
             return planetType
         }
+
+
 */
         private fun getPlanetEventTYPE2(): String {
             val d = Date()
