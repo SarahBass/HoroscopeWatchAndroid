@@ -582,7 +582,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
 
             mBackgroundBitmap =
-                when ((mCalendar.timeInMillis % (4 * frameTime)) / frameTime) {
+                when ((mCalendar.timeInMillis % (7 * frameTime)) / frameTime) {
                     0L-> when (getHoroscope()) {
                         "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
                         "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
