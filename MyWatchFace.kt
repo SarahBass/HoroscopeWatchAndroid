@@ -918,8 +918,16 @@ class MyWatchFace : CanvasWatchFaceService() {
                             "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
                         2L -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
                         3L -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
-                        4L -> Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
-                        5L -> Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
+                        4L -> if(getPlanetEventTYPE() == "none"){
+                            Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                        }else{
+                            Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
+                        }
+                        5L -> if(getPlanetEventTYPE2() == "none"){
+                            Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                        }else{
+                            Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
+                        }
                         6L -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
                             else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
