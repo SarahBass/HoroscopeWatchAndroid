@@ -1,7 +1,7 @@
 # HoroscopeWatchAndroid
 A OS-Watch Face with Horoscope, Moon Phase, and Star Data
 
-WORK IN PROGRESS
+WORK IN PROGRESS- NOT COMPLETE
 
 ## TicWatch E-3 WEAR OS
 
