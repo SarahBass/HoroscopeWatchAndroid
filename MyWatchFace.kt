@@ -404,9 +404,6 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         }
         private fun getPlanetEvent3(): String {
-            val d = Date()
-            val sdf0 = SimpleDateFormat("MMMM")
-            val Month: String = sdf0.format(d)
             val planetOpposition =
                 when(getHoroscope()){
                     "Aries" -> "Monthly Ruling Planet: Mars"
@@ -426,98 +423,84 @@ class MyWatchFace : CanvasWatchFaceService() {
             return planetOpposition
 
         }
-      /*  private fun getPlanetEventTYPE3(): String {
-            val planetTypes = listOf(
-                "moon",
-                "Moon",
-                "Solstice",
-                "Equinox",
-                "solstice",
-                "equinox",
-                "Mercury",
-                "Venus",
-                "Mars",
-                "Jupiter",
-                "Saturn",
-                "Uranus",
-                "Neptune",
-                "Pluto",
-                "Meteor",
-                "meteor",
-                "None"
+       private fun getPlanetEventTYPE(): String {
 
-            )
-            val planetType = (planetTypes in getPlanetEvent())
-                tolowercase(planetTypes)
+            val planetType = when{
+                getPlanetEvent().contains("moon") -> "moon"
+                getPlanetEvent().contains("Moon") -> "moon"
+                getPlanetEvent().contains("Solstice" )-> "sun"
+                    getPlanetEvent().contains("Equinox")-> "sun"
+                        getPlanetEvent().contains("solstice")-> "sun"
+                            getPlanetEvent().contains("equinox")-> "sun"
+                                getPlanetEvent().contains("Mercury")-> "mercury"
+                                    getPlanetEvent().contains("Venus")-> "venus"
+                                        getPlanetEvent().contains("Mars")-> "mars"
+                                            getPlanetEvent().contains("Jupiter")-> "jupiter"
+                                                getPlanetEvent().contains("Saturn")-> "saturn"
+                                                    getPlanetEvent().contains("Uranus")-> "uranus"
+                                                        getPlanetEvent().contains("Neptune")-> "neptune"
+                                                            getPlanetEvent().contains("Pluto")-> "pluto"
+                                                                getPlanetEvent().contains("Meteor")-> "sun"
+                                                                    getPlanetEvent().contains("meteor")-> "sun"
+                                                                        getPlanetEvent().contains("None")-> "none"
+                    else -> "none"
+            }
 
             return planetType
         }
 
-
-*/
         private fun getPlanetEventTYPE2(): String {
-            val d = Date()
-            val sdf0 = SimpleDateFormat("yyyy MMMM")
-            val yearMonth: String = sdf0.format(d)
-            val planetOpposition =
-                when(yearMonth){
-                    "2022 January" -> "Mercury"
-                    "2022 February" -> "Pluto"
-                    "2022 March" -> "Moon"
-                    "2022 April" -> "Moon"
-                    "2022 May" -> "Meteors"
-                    "2022 June" -> "Mercury"
-                    "2022 July" -> "Pluto"
-                    "2022 August" -> "Uranus"
-                    "2022 September" -> "Neptune"
-                    "2022 October" -> "Mars"
-                    "2022 November" -> "Uranus"
-                    "2022 December" -> "Solstice"
 
-                    "2023 January" -> "Mercury"
-                    "2023 February" -> ""
-                    "2023 March" -> "Uranus"
-                    "2023 April" -> ""
-                    "2023 May" -> "Mercury"
-                    "2023 June" -> ""
-                    "2023 July" -> ""
-                    "2023 August" -> "Uranus"
-                    "2023 September" -> ""
-                    "2023 October" -> ""
-                    "2023 November" -> "Uranus"
-                    "2023 December" -> ""
+            val planetType2 : String = when{
+                getPlanetEvent().contains("moon") -> "moon"
+                getPlanetEvent().contains("Moon") -> "moon"
+                getPlanetEvent().contains("Solstice" )-> "sun"
+                getPlanetEvent().contains("Equinox")-> "sun"
+                getPlanetEvent().contains("solstice")-> "sun"
+                getPlanetEvent().contains("equinox")-> "sun"
+                getPlanetEvent().contains("Mercury")-> "mercury"
+                getPlanetEvent().contains("Venus")-> "venus"
+                getPlanetEvent().contains("Mars")-> "mars"
+                getPlanetEvent().contains("Jupiter")-> "jupiter"
+                getPlanetEvent().contains("Saturn")-> "saturn"
+                getPlanetEvent().contains("Uranus")-> "uranus"
+                getPlanetEvent().contains("Neptune")-> "neptune"
+                getPlanetEvent().contains("Pluto")-> "pluto"
+                getPlanetEvent().contains("Meteor")-> "sun"
+                getPlanetEvent().contains("meteor")-> "sun"
+                getPlanetEvent().contains("None")-> "none"
+                else -> "none"
+            }
 
-                    "2024 January" -> ""
-                    "2024 February" -> ""
-                    "2024 March" -> ""
-                    "2024 April" -> ""
-                    "2024 May" -> ""
-                    "2024 June" -> ""
-                    "2024 July" -> "Mercury"
-                    "2024 August" -> ""
-                    "2024 September" -> "Mercury"
-                    "2024 October" -> ""
-                    "2024 November" -> "Mercury"
-                    "2024 December" -> ""
-
-                    "2025 January" -> "Mars"
-                    "2025 February" -> ""
-                    "2025 March" -> ""
-                    "2025 April" -> ""
-                    "2025 May" -> ""
-                    "2025 June" -> ""
-                    "2025 July" -> ""
-                    "2025 August" -> ""
-                    "2025 September" -> ""
-                    "2025 October" -> ""
-                    "2025 November" -> ""
-                    "2025 December" -> ""
-
-                    else -> "Saturn"
-                }
-            return planetOpposition
-
+            return planetType2
         }
+
+        private fun getPlanetEventTYPE3(): String {
+
+            val planetType3 = when{
+                getPlanetEvent3().contains("moon") -> "moon"
+                getPlanetEvent3().contains("Moon") -> "moon"
+                getPlanetEvent3().contains("Solstice" )-> "sun"
+                getPlanetEvent3().contains("Equinox")-> "sun"
+                getPlanetEvent3().contains("solstice")-> "sun"
+                getPlanetEvent3().contains("equinox")-> "sun"
+                getPlanetEvent3().contains("Mercury")-> "mercury"
+                getPlanetEvent3().contains("Venus")-> "venus"
+                getPlanetEvent3().contains("Mars")-> "mars"
+                getPlanetEvent3().contains("Jupiter")-> "jupiter"
+                getPlanetEvent3().contains("Saturn")-> "saturn"
+                getPlanetEvent3().contains("Uranus")-> "uranus"
+                getPlanetEvent3().contains("Neptune")-> "neptune"
+                getPlanetEvent3().contains("Pluto")-> "pluto"
+                getPlanetEvent3().contains("Meteor")-> "sun"
+                getPlanetEvent3().contains("meteor")-> "sun"
+                getPlanetEvent3().contains("None")-> "none"
+                else -> "none"
+            }
+
+            return planetType3
+        }
+
 
 
 
@@ -611,78 +594,67 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Waning Gibbous Moon" -> BitmapFactory.decodeResource(resources, R.drawable.gibleft)
                        "Waning half Moon" -> BitmapFactory.decodeResource(resources, R.drawable.halfmoonleft)
                         "Waning Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.leftcrescent)
-                        /* 4L -> when(getPlanetType(PlanetEvent1())){
-                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
-                "Solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "Equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
-                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
-                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
-                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
-                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
-                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
-                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
-                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
-                "Meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "None" -> when (getPlanetType(PlanetEvent3)
-                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
-                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
-                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
-                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
-                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
-                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
-                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
-                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
-                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
-                else-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                        else-> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
+                            }
+                         4L -> when(getPlanetEventTYPE()){
+                "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
+                "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
+                "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
+                "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
+                "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
+                "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
+                             "none" -> when(getPlanetEventTYPE3()){
+                                 "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                                 "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                                 "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
+                                 "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
+                                 "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
+                                 "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
+                                 "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                                 "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
+                                 "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
 
-               5L -> when(getPlanetType(PlanetEvent2())){
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
+                             else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
-                "Solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "Equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "solstice"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "equinox"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
-                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
-                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
-                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
-                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
-                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
-                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
-                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
-                "Meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                "None" -> when (getPlanetType(PlanetEvent3)
-                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
-                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
-                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
-                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
-                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
-                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
-                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
-                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
-                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
-                else-> BitmapFactory.decodeResource(resources, R.drawable.sun
+                    5L -> when(getPlanetEventTYPE2()){
+                        "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                        "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                        "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
+                        "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
+                        "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
+                        "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
+                        "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                        "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
+                        "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
+                        "none" -> when(getPlanetEventTYPE3()){
+                            "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                            "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                            "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
+                            "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
+                            "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
+                            "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
+                            "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                            "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
+                            "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
+                    6L -> when(getPlanetEventTYPE3()){
+                        "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                        "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                        "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
+                        "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
+                        "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
+                        "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
+                        "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                        "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
+                        "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-                6L -> when (getPlanetType(PlanetEvent3)
-                "Moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon
-                "Mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury
-                "Venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus
-                "Mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars
-                "Jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter
-                "Saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn
-                "Uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus
-                "Neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune
-                "Pluto" -> BitmapFactory.decodeResource(resources, R.drawable.pluto
-                else-> BitmapFactory.decodeResource(resources, R.drawable.sun
-                         */
-
-                        else -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)}
                     else -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
                 }
 
