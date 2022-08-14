@@ -430,8 +430,8 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "Aries" -> "Monthly Ruling Planet: Mars"
                     "Taurus" -> "Monthly Ruling Planet: Venus"
                     "Gemini" -> "Monthly Ruling Planet: Mercury"
-                    "Cancer" -> "Monthly Ruling in Sky: Moon"
-                    "Leo" -> "Monthly Ruling in Sky: Sun"
+                    "Cancer" -> "Ruling in Sky: Moon"
+                    "Leo" -> "Ruling in Sky: Sun"
                     "Virgo" -> "Monthly Ruling Planet: Mercury"
                     "Libra" -> "Monthly Ruling Planet: Venus"
                     "Scorpio" ->"Monthly Ruling Planet: Pluto"
@@ -623,7 +623,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val monthOfYear: String = sdf2.format(d)
 
             val backgroundBitmap: Bitmap =
-        when ((mCalendar.timeInMillis % (7 * frameTime)) / frameTime) {
+        when ((mCalendar.timeInMillis % (8 * frameTime)) / frameTime) {
             0L-> when (getHoroscope()) {
                 "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
                 "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
@@ -733,7 +733,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
                 else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-            6L -> when(monthOfYear){
+            7L -> when(monthOfYear){
                 "January"-> BitmapFactory.decodeResource(resources, R.drawable.moonwolf)
                 "February"-> BitmapFactory.decodeResource(resources, R.drawable.moonsnow)
                 "March"-> BitmapFactory.decodeResource(resources, R.drawable.moonworm)
@@ -1000,7 +1000,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 TAP_TYPE_TAP ->
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    when ((mCalendar.timeInMillis % (7 * frameTime)) / frameTime) {
+                    when ((mCalendar.timeInMillis % (8 * frameTime)) / frameTime) {
                    0L -> when (getHoroscope()){
                        "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
                        "Aries" -> Toast.makeText(applicationContext, R.string.horoscope1, Toast.LENGTH_SHORT)
