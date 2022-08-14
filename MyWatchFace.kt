@@ -345,18 +345,18 @@ class MyWatchFace : CanvasWatchFaceService() {
             val Month: String = sdf0.format(d)
             val planetOpposition =
                 when(Month){
-                    "January" -> "January: Wolf Moon"
-                    "February" -> "February: Snow Moon"
-                    "March" -> "March: Worm Moon"
-                    "April" -> "April: Pink Moon"
-                    "May" -> "May: Flower Moon"
-                    "June" -> "June: Strawberry Moon"
-                    "July" -> "July: Buck Moon"
-                    "August" -> "August: Sturgeon Moon"
-                    "September" -> "September: Corn Moon"
-                    "October" -> "October: Harvest Moon"
-                    "November" -> "November: Beaver Moon "
-                    "December" -> "December: Cold Moon"
+                    "January" -> "Wolf Moon"
+                    "February" -> "Snow Moon"
+                    "March" -> "Worm Moon"
+                    "April" -> "Pink Moon"
+                    "May" -> "Flower Moon"
+                    "June" -> "Strawberry Moon"
+                    "July" -> "Buck Moon"
+                    "August" -> "Sturgeon Moon"
+                    "September" -> "Corn Moon"
+                    "October" -> "Harvest Moon"
+                    "November" -> "Beaver Moon"
+                    "December" -> "Cold Moon"
                     else -> "None"
                 }
             return planetOpposition}
@@ -621,7 +621,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val sdf2 = SimpleDateFormat("MMMM")
             val d = Date()
             val monthOfYear: String = sdf2.format(d)
-            
+
             val backgroundBitmap: Bitmap =
         when ((mCalendar.timeInMillis % (7 * frameTime)) / frameTime) {
             0L-> when (getHoroscope()) {
@@ -1030,6 +1030,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                             Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
                         }
                         6L -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                        7L -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() + "th", Toast.LENGTH_SHORT)
                             else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
                         .show()
