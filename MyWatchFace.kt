@@ -11,14 +11,16 @@ import android.os.Message
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
+import android.text.Html
+import android.view.Gravity
 import android.view.SurfaceHolder
 import android.widget.Toast
 import androidx.palette.graphics.Palette
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
-import java.time.temporal.TemporalField
 import java.util.*
 import kotlin.math.abs
+
 
 /**
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
@@ -52,6 +54,8 @@ private const val SHADOW_RADIUS = 6f
  * in the Google Watch Face Code Lab:
  * https://codelabs.developers.google.com/codelabs/watchface/index.html#0
  */
+
+
 class MyWatchFace : CanvasWatchFaceService() {
 
     override fun onCreateEngine(): Engine {
@@ -126,6 +130,8 @@ class MyWatchFace : CanvasWatchFaceService() {
             initializeBackground()
             initializeWatchFace()
         }
+
+
 
         private fun getMoonPhase(): String {
             val d = Date()
@@ -232,6 +238,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         override fun onTimeTick() {
             super.onTimeTick()
+
             invalidate()
         }
 
@@ -371,12 +378,17 @@ class MyWatchFace : CanvasWatchFaceService() {
         }
 
         private fun drawBackground(canvas: Canvas) {
-
             if (mAmbient && (mLowBitAmbient || mBurnInProtection)) {
                 canvas.drawColor(Color.BLACK)
             } else if (mAmbient) {
                 canvas.drawBitmap(mGrayBackgroundBitmap, 0f, 0f, mBackgroundPaint)
             } else {
+                mBackgroundBitmap = Bitmap.createScaledBitmap(
+                    getAstrologyBackground(),
+                    mBackgroundBitmap.width,
+                    mBackgroundBitmap.height, true
+                )
+
                 canvas.drawBitmap(mBackgroundBitmap, 0f, 0f, mBackgroundPaint)
             }
         }
@@ -548,9 +560,9 @@ class MyWatchFace : CanvasWatchFaceService() {
                     // The user has started a different gesture or otherwise cancelled the tap.
                 }
                 TAP_TYPE_TAP ->
-                    // The user has completed the tap gesture.
-                    // TODO: Add code to handle the tap gesture.
+
                     when ((mCalendar.timeInMillis % (8 * frameTime)) / frameTime) {
+
                         0L -> when (getHoroscope()){
                             "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
                             "Aries" -> Toast.makeText(applicationContext, R.string.horoscope1, Toast.LENGTH_SHORT)
@@ -580,13 +592,17 @@ class MyWatchFace : CanvasWatchFaceService() {
                             Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
                         }
                         6L -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+
                         7L -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() + "th", Toast.LENGTH_SHORT)
+
                         else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
                         .show()
+
             }
             invalidate()
         }
+
 
         private fun getFullMoonDate(): String {
             val d = Date()
