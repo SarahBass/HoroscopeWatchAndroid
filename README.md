@@ -4,8 +4,8 @@ A OS-Watch Face with Horoscope, Moon Phase, and Star Data
 WORK IN PROGRESS- NOT COMPLETE
 
 ## TicWatch E-3 WEAR OS
+<img src="https://github.com/SarahBass/WearOS-Animated-Star-Watch/blob/main/SamplePngforGITHUBONLY/Galaxywatch360.jpeg" width="300" height="300">
 
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/horoscopewatch.png" width="300" height="300">
 
 ----------
 Features:
@@ -116,6 +116,8 @@ PLUTO
 -----------
 
 ## MOON PHASES
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/horoscopewatch.png" width="300" height="300">
 
 
 New moon
