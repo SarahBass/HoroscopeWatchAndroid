@@ -33,8 +33,8 @@ private const val INTERACTIVE_UPDATE_RATE_MS = 1000
  */
 private const val MSG_UPDATE_TIME = 0
 
-private const val HOUR_STROKE_WIDTH = 7f
-private const val MINUTE_STROKE_WIDTH = 3f
+private const val HOUR_STROKE_WIDTH = 9f
+private const val MINUTE_STROKE_WIDTH = 7f
 private const val SECOND_TICK_STROKE_WIDTH = 2f
 
 private const val CENTER_GAP_AND_CIRCLE_RADIUS = 4f
@@ -97,6 +97,8 @@ class MyWatchFace : CanvasWatchFaceService() {
         private lateinit var mMinutePaint: Paint
         private lateinit var mSecondPaint: Paint
         private lateinit var mTickAndCirclePaint: Paint
+
+        private lateinit var mForegroundBitmap: Bitmap
 
         private lateinit var mBackgroundPaint: Paint
         private lateinit var mBackgroundBitmap: Bitmap
@@ -372,9 +374,11 @@ class MyWatchFace : CanvasWatchFaceService() {
         override fun onDraw(canvas: Canvas, bounds: Rect) {
             val now = System.currentTimeMillis()
             mCalendar.timeInMillis = now
-
+            updateWatchHandStyle()
             drawBackground(canvas)
             drawWatchFace(canvas)
+            drawAnimation(canvas, bounds)
+            initGrayBackgroundBitmap()
         }
 
         private fun drawBackground(canvas: Canvas) {
@@ -433,14 +437,16 @@ class MyWatchFace : CanvasWatchFaceService() {
             canvas.save()
 
             canvas.rotate(hoursRotation, mCenterX, mCenterY)
-            canvas.drawLine(
-                mCenterX,
-                mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
-                mCenterX,
-                mCenterY - sHourHandLength,
-                mHourPaint
-            )
 
+            if (mCalendar.get(Calendar.MINUTE) % 8 == 2) {
+                canvas.drawLine(
+                    mCenterX,
+                    mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
+                    mCenterX,
+                    mCenterY - sHourHandLength,
+                    mHourPaint
+                )
+            }else {}
             canvas.rotate(minutesRotation - hoursRotation, mCenterX, mCenterY)
             canvas.drawLine(
                 mCenterX,
@@ -561,9 +567,9 @@ class MyWatchFace : CanvasWatchFaceService() {
                 }
                 TAP_TYPE_TAP ->
 
-                    when ((mCalendar.timeInMillis % (8 * frameTime)) / frameTime) {
+                    when (mCalendar.get(Calendar.MINUTE)%8) {
 
-                        0L -> when (getHoroscope()){
+                        0 -> when (getHoroscope()){
                             "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
                             "Aries" -> Toast.makeText(applicationContext, R.string.horoscope1, Toast.LENGTH_SHORT)
                             "Cancer" -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)
@@ -577,23 +583,23 @@ class MyWatchFace : CanvasWatchFaceService() {
                             "Taurus" -> Toast.makeText(applicationContext, R.string.horoscope10, Toast.LENGTH_SHORT)
                             "Virgo" -> Toast.makeText(applicationContext, R.string.horoscope11, Toast.LENGTH_SHORT)
                             else -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)}
-                        1L -> Toast.makeText(applicationContext,
+                        1 -> Toast.makeText(applicationContext,
                             "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
-                        2L -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
-                        3L -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
-                        4L -> if(getPlanetEventTYPE() == "none"){
+                        2 -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
+                        3 -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
+                        4 -> if(getPlanetEventTYPE() == "none"){
                             Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
                         }else{
                             Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
                         }
-                        5L -> if(getPlanetEventTYPE2() == "none"){
+                        5 -> if(getPlanetEventTYPE2() == "none"){
                             Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
                         }else{
                             Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
                         }
-                        6L -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                        6 -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
 
-                        7L -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() + "th", Toast.LENGTH_SHORT)
+                        7 -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() + "th", Toast.LENGTH_SHORT)
 
                         else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
@@ -1080,8 +1086,8 @@ class MyWatchFace : CanvasWatchFaceService() {
             val monthOfYear: String = sdf2.format(d)
 
             val backgroundBitmap: Bitmap =
-                when ((mCalendar.timeInMillis % (8 * frameTime)) / frameTime) {
-                    0L-> when (getHoroscope()) {
+               when (mCalendar.get(Calendar.MINUTE) % 8) {
+                    0-> when (getHoroscope()) {
                         "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
                         "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
                         "Cancer" -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
@@ -1095,12 +1101,12 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Taurus" -> BitmapFactory.decodeResource(resources, R.drawable.taurus)
                         "Virgo" -> BitmapFactory.decodeResource(resources, R.drawable.virgo)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.cancer) }
-                    1L -> when (getDayorNight()){
-                        "Day" -> BitmapFactory.decodeResource(resources, R.drawable.sun)
-                        "Night" -> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
+                    1-> when (getDayorNight()){
+                        "Day" -> BitmapFactory.decodeResource(resources, R.drawable.earth)
+                        "Night" -> BitmapFactory.decodeResource(resources, R.drawable.earthnight)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun) }
-                    2L->  BitmapFactory.decodeResource(resources, R.drawable.saturn)
-                    3L -> when(getMoonPhase()){
+                    2->  BitmapFactory.decodeResource(resources, R.drawable.icerainbow)
+                    3 -> when(getMoonPhase()){
                         "New Moon" -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
                         "Waxing Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.rightcrescent)
                         "Waxing Half Moon" -> BitmapFactory.decodeResource(resources, R.drawable.halfmoonright)
@@ -1111,7 +1117,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Waning Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.leftcrescent)
                         else-> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
                     }
-                    4L -> when(getPlanetEventTYPE()){
+                    4 -> when(getPlanetEventTYPE()){
                         "moonanimal"-> BitmapFactory.decodeResource(resources, R.drawable.moonanimal)
                         "moonbeaver"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
                         "mooncold"-> BitmapFactory.decodeResource(resources, R.drawable.mooncold)
@@ -1145,7 +1151,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                             else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-                    5L -> when(getPlanetEventTYPE2()){
+                    5 -> when(getPlanetEventTYPE2()){
                         "moonanimal"-> BitmapFactory.decodeResource(resources, R.drawable.moonanimal)
                         "moonbeaver"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
                         "mooncold"-> BitmapFactory.decodeResource(resources, R.drawable.mooncold)
@@ -1178,7 +1184,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                             else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-                    6L -> when(getPlanetEventTYPE3()){
+                    6 -> when(getPlanetEventTYPE3()){
                         "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
                         "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
                         "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
@@ -1190,7 +1196,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-                    7L -> when(monthOfYear){
+                    7 -> when(monthOfYear){
                         "January"-> BitmapFactory.decodeResource(resources, R.drawable.moonwolf)
                         "February"-> BitmapFactory.decodeResource(resources, R.drawable.moonsnow)
                         "March"-> BitmapFactory.decodeResource(resources, R.drawable.moonworm)
@@ -1205,15 +1211,107 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "December"-> BitmapFactory.decodeResource(resources, R.drawable.mooncold)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
-                    else -> BitmapFactory.decodeResource(resources, R.drawable.cancer)
+                    else -> BitmapFactory.decodeResource(resources, R.drawable.earth)
                 }
             return backgroundBitmap
         }
 
 
+        private fun drawAnimation(canvas: Canvas, bounds: Rect) {
 
+            var drawable =
+                if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
+              when (mCalendar.get(Calendar.SECOND) % 12) {
+                0 -> R.drawable.rainbow1
+                1-> R.drawable.rainbow2
+                2 -> R.drawable.rainbow3
+                3-> R.drawable.rainbow4
+                4 -> R.drawable.rainbow5
+                5 -> R.drawable.rainbow6
+                    6 -> R.drawable.rainbow1
+                    7 -> R.drawable.rainbow3
+                    8 -> R.drawable.rainbow1
+                    9 -> R.drawable.rainbow3
+                    10 -> R.drawable.rainbow1
+                    11 -> R.drawable.rainbow3
+                else -> R.drawable.rainbow1}}
+            else {
+                if(mCalendar.get(Calendar.HOUR) == 1){
+                when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                    else if(mCalendar.get(Calendar.HOUR) == 2){
+                        when (mCalendar.get(Calendar.SECOND) % 2){
+                            0-> R.drawable.hourjump12
+                            1 -> R.drawable.hourjumps12
+                            else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 3){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 4){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 5){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 6){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 7){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 8){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 9){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 10){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else if(mCalendar.get(Calendar.HOUR) == 11){
+                    when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump12
+                        1 -> R.drawable.hourjumps12
+                        else -> R.drawable.hourjumps12} }
+                else { when (mCalendar.get(Calendar.SECOND) % 2){
+                    0-> R.drawable.hourjump12
+                    1 -> R.drawable.hourjumps12
+                    else -> R.drawable.jump12}}}
 
+            if (mAmbient) {
+                drawable = R.drawable.blackandwhitestar
+            }
 
+            val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+            val src = Rect(0, 0, bitmap.height, bitmap.width)
+            val dst = Rect(bounds.left, bounds.top, bounds.right, bounds.bottom)
+
+            canvas.drawBitmap(
+                bitmap,
+                src,
+                dst,
+                null
+            )
+        }
 
         /**
          * Handle updating the time periodically in interactive mode.
