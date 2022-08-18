@@ -326,7 +326,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             /*
              * Calculate lengths of different hands based on watch screen size.
              */
-            mSecondHandLength = (mCenterX * 0.7).toFloat()
+            mSecondHandLength = (mCenterX * 0.6).toFloat()
             sMinuteHandLength = (mCenterX * 0.6).toFloat()
             sHourHandLength = (mCenterX * 0.6).toFloat()
 
@@ -1238,63 +1238,63 @@ class MyWatchFace : CanvasWatchFaceService() {
             else {
                 if(mCalendar.get(Calendar.HOUR) == 1){
                 when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump1
+                        1 -> R.drawable.hourjumps1
+                        else -> R.drawable.hourjumps1} }
                     else if(mCalendar.get(Calendar.HOUR) == 2){
                         when (mCalendar.get(Calendar.SECOND) % 2){
-                            0-> R.drawable.hourjump12
-                            1 -> R.drawable.hourjumps12
-                            else -> R.drawable.hourjumps12} }
+                            0-> R.drawable.hourjump2
+                            1 -> R.drawable.hourjumps2
+                            else -> R.drawable.hourjumps2} }
                 else if(mCalendar.get(Calendar.HOUR) == 3){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump3
+                        1 -> R.drawable.hourjumps3
+                        else -> R.drawable.hourjumps3} }
                 else if(mCalendar.get(Calendar.HOUR) == 4){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump4
+                        1 -> R.drawable.hourjumps4
+                        else -> R.drawable.hourjumps4} }
                 else if(mCalendar.get(Calendar.HOUR) == 5){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump5
+                        1 -> R.drawable.hourjumps5
+                        else -> R.drawable.hourjumps5} }
                 else if(mCalendar.get(Calendar.HOUR) == 6){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump6
+                        1 -> R.drawable.hourjumps6
+                        else -> R.drawable.hourjumps6} }
                 else if(mCalendar.get(Calendar.HOUR) == 7){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump7
+                        1 -> R.drawable.hourjumps7
+                        else -> R.drawable.hourjumps7} }
                 else if(mCalendar.get(Calendar.HOUR) == 8){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump8
+                        1 -> R.drawable.hourjumps8
+                        else -> R.drawable.hourjumps8} }
                 else if(mCalendar.get(Calendar.HOUR) == 9){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump9
+                        1 -> R.drawable.hourjumps9
+                        else -> R.drawable.hourjumps9} }
                 else if(mCalendar.get(Calendar.HOUR) == 10){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump10
+                        1 -> R.drawable.hourjumps10
+                        else -> R.drawable.hourjumps10} }
                 else if(mCalendar.get(Calendar.HOUR) == 11){
                     when (mCalendar.get(Calendar.SECOND) % 2){
-                        0-> R.drawable.hourjump12
-                        1 -> R.drawable.hourjumps12
-                        else -> R.drawable.hourjumps12} }
+                        0-> R.drawable.hourjump11
+                        1 -> R.drawable.hourjumps11
+                        else -> R.drawable.hourjumps11} }
                 else { when (mCalendar.get(Calendar.SECOND) % 2){
                     0-> R.drawable.hourjump12
                     1 -> R.drawable.hourjumps12
-                    else -> R.drawable.jump12}}}
+                    else -> R.drawable.hourjumps12}}}
 
             if (mAmbient) {
                 drawable = R.drawable.blackandwhitestar
