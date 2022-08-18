@@ -1224,6 +1224,10 @@ class MyWatchFace : CanvasWatchFaceService() {
 
 
         private fun drawAnimation(canvas: Canvas, bounds: Rect) {
+            val sdf7 = SimpleDateFormat("a")
+            val d = Date()
+            val amPM : String = sdf7.format(d)
+
 
             var drawable =
                 if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
@@ -1363,12 +1367,23 @@ class MyWatchFace : CanvasWatchFaceService() {
                         0-> R.drawable.hourjump11
                         1 -> R.drawable.hourjumps11
                         else -> R.drawable.hourjumps11} }}
+                else if(mCalendar.get(Calendar.HOUR) == 12 && amPM == "PM" ){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjumped1230
+                        1 -> R.drawable.hourjumps1230
+                        else -> R.drawable.hourjumped1230} }
+                    else{
+                        when (mCalendar.get(Calendar.SECOND) % 2){
+                            0-> R.drawable.hourjump12
+                            1 -> R.drawable.hourjumps12
+                            else -> R.drawable.hourjumps12} }}
                 else {
                     if(mCalendar.get(Calendar.MINUTE) > 29)
                     {when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump1230
-                        1 -> R.drawable.hourjumps1230
-                        else -> R.drawable.hourjumps1230} }
+                        1 -> R.drawable.hourjumped1230
+                        else -> R.drawable.hourjumped1230} }
                     else{when (mCalendar.get(Calendar.SECOND) % 2){
                     0-> R.drawable.hourjump12
                     1 -> R.drawable.hourjumps12
