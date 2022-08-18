@@ -328,7 +328,7 @@ class MyWatchFace : CanvasWatchFaceService() {
              */
             mSecondHandLength = (mCenterX * 0.6).toFloat()
             sMinuteHandLength = (mCenterX * 0.6).toFloat()
-            sHourHandLength = (mCenterX * 0.6).toFloat()
+            sHourHandLength = (mCenterX * 0.5).toFloat()
 
             /* Scale loaded background image (more efficient) if surface dimensions change. */
             val scale = width.toFloat() / mBackgroundBitmap.width.toFloat()
@@ -446,7 +446,15 @@ class MyWatchFace : CanvasWatchFaceService() {
                     mCenterY - sHourHandLength,
                     mHourPaint
                 )
-            }else {}
+            }else if (mAmbient) {
+                canvas.drawLine(
+                    mCenterX,
+                    mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
+                    mCenterX,
+                    mCenterY - sHourHandLength,
+                    mHourPaint
+                )
+            }else{}
             canvas.rotate(minutesRotation - hoursRotation, mCenterX, mCenterY)
             canvas.drawLine(
                 mCenterX,
@@ -1297,7 +1305,10 @@ class MyWatchFace : CanvasWatchFaceService() {
                     else -> R.drawable.hourjumps12}}}
 
             if (mAmbient) {
-                drawable = R.drawable.blackandwhitestar
+                if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
+                drawable = R.drawable.blackandwhitestar}
+                else{drawable = R.drawable.blank}
+
             }
 
             val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
