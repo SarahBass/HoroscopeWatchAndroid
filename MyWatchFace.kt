@@ -144,7 +144,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val moonPercent : Double = newMoondifference / LUNAR_MONTH
             val moonString : String = if(moonPercent < 0.05 ){"New Moon"}
             else if (moonPercent >= .05 && moonPercent < 0.25 ){"Waning Crescent Moon"}
-            else if(moonPercent >=0.25 && moonPercent < 0.35){"Waning Half Moon"}
+            else if(moonPercent >=0.25 && moonPercent < 0.35){"Waning half Moon"}
             else if(moonPercent >=0.35 && moonPercent < 0.47){"Waning Gibbous Moon"}
             else if(moonPercent >=0.47 && moonPercent < 0.55){"Full Moon"}
             else if(moonPercent >=0.55 && moonPercent < 0.65){"Waxing Gibbous Moon"}
@@ -383,8 +383,6 @@ class MyWatchFace : CanvasWatchFaceService() {
 
         private fun drawBackground(canvas: Canvas) {
             if (mAmbient && (mLowBitAmbient || mBurnInProtection)) {
-                canvas.drawColor(Color.BLACK)
-            } else if (mAmbient) {
                 canvas.drawBitmap(mGrayBackgroundBitmap, 0f, 0f, mBackgroundPaint)
             } else {
                 mBackgroundBitmap = Bitmap.createScaledBitmap(
@@ -1245,64 +1243,136 @@ class MyWatchFace : CanvasWatchFaceService() {
                 else -> R.drawable.rainbow1}}
             else {
                 if(mCalendar.get(Calendar.HOUR) == 1){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                        {when (mCalendar.get(Calendar.SECOND) % 2){
+                            0-> R.drawable.hourjump130
+                            1 -> R.drawable.hourjumps130
+                            else -> R.drawable.hourjumps130} }
+                        else{
                 when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump1
                         1 -> R.drawable.hourjumps1
-                        else -> R.drawable.hourjumps1} }
+                        else -> R.drawable.hourjumps1} }}
                     else if(mCalendar.get(Calendar.HOUR) == 2){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump230
+                        1 -> R.drawable.hourjumps230
+                        else -> R.drawable.hourjumps230} }
+                    else{
                         when (mCalendar.get(Calendar.SECOND) % 2){
                             0-> R.drawable.hourjump2
                             1 -> R.drawable.hourjumps2
-                            else -> R.drawable.hourjumps2} }
+                            else -> R.drawable.hourjumps2} }}
                 else if(mCalendar.get(Calendar.HOUR) == 3){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump330
+                        1 -> R.drawable.hourjumps330
+                        else -> R.drawable.hourjumps330} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump3
                         1 -> R.drawable.hourjumps3
-                        else -> R.drawable.hourjumps3} }
+                        else -> R.drawable.hourjumps3} }}
                 else if(mCalendar.get(Calendar.HOUR) == 4){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump430
+                        1 -> R.drawable.hourjumps430
+                        else -> R.drawable.hourjumps430} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump4
                         1 -> R.drawable.hourjumps4
-                        else -> R.drawable.hourjumps4} }
+                        else -> R.drawable.hourjumps4} }}
                 else if(mCalendar.get(Calendar.HOUR) == 5){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump530
+                        1 -> R.drawable.hourjumps530
+                        else -> R.drawable.hourjumps530} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump5
                         1 -> R.drawable.hourjumps5
-                        else -> R.drawable.hourjumps5} }
+                        else -> R.drawable.hourjumps5} }}
                 else if(mCalendar.get(Calendar.HOUR) == 6){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump630
+                        1 -> R.drawable.hourjumps630
+                        else -> R.drawable.hourjumps630} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump6
                         1 -> R.drawable.hourjumps6
-                        else -> R.drawable.hourjumps6} }
+                        else -> R.drawable.hourjumps6} }}
                 else if(mCalendar.get(Calendar.HOUR) == 7){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump730
+                        1 -> R.drawable.hourjumps730
+                        else -> R.drawable.hourjumps730} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump7
                         1 -> R.drawable.hourjumps7
-                        else -> R.drawable.hourjumps7} }
+                        else -> R.drawable.hourjumps7} }}
                 else if(mCalendar.get(Calendar.HOUR) == 8){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump830
+                        1 -> R.drawable.hourjumps830
+                        else -> R.drawable.hourjumps830} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump8
                         1 -> R.drawable.hourjumps8
-                        else -> R.drawable.hourjumps8} }
+                        else -> R.drawable.hourjumps8} }}
                 else if(mCalendar.get(Calendar.HOUR) == 9){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump930
+                        1 -> R.drawable.hourjumps930
+                        else -> R.drawable.hourjumps930} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump9
                         1 -> R.drawable.hourjumps9
-                        else -> R.drawable.hourjumps9} }
+                        else -> R.drawable.hourjumps9}}}
                 else if(mCalendar.get(Calendar.HOUR) == 10){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump1030
+                        1 -> R.drawable.hourjumps1030
+                        else -> R.drawable.hourjumps1030} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump10
                         1 -> R.drawable.hourjumps10
-                        else -> R.drawable.hourjumps10} }
+                        else -> R.drawable.hourjumps10} }}
                 else if(mCalendar.get(Calendar.HOUR) == 11){
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump1130
+                        1 -> R.drawable.hourjumps1130
+                        else -> R.drawable.hourjumps1130} }
+                    else{
                     when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjump11
                         1 -> R.drawable.hourjumps11
-                        else -> R.drawable.hourjumps11} }
-                else { when (mCalendar.get(Calendar.SECOND) % 2){
+                        else -> R.drawable.hourjumps11} }}
+                else {
+                    if(mCalendar.get(Calendar.MINUTE) > 29)
+                    {when (mCalendar.get(Calendar.SECOND) % 2){
+                        0-> R.drawable.hourjump1230
+                        1 -> R.drawable.hourjumps1230
+                        else -> R.drawable.hourjumps1230} }
+                    else{when (mCalendar.get(Calendar.SECOND) % 2){
                     0-> R.drawable.hourjump12
                     1 -> R.drawable.hourjumps12
-                    else -> R.drawable.hourjumps12}}}
+                    else -> R.drawable.hourjumps12}}}}
 
             if (mAmbient) {
                 if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
