@@ -4,7 +4,7 @@ A OS-Watch Face with Horoscope, Moon Phase, and Star Data
 WORK IN PROGRESS- NOT COMPLETE
 
 ## TicWatch E-3 WEAR OS
-<img src="https://github.com/SarahBass/WearOS-Animated-Star-Watch/blob/main/SamplePngforGITHUBONLY/Galaxywatch360.jpeg" width="300" height="300">
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/night.gif" width="300" height="300">
 
 
 ----------
@@ -17,8 +17,69 @@ Features:
 > Animated Sprite Character
 
 
--------------
 
+-----------
+
+## MOON PHASES
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/moon%20phase.gif" width="300" height="300">
+
+
+New moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/newmoon.png" width="300" height="300">
+
+Waxing Crescent Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/rightcrescent.png" width="300" height="300">
+
+Waxing Half Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/halfmoonright.png" width="300" height="300">
+
+Waxing Gibbous Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/gibright.png" width="300" height="300">
+
+Full Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/fulloon.png" width="300" height="300">
+
+Waning Gibbous Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/gibleft.png" width="300" height="300">
+
+Waxing half Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/halfmoonleft.png" width="300" height="300">
+
+Waxing Crescent Moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/rightcrescent.png" width="300" height="300">
+
+
+New moon
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/newmoon.png" width="300" height="300">
+
+
+-----------
+
+## Mode Switches
+
+Day and Night
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/day.gif" width="300" height="300">
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/night.gif" width="300" height="300">
+
+Holiday Vs Normal
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/holiday.gif" width="300" height="300">
+
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/switch.gif" width="300" height="300">
+
+-----------------------
 
 ## HOROSCOPES
 
@@ -113,49 +174,7 @@ PLUTO
 
 
 
------------
 
-## MOON PHASES
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/horoscopewatch.png" width="300" height="300">
-
-
-New moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/newmoon.png" width="300" height="300">
-
-Waxing Crescent Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/rightcrescent.png" width="300" height="300">
-
-Waxing Half Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/halfmoonright.png" width="300" height="300">
-
-Waxing Gibbous Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/gibright.png" width="300" height="300">
-
-Full Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/fulloon.png" width="300" height="300">
-
-Waning Gibbous Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/gibleft.png" width="300" height="300">
-
-Waxing half Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/halfmoonleft.png" width="300" height="300">
-
-Waxing Crescent Moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/rightcrescent.png" width="300" height="300">
-
-
-New moon
-
-<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/newmoon.png" width="300" height="300">
 
 
 ## Contents:
