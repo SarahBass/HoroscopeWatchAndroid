@@ -436,7 +436,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
             canvas.rotate(hoursRotation, mCenterX, mCenterY)
 
-            if (mCalendar.get(Calendar.MINUTE) % 8 == 2) {
+            if ((mCalendar.get(Calendar.MINUTE) % 8 == 2)||(mCalendar.get(Calendar.MINUTE) % 8 == 1)) {
                 canvas.drawLine(
                     mCenterX,
                     mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
@@ -1581,7 +1581,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     else -> R.drawable.hourjumps12}}}}
 
             if (mAmbient) {
-                if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
+                if ((mCalendar.get(Calendar.MINUTE) % 8 == 2)||(mCalendar.get(Calendar.MINUTE) % 8 == 1)){
                 drawable = R.drawable.blackandwhitestar}
                 else{drawable = R.drawable.blank}
 
