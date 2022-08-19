@@ -1323,7 +1323,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "Happy Spring!"
                 }}
             else {
-                 " "
+                (dayOfTheWeek + " , " + fullDateSpaces)
                 }
 
 
