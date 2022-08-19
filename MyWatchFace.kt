@@ -551,7 +551,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val sdf3 = SimpleDateFormat("d")
             val sdf4 = SimpleDateFormat("yyyy")
             val sdf5 = SimpleDateFormat("MMMM d yyyy")
-            val sdf6 = SimpleDateFormat("h:m:s a")
+            val sdf6 = SimpleDateFormat("h:mm:ss a")
             val sdf7 = SimpleDateFormat("a")
             val d = Date()
             val dayOfTheWeek: String = sdf.format(d)
@@ -605,7 +605,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         }
                         6 -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
 
-                        7 -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() + "th", Toast.LENGTH_SHORT)
+                        7 -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() , Toast.LENGTH_SHORT)
 
                         else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
@@ -751,57 +751,57 @@ class MyWatchFace : CanvasWatchFaceService() {
             val yearMonth: String = sdf0.format(d)
             val planetOpposition =
                 when(yearMonth){
-                    "2022 January" -> "Jupiter in Pisces January 1 to May 9, 2022" //Mercury Visible at Sunset
-                    "2022 February" -> "Venus Brightest on February 9, 2022" //Pluto returns. This happens only once 248 years
+                    "2022 January" -> "Jupiter in Pisces January 1st" //Mercury Visible at Sunset
+                    "2022 February" -> "Venus Brightest on February 9" //Pluto returns. This happens only once 248 years
                     "2022 March" -> "March 20 - March Equinox" //March 18: Worm Moon
                     "2022 April" -> "Mercury will be visible at Sunrise" //April 16: Pink Moon
-                    "2022 May" -> "May 16: Flower Moon" // May 5/6: Eta Aquarid Meteors
-                    "2022 June" -> "June 28, 2022: Neptune begins retrograde motion" //Mercury Visible at Sunrise
-                    "2022 July" -> "July 28, 2022: Jupiter begins retrograde motion" // Pluto at Opposition 20 Jul 2022
-                    "2022 August" -> "Saturn is in Opposition on August 14" //August 24, 2022: Uranus begins retrograde motion
-                    "2022 September" -> "Jupiter opposition 2022 – September 26" //Septemper 16, 2022: Neptune at opposition
+                    "2022 May" -> "none"
+                    "2022 June" -> "June 28: Neptune begins retrograde motion" //Mercury Visible at Sunrise
+                    "2022 July" -> "July 28: Jupiter begins retrograde motion" // Pluto at Opposition 20 Jul 2022
+                    "2022 August" -> "Saturn in Opposition on August 14" //August 24, 2022: Uranus begins retrograde motion
+                    "2022 September" -> "Jupiter at opposition on September 26" //Septemper 16, 2022: Neptune at opposition
                     "2022 October" -> "Saturn ends retrograde motion" //Mars in Retrograde October 30, 2022
-                    "2022 November" -> "November 23, 2022: Jupiter ends retrograde motion" // 2022 Uranus opposition – November 9
-                    "2022 December" -> "Mars is in Opposition on December 8" //Dec 21: December Solstice
+                    "2022 November" -> "November 23: Jupiter ends retrograde motion" // 2022 Uranus opposition – November 9
+                    "2022 December" -> "Mars at Opposition on December 8" //Dec 21: December Solstice
 
                     "2023 January" -> "Uranus ends retrograde motion" //Jan 7, 2023: Inferior conjunction Mercury
-                    "2023 February" -> "February 16, 2023: Saturn in conjunction with the sun"
+                    "2023 February" -> "February 16: Saturn in conjunction with the sun"
                     "2023 March" -> "Neptune at solar conjunction" //Uranus at solar conjunction
-                    "2023 April" -> "April 11, 2023: Jupiter at solar conjunction"
-                    "2023 May" -> "Venus Brightest on 12 May 2023" // Mercury Visible at Sunrise
+                    "2023 April" -> "April 11: Jupiter at solar conjunction"
+                    "2023 May" -> "Venus Brightest on May 12" // Mercury Visible at Sunrise
                     "2023 June" -> "Neptune begins retrograde motion"
-                    "2023 July" -> "Pluto at Opposition : 22 Jul 2023"
-                    "2023 August" -> "Saturn is in Opposition on August 27" // Uranus begins retrograde motion
-                    "2023 September" -> "September 19, 2023: Neptune at opposition"
-                    "2023 October" -> "October 21, 22 - Orionids Meteor Shower"
-                    "2023 November" -> "Jupiter opposition 2023 – November 2" // 2023 Uranus opposition – November 13
-                    "2023 December" -> "December 13, 14 - Geminids Meteor Shower"
+                    "2023 July" -> "Pluto at Opposition : July 22 "
+                    "2023 August" -> "Saturn at Opposition on August 27" // Uranus begins retrograde motion
+                    "2023 September" -> "September 19 : Neptune at opposition"
+                    "2023 October" -> "October 22 - Orionids Meteor Shower"
+                    "2023 November" -> "Jupiter opposition – November 2" // 2023 Uranus opposition – November 13
+                    "2023 December" -> "December 14 - Geminids Meteor Shower"
 
-                    "2024 January" -> "Full Wolf Moon Jan 25th"
-                    "2024 February" -> "Full Snow Moon Feb 24th"
+                    "2024 January" -> "none"
+                    "2024 February" -> "none"
                     "2024 March" -> "Mercury Visible at Sunset"
-                    "2024 April" -> "Full Pink Moon April 23"
+                    "2024 April" -> "none"
                     "2024 May" -> "Mercury Visible at Sunrise"
-                    "2024 June" -> "Venus at superior solar conjunction : 04 Jun 2024"
-                    "2024 July" -> "Pluto at Opposition : 23 Jul 2024" //Mercury visible at Sunset
-                    "2024 August" -> "Full Sturgeon Moon Aug 19 "
+                    "2024 June" -> "Venus at superior solar conjunction : June 04 "
+                    "2024 July" -> "Pluto at Opposition : July 23 " //Mercury visible at Sunset
+                    "2024 August" -> "none"
                     "2024 September" -> "Saturn is in Opposition on September 8" //Mercury visible at Sunrise
-                    "2024 October" -> "Full Harvest Moon October 17"
-                    "2024 November" -> "2024 Uranus opposition – November 16" //Mercury visible at sunset
-                    "2024 December" -> "Jupiter opposition 2024 – December 7"
+                    "2024 October" -> "none"
+                    "2024 November" -> "Uranus opposition – November 16" //Mercury visible at sunset
+                    "2024 December" -> "Jupiter opposition – December 7"
 
-                    "2025 January" -> "Jupiter opposition 2025 – January 10" // "Mars is in Opposition on January 16th"
-                    "2025 February" -> "Venus at greatest brightness: 16 Feb 2025"
+                    "2025 January" -> "Jupiter opposition– January 10" // "Mars is in Opposition on January 16th"
+                    "2025 February" -> "Venus at greatest brightness: Feb 16"
                     "2025 March" -> "Mercury visible at Sunset"
-                    "2025 April" -> "April 12, 2025: Full Pink Moon"
-                    "2025 May" -> "May 12, 2025: Full Flower Moon"
-                    "2025 June" -> "June 11, 2025: Full Strawberry Moon"
-                    "2025 July" -> "Pluto at Opposition :25 Jul 2025"
-                    "2025 August" -> "August 9, 2025: Full Corn Moon"
+                    "2025 April" -> "none"
+                    "2025 May" -> "none"
+                    "2025 June" -> "none"
+                    "2025 July" -> "Pluto at Opposition : July 25"
+                    "2025 August" -> "none"
                     "2025 September" -> "Saturn is in Opposition on September 25"
-                    "2025 October" -> "October 6, 2025: Full Harvest Moon"
-                    "2025 November" -> "2025 Uranus opposition – November 21"
-                    "2025 December" -> "December 13, 14 - Geminids Meteor Shower"
+                    "2025 October" -> "none"
+                    "2025 November" -> "Uranus opposition – November 21"
+                    "2025 December" -> "December 14 - Geminids Meteor Shower"
 
                     else -> "none"
                 }
@@ -837,56 +837,56 @@ class MyWatchFace : CanvasWatchFaceService() {
             val planetOpposition =
                 when(yearMonth){
                     "2022 January" -> "Mercury Visible at Sunset"
-                    "2022 February" -> "Pluto returns. This happens only once 248 years"
-                    "2022 March" -> "March 18: Worm Moon"
-                    "2022 April" -> "April 16: Pink Moon"
-                    "2022 May" -> "May 5/6: Eta Aquarid Meteors"
+                    "2022 February" -> "none"
+                    "2022 March" -> "none"
+                    "2022 April" -> "none"
+                    "2022 May" -> "May 6: Eta Aquarid Meteors"
                     "2022 June" -> "Mercury Visible at Sunrise"
-                    "2022 July" -> "Pluto at Opposition 20 Jul 2022"
-                    "2022 August" -> "August 24, 2022: Uranus begins retrograde motion"
-                    "2022 September" -> "Septemper 16, 2022: Neptune at opposition"
-                    "2022 October" -> "Mars in Retrograde October 30, 2022"
-                    "2022 November" -> "2022 Uranus opposition – November 9"
+                    "2022 July" -> "Pluto at Opposition Jul 20"
+                    "2022 August" -> "August 24 : Uranus begins retrograde motion"
+                    "2022 September" -> "Septemper 16: Neptune at opposition"
+                    "2022 October" -> "Mars in Retrograde October 30"
+                    "2022 November" -> "Uranus at opposition – November 9"
                     "2022 December" -> "Dec 21: December Solstice"
 
-                    "2023 January" -> "Jan 7, 2023: Inferior conjunction Mercury"
-                    "2023 February" -> "February 5 , 10:30 am Full Snow Moon "
+                    "2023 January" -> "Jan 7: Inferior conjunction Mercury"
+                    "2023 February" -> "none"
                     "2023 March" -> "Uranus at solar conjunction"
-                    "2023 April" -> "Full Pink Moon April 5th"
+                    "2023 April" -> "none"
                     "2023 May" -> "Mercury Visible at Sunrise"
-                    "2023 June" -> "June 21 2023 Summer Solstice"
-                    "2023 July" -> "Full Buck Moon July 3rd"
+                    "2023 June" -> "June 21: Summer Solstice"
+                    "2023 July" -> "none"
                     "2023 August" -> "Uranus begins retrograde motion"
-                    "2023 September" -> "Fall Equinox Sep 23 2023"
-                    "2023 October" -> "Full Harvest Moon October 28 , 1:24 pm"
-                    "2023 November" -> "2023 Uranus opposition – November 13"
-                    "2023 December" -> "Winter Solstice Dec 21 2023"
+                    "2023 September" -> "Fall Equinox September 23rd"
+                    "2023 October" -> "none"
+                    "2023 November" -> "Uranus at opposition – November 13"
+                    "2023 December" -> "Winter Solstice on Dec 21st"
 
-                    "2024 January" -> "January 3, 4 - Quadrantids Meteor Shower"
-                    "2024 February" -> "Snow Moon February 24 "
-                    "2024 March" -> "Spring Equinox Mar 19 2024"
+                    "2024 January" -> "January 4 - Quadrantids Meteor Shower"
+                    "2024 February" -> "none"
+                    "2024 March" -> "Spring Equinox March 19th"
                     "2024 April" -> "April 8: Total Solar Eclipse parts of USA"
-                    "2024 May" -> "May 6, 7 - Eta Aquarids Meteor Shower"
-                    "2024 June" -> "Summer Solstice Jun 20 2024"
+                    "2024 May" -> "May 7 - Eta Aquarids Meteor Shower"
+                    "2024 June" -> "Summer Solstice Jun 20th"
                     "2024 July" -> "Mercury visible at Sunset"
-                    "2024 August" -> "August 12, 13 - Perseids Meteor Shower"
+                    "2024 August" -> "August 13 - Perseids Meteor Shower"
                     "2024 September" -> "Mercury visible at Sunrise"
-                    "2024 October" -> "October 21, 22 - Orionids Meteor Shower"
-                    "2024 November" -> "Mercury visible at sunset"
-                    "2024 December" -> "Winter Solstice Dec 21 2024"
+                    "2024 October" -> "October 22 - Orionids Meteor Shower"
+                    "2024 November" -> "Mercury visible at Sunset"
+                    "2024 December" -> "Winter Solstice Dec 21st"
 
-                    "2025 January" -> "Mars is in Opposition on January 16th"
-                    "2025 February" -> "February 12 - Full Snow Moon"
-                    "2025 March" -> "Spring Equinox Mar 20 2025"
-                    "2025 April" -> "April 22, 23 - Lyrids Meteor Shower"
-                    "2025 May" -> "May 6, 7 - Eta Aquarids Meteor Shower."
-                    "2025 June" -> "Summer Solstice Jun 20 2025"
-                    "2025 July" -> "July 28, 29 - Delta Aquarids Meteor Shower"
-                    "2025 August" -> "August 12, 13 - Perseids Meteor Shower"
-                    "2025 September" -> "Fall Equinox September 22 2025"
-                    "2025 October" -> "October 21, 22 - Orionids Meteor Shower"
-                    "2025 November" -> "November 4, 5 - Taurids Meteor Shower"
-                    "2025 December" -> "Winter Solstice Dec 21 2025"
+                    "2025 January" -> "Mars at Opposition on January 16th"
+                    "2025 February" -> "none"
+                    "2025 March" -> "Spring Equinox March 20th"
+                    "2025 April" -> "April 23rd - Lyrids Meteor Shower"
+                    "2025 May" -> "May 7th - Eta Aquarids Meteor Shower"
+                    "2025 June" -> "Summer Solstice June 20th"
+                    "2025 July" -> "July 29th - Delta Aquarids Meteor Shower"
+                    "2025 August" -> "August 13th - Perseids Meteor Shower"
+                    "2025 September" -> "Fall Equinox: September 22nd"
+                    "2025 October" -> "October 22nd - Orionids Meteor Shower"
+                    "2025 November" -> "November 5th - Taurids Meteor Shower"
+                    "2025 December" -> "Winter Solstice : December 21st"
 
                     else -> "none"
                 }
@@ -942,7 +942,6 @@ class MyWatchFace : CanvasWatchFaceService() {
                 getPlanetEvent().contains("Pluto")-> "pluto"
                 getPlanetEvent().contains("Meteor")-> "shower"
                 getPlanetEvent().contains("meteor")-> "shower"
-                getPlanetEvent().contains("None")-> "none"
                 else -> "none"
             }
 
@@ -1222,15 +1221,207 @@ class MyWatchFace : CanvasWatchFaceService() {
             return backgroundBitmap
         }
 
+        private fun getAnimationCase(): String {
 
-        private fun drawAnimation(canvas: Canvas, bounds: Rect) {
-            val sdf7 = SimpleDateFormat("a")
+
+            val sdf = SimpleDateFormat("EEE")
+            val sdf1 = SimpleDateFormat("EEEE")
+            val sdf2 = SimpleDateFormat("MMMM")
+            val sdf3 = SimpleDateFormat("d")
+            val sdf4 = SimpleDateFormat("yyyy")
+            val sdf5 = SimpleDateFormat("MMMM d yyyy")
+
             val d = Date()
-            val amPM : String = sdf7.format(d)
+            val dayOfTheWeek: String = sdf.format(d)
+            val dayOfTheWeekLong: String = sdf1.format(d)
+            val monthOfYear: String = sdf2.format(d)
+            val dayOfMonth: String = sdf3.format(d)
+            val year4digits: String = sdf4.format(d)
+            val fullDateSpaces: String = sdf5.format(d)
+
+            val ThanksgivingArray = arrayOf(
+                "November 24 2022",
+                "November 23 2023",
+                "November 28 2024",
+                "November 27 2025",
+                "November 26 2026",
+                "November 25 2027",
+                "November 23 2028",
+                "November 22 2029",
+                "November 28 2030",
+                "November 27 2031",
+                "November 25 2032"
+            )
+
+            val lunarArray = arrayOf(
+                "February 1 2022",
+                "January 22 2023",
+                "February 10 2024",
+                "January 29 2025",
+                "February 17 2026",
+                "February 7 2027",
+                "January 26 2028",
+                "February 13 2029",
+                "February 2 2030"
+            )
+
+                val easterArray = arrayOf(
+                "April 17 2022",
+                "April 9 2023",
+                "March 31 2024",
+                "April 20 2025",
+                "April 5 2026",
+                "March 28 2027",
+                "April 16 2028",
+                "April 1 2029",
+                "April 21 2030",
+                "April 13 2031",
+                "March 28 2032"
+            )
+            val caseString =
+            if (monthOfYear == "October") {
+                "Halloween is on October 31st"
+            } else if (monthOfYear == "November") {
+                    if (Integer.parseInt(year4digits) in 2022..2032){
+                ("Thanksgiving is on " + ThanksgivingArray[Integer.parseInt(year4digits)-2022])}
+                    else{"Happy Fall!"}
+            } else if (monthOfYear == "December") {
+                //https://www.calendardate.com/hanukkah_2030.htm has dates up to 2030 for Hanukah or use HebrewCalendar (YEAR, 2, 25)
+                if ((Integer.parseInt(year4digits) == 2022 && Integer.parseInt(dayOfMonth) in 18..23) ||
+                    (Integer.parseInt(year4digits) == 2023 && Integer.parseInt(dayOfMonth) in 7..15) ||
+                    (Integer.parseInt(year4digits) == 2024 && Integer.parseInt(dayOfMonth) in 26..30) ||
+                    (Integer.parseInt(year4digits) == 2025 && Integer.parseInt(dayOfMonth) in 14..22) ||
+                    (Integer.parseInt(year4digits) == 2026 && Integer.parseInt(dayOfMonth) in 4..12) ||
+                    (Integer.parseInt(year4digits) == 2027 && Integer.parseInt(dayOfMonth) in 26..30) ||
+                    (Integer.parseInt(year4digits) == 2028 && Integer.parseInt(dayOfMonth) in 12..20) ||
+                    (Integer.parseInt(year4digits) == 2029 && Integer.parseInt(dayOfMonth) in 1..9) ||
+                    (Integer.parseInt(year4digits) == 2030 && Integer.parseInt(dayOfMonth) in 20..23)
+                ) {
+                    "Happy Holidays!"
+                } else if (dayOfMonth == "31"){"Happy New Year's Eve!"}
+                else {
+                    "It's Christmas Season!"
+                }
+            } else if (monthOfYear == "January"){
+                if (lunarArray.contains(fullDateSpaces)) {
+                    "Happy Lunar New Year!"
+                }
+                else if(dayOfMonth == "1") {
+            "Happy New Year!"}
+                else{"Winter Season"}
+            }
+            else if (monthOfYear == "February") {
+                if (Integer.parseInt(dayOfMonth) in 1..14) {
+                    "Valentine's Day is on February 14th"
+                } else {
+                    "Happy Spring"
+                }
+            } else if (monthOfYear == "March") {
+                if (Integer.parseInt(dayOfMonth) in 1..17) {
+                    "Saint Patrick's Day is on March 17th"
+                } else if (easterArray.contains(fullDateSpaces)) {
+                    "Happy Easter!"
+                } else {
+                    "Happy Spring!"
+                }
+            } else if (monthOfYear == "April") {
+                if (easterArray.contains(fullDateSpaces)) {
+                    "Happy Easter!"
+                } else {
+                    "Happy Spring!"
+                }}
+            else {
+                 "RainbowIce"
+                }
 
 
+
+            return caseString
+        }
+        private fun drawAnimation(canvas: Canvas, bounds: Rect) {
+
+            val sdf2 = SimpleDateFormat("MMMM")
+            val d = Date()
+            val monthOfYear: String = sdf2.format(d)
             var drawable =
-                if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
+                if (mCalendar.get(Calendar.MINUTE) % 8 == 1){
+                    if (getAnimationCase() == "Happy Holidays!") {
+                            when (mCalendar.get(Calendar.SECOND) % 2) {
+                                0 -> R.drawable.jewishcandle0
+                                1-> R.drawable.jewishcandle1
+                                else -> R.drawable.jewishcandle0}}
+                       else if (getAnimationCase() =="It's Christmas Season!"){
+                            when (mCalendar.get(Calendar.SECOND) % 2) {
+                                0 -> R.drawable.cookiesanta0
+                                1-> R.drawable.cookiesanta1
+                                else -> R.drawable.cookiesanta0}}
+                        else if (getAnimationCase() == "Happy New Year's Eve!"){
+                            when (mCalendar.get(Calendar.SECOND) % 2) {
+                                0 -> R.drawable.darkergold1
+                                1-> R.drawable.darkergold2
+                                else -> R.drawable.darkergold1}}
+                    else if (getAnimationCase() == "Happy New Year!"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.darkergold1
+                            1-> R.drawable.darkergold2
+                            else -> R.drawable.darkergold1}}
+                    else if (getAnimationCase() == "Happy Lunar New Year!"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.darkergold1
+                            1-> R.drawable.darkergold2
+                            else -> R.drawable.darkergold1}}
+                    else if (getAnimationCase() == "Winter Season"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.whitebright0
+                            1-> R.drawable.whitebright1
+                            else -> R.drawable.whitebright1}}
+                    else if (monthOfYear == "October"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.pumpkin0
+                            1-> R.drawable.pumpkin2
+                            else -> R.drawable.pumpkin0}}
+                    else if (monthOfYear == "November"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.turkey0
+                            1-> R.drawable.turkey1
+                            else -> R.drawable.turkey1}}
+                    else if (monthOfYear == "February"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.heart0
+                            1-> R.drawable.heart1
+                            else -> R.drawable.heart0}}
+                    else if (monthOfYear == "March"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.green0
+                            1-> R.drawable.green1
+                            else -> R.drawable.green1}}
+                    else if (monthOfYear == "April"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.bunnyblue0
+                            1-> R.drawable.bunnybluepeep1
+                            else -> R.drawable.bunnyblue0}}
+                    else if (monthOfYear == "May"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.motherdaystar0
+                            1-> R.drawable.motherdaystar1
+                            else -> R.drawable.motherdaystar1}}
+                    else {
+                    when (mCalendar.get(Calendar.SECOND) % 12) {
+                        0 -> R.drawable.rainbow1
+                        1-> R.drawable.rainbow2
+                        2 -> R.drawable.rainbow3
+                        3-> R.drawable.rainbow4
+                        4 -> R.drawable.rainbow5
+                        5 -> R.drawable.rainbow6
+                        6 -> R.drawable.rainbow1
+                        7 -> R.drawable.rainbow3
+                        8 -> R.drawable.rainbow1
+                        9 -> R.drawable.rainbow3
+                        10 -> R.drawable.rainbow1
+                        11 -> R.drawable.rainbow3
+                        else -> R.drawable.rainbow1}
+                }}
+                else if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
               when (mCalendar.get(Calendar.SECOND) % 12) {
                 0 -> R.drawable.rainbow1
                 1-> R.drawable.rainbow2
@@ -1367,7 +1558,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         0-> R.drawable.hourjump11
                         1 -> R.drawable.hourjumps11
                         else -> R.drawable.hourjumps11} }}
-                else if(mCalendar.get(Calendar.HOUR) == 12 && amPM == "PM" ){
+                else if(mCalendar.get(Calendar.HOUR_OF_DAY) == 12 ){
                     if(mCalendar.get(Calendar.MINUTE) > 29)
                     {when (mCalendar.get(Calendar.SECOND) % 2){
                         0-> R.drawable.hourjumped1230
