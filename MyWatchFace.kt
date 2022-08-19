@@ -856,86 +856,78 @@ class MyWatchFace : CanvasWatchFaceService() {
         private fun getPlanetEvent(): String {
             val d = Date()
             val sdf0 = SimpleDateFormat("yyyy MMMM")
+            val sdf2 = SimpleDateFormat("MMMM")
+            val sdf4 = SimpleDateFormat("yyyy")
+            val monthOfYear: String = sdf2.format(d)
+            val year4digits: String = sdf4.format(d)
             val yearMonth: String = sdf0.format(d)
+
             val planetOpposition =
-                when(yearMonth){
-                    "2022 January" -> "Jupiter in Pisces until January 30th" //Mercury Visible at Sunset
-                    "2022 February" -> "Venus Brightest on February 9" //Pluto returns. This happens only once 248 years
-                    "2022 March" -> "none 0"
-                    "2022 April" -> "Mercury will be visible at Sunrise until 30th"
-                    "2022 May" -> "none 0"
-                    "2022 June" -> "June 28: Neptune begins retrograde motion" //Mercury Visible at Sunrise
-                    "2022 July" -> "July 28: Jupiter begins retrograde motion" // Pluto at Opposition 20 Jul 2022
-                    "2022 August" -> "Saturn in Opposition on August 14" //August 24, 2022: Uranus begins retrograde motion
-                    "2022 September" -> "Jupiter at opposition on September 26" //Septemper 16, 2022: Neptune at opposition
-                    "2022 October" -> "Saturn ends retrograde motion" //Mars in Retrograde October 30, 2022
-                    "2022 November" -> "November 18: Leonid Meteor Shower" // 2022 Uranus opposition – November 9
-                    "2022 December" -> "December 15 - Geminids Meteor Shower" //Dec 21: December Solstice
+                if (Integer.parseInt(year4digits) in 2026..2030){
+                    when(monthOfYear){
+                        "January" -> "January 4 - Quadrantids Meteor Shower"
+                        "August" -> "August 13 - Perseids Meteor Shower"
+                        "May" -> "May 7 - Eta Aquarids Meteor Shower"
+                        "December" -> "December 14 - Geminids Meteor Shower"
+                        else -> "none 0"}
+                } else {
+                    when (yearMonth) {
+                        "2022 January" -> "Jupiter in Pisces until January 30th" //Mercury Visible at Sunset
+                        "2022 February" -> "Venus Brightest on February 9" //Pluto returns. This happens only once 248 years
+                        "2022 March" -> "none 0"
+                        "2022 April" -> "Mercury will be visible at Sunrise until 30th"
+                        "2022 May" -> "none 0"
+                        "2022 June" -> "June 28: Neptune begins retrograde motion" //Mercury Visible at Sunrise
+                        "2022 July" -> "July 28: Jupiter begins retrograde motion" // Pluto at Opposition 20 Jul 2022
+                        "2022 August" -> "Saturn in Opposition on August 14" //August 24, 2022: Uranus begins retrograde motion
+                        "2022 September" -> "Jupiter at opposition on September 26" //Septemper 16, 2022: Neptune at opposition
+                        "2022 October" -> "Saturn ends retrograde motion" //Mars in Retrograde October 30, 2022
+                        "2022 November" -> "November 18: Leonid Meteor Shower" // 2022 Uranus opposition – November 9
+                        "2022 December" -> "December 15 - Geminids Meteor Shower" //Dec 21: December Solstice
 
-                    "2023 January" -> "Uranus ends retrograde motion January 22nd" //Jan 7, 2023: Inferior conjunction Mercury
-                    "2023 February" -> "February 16: Saturn in conjunction with the sun"
-                    "2023 March" -> "Neptune at solar conjunction March 15th" //Uranus at solar conjunction
-                    "2023 April" -> "April 11: Jupiter at solar conjunction"
-                    "2023 May" -> "Venus Brightest on May 12" // Mercury Visible at Sunrise
-                    "2023 June" -> "none 0"
-                    "2023 July" -> "Pluto at Opposition : July 22 "
-                    "2023 August" -> "Saturn at Opposition on August 27" // Uranus begins retrograde motion
-                    "2023 September" -> "September 19 : Neptune at opposition"
-                    "2023 October" -> "October 22 - Orionids Meteor Shower"
-                    "2023 November" -> "Jupiter opposition – November 2" // 2023 Uranus opposition – November 13
-                    "2023 December" -> "December 14 - Geminids Meteor Shower"
+                        "2023 January" -> "Uranus ends retrograde motion January 22nd" //Jan 7, 2023: Inferior conjunction Mercury
+                        "2023 February" -> "February 16: Saturn in conjunction with the sun"
+                        "2023 March" -> "Neptune at solar conjunction March 15th" //Uranus at solar conjunction
+                        "2023 April" -> "April 11: Jupiter at solar conjunction"
+                        "2023 May" -> "Venus Brightest on May 12" // Mercury Visible at Sunrise
+                        "2023 June" -> "none 0"
+                        "2023 July" -> "Pluto at Opposition : July 22 "
+                        "2023 August" -> "Saturn at Opposition on August 27" // Uranus begins retrograde motion
+                        "2023 September" -> "September 19 : Neptune at opposition"
+                        "2023 October" -> "October 22 - Orionids Meteor Shower"
+                        "2023 November" -> "Jupiter opposition – November 2" // 2023 Uranus opposition – November 13
+                        "2023 December" -> "December 14 - Geminids Meteor Shower"
 
-                    "2024 January" -> "none 0"
-                    "2024 February" -> "none 0"
-                    "2024 March" -> "Mercury Visible at Sunset unil 30th"
-                    "2024 April" -> "none 0"
-                    "2024 May" -> "Mercury Visible at Sunrise until 30th"
-                    "2024 June" -> "Venus at superior solar conjunction : June 04 "
-                    "2024 July" -> "Pluto at Opposition : July 23 " //Mercury visible at Sunset
-                    "2024 August" -> "August 12th: Perseid Meteor Shower"
-                    "2024 September" -> "Saturn is in Opposition on September 8" //Mercury visible at Sunrise
-                    "2024 October" -> "none 0"
-                    "2024 November" -> "Uranus opposition – November 16" //Mercury visible at sunset
-                    "2024 December" -> "December 14 - Geminids Meteor Shower"
+                        "2024 January" -> "none 0"
+                        "2024 February" -> "none 0"
+                        "2024 March" -> "Mercury Visible at Sunset unil 30th"
+                        "2024 April" -> "none 0"
+                        "2024 May" -> "Mercury Visible at Sunrise until 30th"
+                        "2024 June" -> "Venus at superior solar conjunction : June 04 "
+                        "2024 July" -> "Pluto at Opposition : July 23 " //Mercury visible at Sunset
+                        "2024 August" -> "August 12th: Perseid Meteor Shower"
+                        "2024 September" -> "Saturn is in Opposition on September 8" //Mercury visible at Sunrise
+                        "2024 October" -> "none 0"
+                        "2024 November" -> "Uranus opposition – November 16" //Mercury visible at sunset
+                        "2024 December" -> "December 14 - Geminids Meteor Shower"
 
-                    "2025 January" -> "Jupiter opposition– January 10" // "Mars is in Opposition on January 16th"
-                    "2025 February" -> "Venus at greatest brightness: Feb 16"
-                    "2025 March" -> "Mercury visible at Sunset until 30th"
-                    "2025 April" -> "none 0"
-                    "2025 May" -> "none 0"
-                    "2025 June" -> "none 0"
-                    "2025 July" -> "Pluto at Opposition : July 25"
-                    "2025 August" -> "none 0"
-                    "2025 September" -> "Saturn is in Opposition on September 25"
-                    "2025 October" -> "none 0"
-                    "2025 November" -> "Uranus opposition – November 21"
-                    "2025 December" -> "December 14 - Geminids Meteor Shower"
-
-                    "2026 December" -> "December 14 - Geminids Meteor Shower"
-                    "2027 December" -> "December 14 - Geminids Meteor Shower"
-                    "2028 December" -> "December 14 - Geminids Meteor Shower"
-                    "2029 December" -> "December 14 - Geminids Meteor Shower"
-                    "2030 December" -> "December 14 - Geminids Meteor Shower"
-
-                    "2026 August" -> "August 13 - Perseids Meteor Shower"
-                    "2027 August" -> "August 13 - Perseids Meteor Shower"
-                    "2028 August" -> "August 13 - Perseids Meteor Shower"
-                    "2029 August" -> "August 13 - Perseids Meteor Shower"
-                    "2030 August" -> "August 13 - Perseids Meteor Shower"
-
-                    "2026 May" -> "May 7 - Eta Aquarids Meteor Shower"
-                    "2027 May" -> "May 7 - Eta Aquarids Meteor Shower"
-                    "2028 May" -> "May 7 - Eta Aquarids Meteor Shower"
-                    "2029 May" -> "May 7 - Eta Aquarids Meteor Shower"
-                    "2030 May" -> "May 7 - Eta Aquarids Meteor Shower"
-
-                    "2026 January" -> "January 4 - Quadrantids Meteor Shower"
-                    "2027 January" -> "January 4 - Quadrantids Meteor Shower"
-                    "2028 January" -> "January 4 - Quadrantids Meteor Shower"
-                    "2029 January" -> "January 4 - Quadrantids Meteor Shower"
-                    "2030 January" -> "January 4 - Quadrantids Meteor Shower"
-                    else -> "none 0"
+                        "2025 January" -> "Jupiter opposition– January 10" // "Mars is in Opposition on January 16th"
+                        "2025 February" -> "Venus at greatest brightness: Feb 16"
+                        "2025 March" -> "Mercury visible at Sunset until 30th"
+                        "2025 April" -> "none 0"
+                        "2025 May" -> "none 0"
+                        "2025 June" -> "none 0"
+                        "2025 July" -> "Pluto at Opposition : July 25"
+                        "2025 August" -> "none 0"
+                        "2025 September" -> "Saturn is in Opposition on September 25"
+                        "2025 October" -> "none 0"
+                        "2025 November" -> "Uranus opposition – November 21"
+                        "2025 December" -> "December 14 - Geminids Meteor Shower"
+                        else -> "none 0"
+                    }
                 }
+
+
 
             return planetOpposition
 
