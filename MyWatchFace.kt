@@ -16,10 +16,13 @@ import android.view.Gravity
 import android.view.SurfaceHolder
 import android.widget.Toast
 import androidx.palette.graphics.Palette
+import com.google.android.gms.wearable.DataClient
+import com.google.android.gms.wearable.Wearable
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
+
 
 
 /**
@@ -1626,6 +1629,12 @@ class MyWatchFace : CanvasWatchFaceService() {
                 dst,
                 null
             )
+        }
+
+        fun AmbientText() {
+
+            if (mAmbient) {
+            }
         }
 
         /**
