@@ -141,48 +141,22 @@ class MyWatchFace : CanvasWatchFaceService() {
             val dayOfMonth: String = sdf1.format(d)
             val LUNAR_MONTH = 29.530588853;
             val newMoondifference = abs((Integer.parseInt(dayOfMonth)) - (Integer.parseInt(getnewMoonDate())))
+            val fullMoondifference = abs((Integer.parseInt(dayOfMonth)) - (Integer.parseInt(getFullMoonDate())))
             val moonPercent : Double = newMoondifference / LUNAR_MONTH
 
             val moonString : String =
-                if (Integer.parseInt(dayOfMonth) > (Integer.parseInt(getnewMoonDate()))) {
-                    if (moonPercent < 0.05) {
-                        "New Moon"
-                    } else if (moonPercent >= .05 && moonPercent < 0.25) {
-                        "Waning Crescent Moon"
-                    } else if (moonPercent >= 0.25 && moonPercent < 0.35) {
-                        "Waning half Moon"
-                    } else if (moonPercent >= 0.35 && moonPercent < 0.47) {
-                        "Waning Gibbous Moon"
-                    } else if (moonPercent >= 0.47 && moonPercent < 0.55) {
-                        "Full Moon"
-                    } else if (moonPercent >= 0.55 && moonPercent < 0.65) {
-                        "Waxing Gibbous Moon"
-                    } else if (moonPercent >= 0.65 && moonPercent < 0.75) {
-                        "Waxing half Moon"
-                    } else if (moonPercent >= 0.75 && moonPercent < 0.95) {
-                        "Waxing Crescent Moon"
-                    } else {"New Moon"}
-                }else if(Integer.parseInt(dayOfMonth) < (Integer.parseInt(getnewMoonDate()))) {
-            if (moonPercent < 0.05) {
-                "New Moon"
-            } else if (moonPercent >= .05 && moonPercent < 0.25) {
-                "Waxing Crescent Moon"
-            } else if (moonPercent >= 0.25 && moonPercent < 0.35) {
-                "Waxing half Moon"
-            } else if (moonPercent >= 0.35 && moonPercent < 0.47) {
-                "Waxing Gibbous Moon"
-            } else if (moonPercent >= 0.47 && moonPercent < 0.55) {
-                "Full Moon"
-            } else if (moonPercent >= 0.55 && moonPercent < 0.65) {
-                "Waning Gibbous Moon"
-            } else if (moonPercent >= 0.65 && moonPercent < 0.75) {
-                "Waning half Moon"
-            } else if (moonPercent >= 0.75 && moonPercent < 0.95) {
-                "Waning Crescent Moon"
-            } else {"New Moon"}}
-                else {"New Moon"}
-
-
+                if (fullMoondifference in 0..1 ){"Full Moon"}
+            else if (newMoondifference in 0..1 ){"New Moon"}
+                else if (Integer.parseInt(dayOfMonth) > (Integer.parseInt(getFullMoonDate()))) {"Waning " +
+                        if ((moonPercent >= .05 && moonPercent < 0.25) || (moonPercent >= 0.75 && moonPercent < 0.95)){ "Crescent Moon" }
+                        else if ((moonPercent >= 0.25 && moonPercent < 0.35)||(moonPercent >= 0.65 && moonPercent < 0.75) ){ "Half Moon"}
+                else {"Gibbous Moon"}}
+                else if (Integer.parseInt(dayOfMonth) < (Integer.parseInt(getFullMoonDate()))) {"Waxing " +
+                        if ((moonPercent >= .05 && moonPercent < 0.25) || (moonPercent >= 0.75 && moonPercent < 0.95)){ "Crescent Moon" }
+                        else if ((moonPercent >= 0.25 && moonPercent < 0.35)||(moonPercent >= 0.65 && moonPercent < 0.75) ){ "Half Moon"}
+                        else {"Gibbous Moon"}}
+                else{"Plain Moon"}
+               // }
             return moonString
         }
 
@@ -748,9 +722,9 @@ class MyWatchFace : CanvasWatchFaceService() {
             val yearMonth: String = sdf0.format(d)
             val newMoonDate = when(yearMonth){
                 "2022 January" -> 2
-                "2022 February" -> 1
-                "2022 March" -> 2
-                "2022 April" -> 1
+                "2022 February" -> 1 //It's Actually Jan31
+                "2022 March" -> 2 //March31
+                "2022 April" -> 30
                 "2022 May" -> 30
                 "2022 June" -> 28
                 "2022 July" -> 28
@@ -759,6 +733,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 "2022 October" -> 25
                 "2022 November" -> 23
                 "2022 December" -> 23
+
                 "2023 January" -> 21
                 "2023 February" -> 19
                 "2023 March" -> 21
@@ -771,10 +746,76 @@ class MyWatchFace : CanvasWatchFaceService() {
                 "2023 October" -> 14
                 "2023 November" -> 13
                 "2023 December" -> 12
+
+                "2024 January" -> 11
+                "2024 February" -> 9
+                "2024 March" -> 10
+                "2024 April" -> 8
+                "2024 May" -> 7
+                "2024 June" -> 6
+                "2024 July" -> 5
+                "2024 August" -> 4
+                "2024 September" -> 2
+                "2024 October" -> 2
+                "2024 November" -> 1 //Nov 30
+                "2024 December" -> 30
+
+                "2025 January" -> 29
+                "2025 February" -> 27
+                "2025 March" -> 29
+                "2025 April" -> 27
+                "2025 May" -> 26
+                "2025 June" -> 25
+                "2025 July" -> 24
+                "2025 August" -> 22
+                "2025 September" -> 21
+                "2025 October" -> 21
+                "2025 November" -> 19
+                "2025 December" -> 19
+
+                "2026 January" -> 18
+                "2026 February" -> 17
+                "2026 March" -> 18
+                "2026 April" -> 17
+                "2026 May" -> 16
+                "2026 June" -> 14
+                "2026 July" -> 14
+                "2026 August" -> 12
+                "2026 September" -> 10
+                "2026 October" -> 10
+                "2026 November" -> 8
+                "2026 December" -> 8
+
+                "2027 January" -> 7
+                "2027 February" -> 6
+                "2027 March" -> 8
+                "2027 April" -> 6
+                "2027 May" -> 6
+                "2027 June" -> 4
+                "2027 July" -> 3
+                "2027 August" -> 2
+                "2027 September" -> 29
+                "2027 October" -> 29
+                "2027 November" -> 27
+                "2027 December" -> 27
+
+                "2028 January" -> 26
+                "2028 February" -> 25
+                "2028 March" -> 25
+                "2028 April" -> 24
+                "2028 May" -> 24
+                "2028 June" -> 22
+                "2028 July" -> 21
+                "2028 August" -> 20
+                "2028 September" -> 18
+                "2028 October" -> 17
+                "2028 November" -> 16
+                "2028 December" -> 15
                 else -> 1
             }
             return newMoonDate.toString()
         }
+
         private fun getPlanetEventNumber(): Int {
             var result =getPlanetEvent().filter { it.isDigit() }
             return Integer.parseInt(result)
@@ -828,7 +869,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2022 August" -> "Saturn in Opposition on August 14" //August 24, 2022: Uranus begins retrograde motion
                     "2022 September" -> "Jupiter at opposition on September 26" //Septemper 16, 2022: Neptune at opposition
                     "2022 October" -> "Saturn ends retrograde motion" //Mars in Retrograde October 30, 2022
-                    "2022 November" -> "November 23: Jupiter ends retrograde motion" // 2022 Uranus opposition – November 9
+                    "2022 November" -> "November 18: Leonid Meteor Shower" // 2022 Uranus opposition – November 9
                     "2022 December" -> "December 15 - Geminids Meteor Shower" //Dec 21: December Solstice
 
                     "2023 January" -> "Uranus ends retrograde motion January 22nd" //Jan 7, 2023: Inferior conjunction Mercury
@@ -851,7 +892,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2024 May" -> "Mercury Visible at Sunrise until 30th"
                     "2024 June" -> "Venus at superior solar conjunction : June 04 "
                     "2024 July" -> "Pluto at Opposition : July 23 " //Mercury visible at Sunset
-                    "2024 August" -> "none 0"
+                    "2024 August" -> "August 12th: Perseid Meteor Shower"
                     "2024 September" -> "Saturn is in Opposition on September 8" //Mercury visible at Sunrise
                     "2024 October" -> "none 0"
                     "2024 November" -> "Uranus opposition – November 16" //Mercury visible at sunset
@@ -869,6 +910,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2025 October" -> "none 0"
                     "2025 November" -> "Uranus opposition – November 21"
                     "2025 December" -> "December 14 - Geminids Meteor Shower"
+
 
                     else -> "none 0"
                 }
@@ -924,7 +966,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2023 May" -> "Mercury Visible at Sunrise until 30th"
                     "2023 June" -> "June 21: Summer Solstice"
                     "2023 July" -> "none 0"
-                    "2023 August" -> "none 0"
+                    "2023 August" -> "August 13th: Perseid Meteor Shower"
                     "2023 September" -> "Fall Equinox September 23rd"
                     "2023 October" -> "none 0"
                     "2023 November" -> "Uranus at opposition – November 13"
@@ -955,6 +997,32 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2025 October" -> "October 22nd - Orionids Meteor Shower"
                     "2025 November" -> "November 5th - Taurids Meteor Shower"
                     "2025 December" -> "Winter Solstice : December 21st"
+
+
+                    "2026 March" -> "Spring Equinox March 20th"
+                    "2026 June" -> "Summer Solstice June 21st"
+                    "2026 September" -> "Fall Equinox: September 22nd"
+                    "2026 December" -> "Winter Solstice : December 21st"
+
+                    "2027 March" -> "Spring Equinox March 20th"
+                    "2027 June" -> "Summer Solstice June 21st"
+                    "2027 September" -> "Fall Equinox: September 22nd"
+                    "2027 December" -> "Winter Solstice : December 21st"
+
+                    "2028 March" -> "Spring Equinox March 19th"
+                    "2028 June" -> "Summer Solstice June 20th"
+                    "2028 September" -> "Fall Equinox: September 22nd"
+                    "2028 December" -> "Winter Solstice : December 21st"
+
+                    "2029 March" -> "Spring Equinox March 20th"
+                    "2029 June" -> "Summer Solstice June 20th"
+                    "2029 September" -> "Fall Equinox: September 22nd"
+                    "2029 December" -> "Winter Solstice : December 21st"
+
+                    "2030 March" -> "Spring Equinox March 20th"
+                    "2030 June" -> "Summer Solstice June 21st"
+                    "2030 September" -> "Fall Equinox: September 22nd"
+                    "2030 December" -> "Winter Solstice : December 21st"
 
                     else -> "none 0"
                 }
@@ -1092,9 +1160,9 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Waxing Gibbous Moon" -> BitmapFactory.decodeResource(resources, R.drawable.gibright)
                         "Full Moon" -> BitmapFactory.decodeResource(resources, R.drawable.fulloon)
                         "Waning Gibbous Moon" -> BitmapFactory.decodeResource(resources, R.drawable.gibleft)
-                        "Waning half Moon" -> BitmapFactory.decodeResource(resources, R.drawable.halfmoonleft)
+                        "Waning Half Moon" -> BitmapFactory.decodeResource(resources, R.drawable.halfmoonleft)
                         "Waning Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.leftcrescent)
-                        else-> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
+                        else-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
                     }
                     4 -> when(getPlanetEventTYPE(filterPlanetNews())){
                         "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.shower)
