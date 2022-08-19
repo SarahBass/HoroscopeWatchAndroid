@@ -142,15 +142,47 @@ class MyWatchFace : CanvasWatchFaceService() {
             val LUNAR_MONTH = 29.530588853;
             val newMoondifference = abs((Integer.parseInt(dayOfMonth)) - (Integer.parseInt(getnewMoonDate())))
             val moonPercent : Double = newMoondifference / LUNAR_MONTH
-            val moonString : String = if(moonPercent < 0.05 ){"New Moon"}
-            else if (moonPercent >= .05 && moonPercent < 0.25 ){"Waning Crescent Moon"}
-            else if(moonPercent >=0.25 && moonPercent < 0.35){"Waning half Moon"}
-            else if(moonPercent >=0.35 && moonPercent < 0.47){"Waning Gibbous Moon"}
-            else if(moonPercent >=0.47 && moonPercent < 0.55){"Full Moon"}
-            else if(moonPercent >=0.55 && moonPercent < 0.65){"Waxing Gibbous Moon"}
-            else if(moonPercent >=0.65 && moonPercent < 0.75){"Waxing half Moon"}
-            else if(moonPercent >=0.75 && moonPercent < 0.95){"Waxing Crescent Moon"}
-            else {"New Moon"}
+
+            val moonString : String =
+                if (Integer.parseInt(dayOfMonth) > (Integer.parseInt(getnewMoonDate()))) {
+                    if (moonPercent < 0.05) {
+                        "New Moon"
+                    } else if (moonPercent >= .05 && moonPercent < 0.25) {
+                        "Waning Crescent Moon"
+                    } else if (moonPercent >= 0.25 && moonPercent < 0.35) {
+                        "Waning half Moon"
+                    } else if (moonPercent >= 0.35 && moonPercent < 0.47) {
+                        "Waning Gibbous Moon"
+                    } else if (moonPercent >= 0.47 && moonPercent < 0.55) {
+                        "Full Moon"
+                    } else if (moonPercent >= 0.55 && moonPercent < 0.65) {
+                        "Waxing Gibbous Moon"
+                    } else if (moonPercent >= 0.65 && moonPercent < 0.75) {
+                        "Waxing half Moon"
+                    } else if (moonPercent >= 0.75 && moonPercent < 0.95) {
+                        "Waxing Crescent Moon"
+                    } else {"New Moon"}
+                }else if(Integer.parseInt(dayOfMonth) < (Integer.parseInt(getnewMoonDate()))) {
+            if (moonPercent < 0.05) {
+                "New Moon"
+            } else if (moonPercent >= .05 && moonPercent < 0.25) {
+                "Waxing Crescent Moon"
+            } else if (moonPercent >= 0.25 && moonPercent < 0.35) {
+                "Waxing half Moon"
+            } else if (moonPercent >= 0.35 && moonPercent < 0.47) {
+                "Waxing Gibbous Moon"
+            } else if (moonPercent >= 0.47 && moonPercent < 0.55) {
+                "Full Moon"
+            } else if (moonPercent >= 0.55 && moonPercent < 0.65) {
+                "Waning Gibbous Moon"
+            } else if (moonPercent >= 0.65 && moonPercent < 0.75) {
+                "Waning half Moon"
+            } else if (moonPercent >= 0.75 && moonPercent < 0.95) {
+                "Waning Crescent Moon"
+            } else {"New Moon"}}
+                else {"New Moon"}
+
+
             return moonString
         }
 
