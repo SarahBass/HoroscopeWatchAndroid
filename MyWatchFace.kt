@@ -436,7 +436,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
             canvas.rotate(hoursRotation, mCenterX, mCenterY)
 
-            if ((mCalendar.get(Calendar.MINUTE) % 8 == 2)||(mCalendar.get(Calendar.MINUTE) % 8 == 1)) {
+            if ((mCalendar.get(Calendar.MINUTE) % 9 == 2)||(mCalendar.get(Calendar.MINUTE) % 9 == 1)) {
                 canvas.drawLine(
                     mCenterX,
                     mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
@@ -573,7 +573,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 }
                 TAP_TYPE_TAP ->
 
-                    when (mCalendar.get(Calendar.MINUTE)%8) {
+                    when (mCalendar.get(Calendar.MINUTE)%9) {
 
                         0 -> when (getHoroscope()){
                             "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
@@ -589,8 +589,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                             "Taurus" -> Toast.makeText(applicationContext, R.string.horoscope10, Toast.LENGTH_SHORT)
                             "Virgo" -> Toast.makeText(applicationContext, R.string.horoscope11, Toast.LENGTH_SHORT)
                             else -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)}
-                        1 -> Toast.makeText(applicationContext,
-                            "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
+                        1 ->Toast.makeText(applicationContext, getAnimationCase(), Toast.LENGTH_SHORT)
                         2 -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
                         3 -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
                         4 -> if(getPlanetEventTYPE() == "none"){
@@ -606,7 +605,8 @@ class MyWatchFace : CanvasWatchFaceService() {
                         6 -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
 
                         7 -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() , Toast.LENGTH_SHORT)
-
+                        8 -> Toast.makeText(applicationContext,
+                            "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
                         else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
 
                         .show()
@@ -1091,7 +1091,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val monthOfYear: String = sdf2.format(d)
 
             val backgroundBitmap: Bitmap =
-               when (mCalendar.get(Calendar.MINUTE) % 8) {
+               when (mCalendar.get(Calendar.MINUTE) % 9) {
                     0-> when (getHoroscope()) {
                         "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
                         "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
@@ -1106,10 +1106,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Taurus" -> BitmapFactory.decodeResource(resources, R.drawable.taurus)
                         "Virgo" -> BitmapFactory.decodeResource(resources, R.drawable.virgo)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.cancer) }
-                    1-> when (getDayorNight()){
-                        "Day" -> BitmapFactory.decodeResource(resources, R.drawable.earth)
-                        "Night" -> BitmapFactory.decodeResource(resources, R.drawable.earthnight)
-                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun) }
+                   1->  BitmapFactory.decodeResource(resources, R.drawable.icerainbow)
                     2->  BitmapFactory.decodeResource(resources, R.drawable.icerainbow)
                     3 -> when(getMoonPhase()){
                         "New Moon" -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
@@ -1157,16 +1154,6 @@ class MyWatchFace : CanvasWatchFaceService() {
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
 
                     5 -> when(getPlanetEventTYPE2()){
-                        "moonanimal"-> BitmapFactory.decodeResource(resources, R.drawable.moonanimal)
-                        "moonbeaver"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
-                        "mooncold"-> BitmapFactory.decodeResource(resources, R.drawable.mooncold)
-                        "mooncorn"-> BitmapFactory.decodeResource(resources, R.drawable.mooncorn)
-                        "moonharvest"-> BitmapFactory.decodeResource(resources, R.drawable.moonharvest)
-                        "moonpink"-> BitmapFactory.decodeResource(resources, R.drawable.moonpink)
-                        "moonsnow"-> BitmapFactory.decodeResource(resources, R.drawable.moonsnow)
-                        "moonstrawberry"-> BitmapFactory.decodeResource(resources, R.drawable.moonwolf)
-                        "moonworm"-> BitmapFactory.decodeResource(resources, R.drawable.moonworm)
-                        "moonwolf"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
                         "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.shower)
                         "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
                         "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
@@ -1215,6 +1202,11 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "November"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
                         "December"-> BitmapFactory.decodeResource(resources, R.drawable.mooncold)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
+
+                   8-> when (getDayorNight()){
+                       "Day" -> BitmapFactory.decodeResource(resources, R.drawable.earth)
+                       "Night" -> BitmapFactory.decodeResource(resources, R.drawable.earthnight)
+                       else -> BitmapFactory.decodeResource(resources, R.drawable.earth) }
 
                     else -> BitmapFactory.decodeResource(resources, R.drawable.earth)
                 }
@@ -1331,7 +1323,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "Happy Spring!"
                 }}
             else {
-                 "RainbowIce"
+                 " "
                 }
 
 
@@ -1344,7 +1336,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val d = Date()
             val monthOfYear: String = sdf2.format(d)
             var drawable =
-                if (mCalendar.get(Calendar.MINUTE) % 8 == 1){
+                if (mCalendar.get(Calendar.MINUTE) % 9 == 1){
                     if (getAnimationCase() == "Happy Holidays!") {
                             when (mCalendar.get(Calendar.SECOND) % 2) {
                                 0 -> R.drawable.jewishcandle0
@@ -1421,7 +1413,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         11 -> R.drawable.rainbow3
                         else -> R.drawable.rainbow1}
                 }}
-                else if (mCalendar.get(Calendar.MINUTE) % 8 == 2){
+                else if (mCalendar.get(Calendar.MINUTE) % 9 == 2){
               when (mCalendar.get(Calendar.SECOND) % 12) {
                 0 -> R.drawable.rainbow1
                 1-> R.drawable.rainbow2
@@ -1581,7 +1573,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                     else -> R.drawable.hourjumps12}}}}
 
             if (mAmbient) {
-                if ((mCalendar.get(Calendar.MINUTE) % 8 == 2)||(mCalendar.get(Calendar.MINUTE) % 8 == 1)){
+                if ((mCalendar.get(Calendar.MINUTE) % 9 == 2)||(mCalendar.get(Calendar.MINUTE) % 9 == 1)){
                 drawable = R.drawable.blackandwhitestar}
                 else{drawable = R.drawable.blank}
 
