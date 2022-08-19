@@ -625,18 +625,17 @@ class MyWatchFace : CanvasWatchFaceService() {
                         1 ->Toast.makeText(applicationContext, getAnimationCase(), Toast.LENGTH_SHORT)
                         2 -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
                         3 -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
-                        4 -> if(getPlanetEventTYPE() == "none"){
-                            Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                        4 -> if(getPlanetEventTYPE(filterPlanetNews()) == "none"){
+                            Toast.makeText(applicationContext,"$dayOfTheWeek , $fullDateSpaces" , Toast.LENGTH_SHORT)
                         }else{
                             Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
                         }
-                        5 -> if(getPlanetEventTYPE2() == "none"){
-                            Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                        5 -> if(getPlanetEventTYPE(filterPlanetNews2()) == "none"){
+                            Toast.makeText(applicationContext,"$dayOfTheWeek , $fullDateSpaces" , Toast.LENGTH_SHORT)
                         }else{
                             Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
                         }
                         6 -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
-
                         7 -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() , Toast.LENGTH_SHORT)
                         8 -> Toast.makeText(applicationContext,
                             "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
@@ -792,17 +791,20 @@ class MyWatchFace : CanvasWatchFaceService() {
             val d = Date()
             val sdf3 = SimpleDateFormat("d")
             val dayOfMonth: String = sdf3.format(d)
-
-            val filteredString =
-                if (getPlanetEventNumber() < getPlanetEventNumber2()){
-                if (getPlanetEventNumber() >= Integer.parseInt(dayOfMonth)) {
+            val filteredString= if (getPlanetEventNumber() >= Integer.parseInt(dayOfMonth)) {
                     getPlanetEvent()
-                }else {"none"}}
-            else if (getPlanetEventNumber() > getPlanetEventNumber2()){
-                    if (getPlanetEventNumber2() >= Integer.parseInt(dayOfMonth)) {
-                        getPlanetEvent2()
-                    }else {"none"}}
-                else {"none"}
+                }else {"none"}
+
+            return filteredString
+        }
+
+        private fun filterPlanetNews2(): String {
+            val d = Date()
+            val sdf3 = SimpleDateFormat("d")
+            val dayOfMonth: String = sdf3.format(d)
+            val filteredString= if (getPlanetEventNumber2() >= Integer.parseInt(dayOfMonth)) {
+                getPlanetEvent2()
+            }else {"none"}
 
             return filteredString
         }
@@ -818,7 +820,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                 when(yearMonth){
                     "2022 January" -> "Jupiter in Pisces until January 30th" //Mercury Visible at Sunset
                     "2022 February" -> "Venus Brightest on February 9" //Pluto returns. This happens only once 248 years
-                    "2022 March" -> "March 20 - March Equinox"
+                    "2022 March" -> "none 0"
                     "2022 April" -> "Mercury will be visible at Sunrise until 30th"
                     "2022 May" -> "none 0"
                     "2022 June" -> "June 28: Neptune begins retrograde motion" //Mercury Visible at Sunrise
@@ -979,122 +981,31 @@ class MyWatchFace : CanvasWatchFaceService() {
             return planetOpposition
 
         }
-        private fun getPlanetEventTYPE(): String {
+        private fun getPlanetEventTYPE(x: String ): String {
 
             val planetType = when{
-                getPlanetEvent().contains("Pink") -> "moonpink"
-                getPlanetEvent().contains("Harvest") -> "moonharvest"
-                getPlanetEvent().contains("Worm") -> "moonworm"
-                getPlanetEvent().contains("Snow") -> "moonsnow"
-                getPlanetEvent().contains("Cold") -> "mooncold"
-                getPlanetEvent().contains("Corn") -> "mooncorn"
-                getPlanetEvent().contains("Strawberry") -> "moonstrawberry"
-                getPlanetEvent().contains("Wolf") -> "moonwolf"
-                getPlanetEvent().contains("Sturgeon") -> "moonbanimal"
-                getPlanetEvent().contains("Buck") -> "moonbanimal"
-                getPlanetEvent().contains("Flower") -> "moonpink"
-                getPlanetEvent().contains("Beaver") -> "moonbeaver"
-                getPlanetEvent().contains("Solstice" )-> "sun"
-                getPlanetEvent().contains("Equinox")-> "sun"
-                getPlanetEvent().contains("solstice")-> "sun"
-                getPlanetEvent().contains("equinox")-> "sun"
-                getPlanetEvent().contains("Mercury")-> "mercury"
-                getPlanetEvent().contains("Venus")-> "venus"
-                getPlanetEvent().contains("Mars")-> "mars"
-                getPlanetEvent().contains("Jupiter")-> "jupiter"
-                getPlanetEvent().contains("Saturn")-> "saturn"
-                getPlanetEvent().contains("Uranus")-> "uranus"
-                getPlanetEvent().contains("Neptune")-> "neptune"
-                getPlanetEvent().contains("Pluto")-> "pluto"
-                getPlanetEvent().contains("Meteor")-> "shower"
-                getPlanetEvent().contains("meteor")-> "shower"
-                else -> "none 0"
+
+                x.contains("Moon") -> "moon"
+                x.contains("Solstice" )-> "sun"
+                x.contains("Equinox")-> "sun"
+                x.contains("solstice")-> "sun"
+                x.contains("equinox")-> "sun"
+                x.contains("Mercury")-> "mercury"
+                x.contains("Venus")-> "venus"
+                x.contains("Mars")-> "mars"
+                x.contains("Jupiter")-> "jupiter"
+                x.contains("Saturn")-> "saturn"
+                x.contains("Uranus")-> "uranus"
+                x.contains("Neptune")-> "neptune"
+                x.contains("Pluto")-> "pluto"
+                x.contains("Meteor")-> "shower"
+                x.contains("meteor")-> "shower"
+                else -> "none"
             }
 
             return planetType
         }
 
-        private fun getPlanetEventTYPE1(): String {
-
-            val planetType = when{
-                getPlanetEvent().contains("Pink") -> "moonpink"
-                getPlanetEvent().contains("Harvest") -> "moonharvest"
-                getPlanetEvent().contains("Worm") -> "moonworm"
-                getPlanetEvent().contains("Snow") -> "moonsnow"
-                getPlanetEvent().contains("Cold") -> "mooncold"
-                getPlanetEvent().contains("Corn") -> "mooncorn"
-                getPlanetEvent().contains("Strawberry") -> "moonstrawberry"
-                getPlanetEvent().contains("Wolf") -> "moonwolf"
-                getPlanetEvent().contains("Sturgeon") -> "moonbanimal"
-                getPlanetEvent().contains("Buck") -> "moonbanimal"
-                getPlanetEvent().contains("Flower") -> "moonpink"
-                getPlanetEvent().contains("Beaver") -> "moonbeaver"
-                else -> "none 0"
-            }
-
-            return planetType
-        }
-        private fun getPlanetEventTYPE2(): String {
-
-            val planetType2 : String = when{
-                getPlanetEvent().contains("Pink") -> "moonpink"
-                getPlanetEvent().contains("Harvest") -> "moonharvest"
-                getPlanetEvent().contains("Worm") -> "moonworm"
-                getPlanetEvent().contains("Snow") -> "moonsnow"
-                getPlanetEvent().contains("Cold") -> "mooncold"
-                getPlanetEvent().contains("Corn") -> "mooncorn"
-                getPlanetEvent().contains("Strawberry") -> "moonstrawberry"
-                getPlanetEvent().contains("Wolf") -> "moonwolf"
-                getPlanetEvent().contains("Sturgeon") -> "moonbanimal"
-                getPlanetEvent().contains("Buck") -> "moonbanimal"
-                getPlanetEvent().contains("Flower") -> "moonpink"
-                getPlanetEvent().contains("Beaver") -> "moonbeaver"
-                getPlanetEvent().contains("Solstice" )-> "sun"
-                getPlanetEvent().contains("Equinox")-> "sun"
-                getPlanetEvent().contains("solstice")-> "sun"
-                getPlanetEvent().contains("equinox")-> "sun"
-                getPlanetEvent().contains("Mercury")-> "mercury"
-                getPlanetEvent().contains("Venus")-> "venus"
-                getPlanetEvent().contains("Mars")-> "mars"
-                getPlanetEvent().contains("Jupiter")-> "jupiter"
-                getPlanetEvent().contains("Saturn")-> "saturn"
-                getPlanetEvent().contains("Uranus")-> "uranus"
-                getPlanetEvent().contains("Neptune")-> "neptune"
-                getPlanetEvent().contains("Pluto")-> "pluto"
-                getPlanetEvent().contains("Meteor")-> "shower"
-                getPlanetEvent().contains("meteor")-> "shower"
-                getPlanetEvent().contains("None")-> "none 0"
-                else -> "none 0"
-            }
-
-            return planetType2
-        }
-
-        private fun getPlanetEventTYPE3(): String {
-
-            val planetType3 = when{
-                getPlanetEvent3().contains("moon") -> "moon"
-                getPlanetEvent3().contains("Moon") -> "moon"
-                getPlanetEvent3().contains("Solstice" )-> "sun"
-                getPlanetEvent3().contains("Equinox")-> "sun"
-                getPlanetEvent3().contains("solstice")-> "sun"
-                getPlanetEvent3().contains("equinox")-> "sun"
-                getPlanetEvent3().contains("Mercury")-> "mercury"
-                getPlanetEvent3().contains("Venus")-> "venus"
-                getPlanetEvent3().contains("Mars")-> "mars"
-                getPlanetEvent3().contains("Jupiter")-> "jupiter"
-                getPlanetEvent3().contains("Saturn")-> "saturn"
-                getPlanetEvent3().contains("Uranus")-> "uranus"
-                getPlanetEvent3().contains("Neptune")-> "neptune"
-                getPlanetEvent3().contains("Pluto")-> "pluto"
-                getPlanetEvent3().contains("Meteor")-> "sun"
-                getPlanetEvent3().contains("meteor")-> "sun"
-                getPlanetEvent3().contains("None")-> "none 0"
-                else -> "none 0"
-            }
-
-            return planetType3
-        }
 
 
 
@@ -1185,17 +1096,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Waning Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.leftcrescent)
                         else-> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
                     }
-                    4 -> when(getPlanetEventTYPE()){
-                        "moonanimal"-> BitmapFactory.decodeResource(resources, R.drawable.moonanimal)
-                        "moonbeaver"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
-                        "mooncold"-> BitmapFactory.decodeResource(resources, R.drawable.mooncold)
-                        "mooncorn"-> BitmapFactory.decodeResource(resources, R.drawable.mooncorn)
-                        "moonharvest"-> BitmapFactory.decodeResource(resources, R.drawable.moonharvest)
-                        "moonpink"-> BitmapFactory.decodeResource(resources, R.drawable.moonpink)
-                        "moonsnow"-> BitmapFactory.decodeResource(resources, R.drawable.moonsnow)
-                        "moonstrawberry"-> BitmapFactory.decodeResource(resources, R.drawable.moonwolf)
-                        "moonworm"-> BitmapFactory.decodeResource(resources, R.drawable.moonworm)
-                        "moonwolf"-> BitmapFactory.decodeResource(resources, R.drawable.moonbeaver)
+                    4 -> when(getPlanetEventTYPE(filterPlanetNews())){
                         "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.shower)
                         "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
                         "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
@@ -1205,44 +1106,31 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
                         "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
                         "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
-                        "none" -> when(getPlanetEventTYPE3()){
-                            "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
-                            "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
-                            "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
-                            "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
-                            "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
-                            "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
-                            "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
-                            "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
-                            "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
+                        "pluto"-> BitmapFactory.decodeResource(resources, R.drawable.pluto1)
+                        "none" -> when (getDayorNight()){
+                            "Day" -> BitmapFactory.decodeResource(resources, R.drawable.earth)
+                            "Night" -> BitmapFactory.decodeResource(resources, R.drawable.earthnight)
+                            else -> BitmapFactory.decodeResource(resources, R.drawable.earth) }
+                        else -> BitmapFactory.decodeResource(resources, R.drawable.earth)}
 
-                            else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
-                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
+                   5 -> when(getPlanetEventTYPE(filterPlanetNews2())){
+                       "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.shower)
+                       "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
+                       "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
+                       "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
+                       "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
+                       "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
+                       "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
+                       "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
+                       "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
+                       "pluto"-> BitmapFactory.decodeResource(resources, R.drawable.pluto1)
+                       "none" -> when (getDayorNight()){
+                           "Day" -> BitmapFactory.decodeResource(resources, R.drawable.earth)
+                           "Night" -> BitmapFactory.decodeResource(resources, R.drawable.earthnight)
+                           else -> BitmapFactory.decodeResource(resources, R.drawable.earth) }
+                       else -> BitmapFactory.decodeResource(resources, R.drawable.earth)}
 
-                    5 -> when(getPlanetEventTYPE2()){
-                        "meteor"-> BitmapFactory.decodeResource(resources, R.drawable.shower)
-                        "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
-                        "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
-                        "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
-                        "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
-                        "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
-                        "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
-                        "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
-                        "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
-                        "none" -> when(getPlanetEventTYPE3()){
-                            "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
-                            "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
-                            "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
-                            "venus"-> BitmapFactory.decodeResource(resources, R.drawable.venus)
-                            "mars"-> BitmapFactory.decodeResource(resources, R.drawable.mars)
-                            "jupiter"-> BitmapFactory.decodeResource(resources, R.drawable.jupiter)
-                            "saturn"-> BitmapFactory.decodeResource(resources, R.drawable.saturn)
-                            "uranus"-> BitmapFactory.decodeResource(resources, R.drawable.uranus)
-                            "neptune"-> BitmapFactory.decodeResource(resources, R.drawable.neptune)
-                            else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
-                        else -> BitmapFactory.decodeResource(resources, R.drawable.sun)}
-
-                    6 -> when(getPlanetEventTYPE3()){
+                    6 -> when(getPlanetEventTYPE(getPlanetEvent3())){
                         "moon"-> BitmapFactory.decodeResource(resources, R.drawable.plainmoon)
                         "sun"-> BitmapFactory.decodeResource(resources, R.drawable.sun)
                         "mercury"-> BitmapFactory.decodeResource(resources, R.drawable.mercury)
