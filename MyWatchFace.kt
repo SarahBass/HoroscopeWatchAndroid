@@ -775,8 +775,10 @@ class MyWatchFace : CanvasWatchFaceService() {
             }
             return newMoonDate.toString()
         }
-
-
+        private fun getPlanetEventNumber(): Int {
+            var result =getPlanetEvent().filter { it.isDigit() }
+            return Integer.parseInt(result)
+        }
         private fun getPlanetEvent(): String {
             val d = Date()
             val sdf0 = SimpleDateFormat("yyyy MMMM")
