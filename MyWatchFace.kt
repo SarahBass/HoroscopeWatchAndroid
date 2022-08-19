@@ -786,31 +786,29 @@ class MyWatchFace : CanvasWatchFaceService() {
             return Integer.parseInt(result)
         }
 
+
+
         private fun filterPlanetNews(): String {
             val d = Date()
             val sdf3 = SimpleDateFormat("d")
             val dayOfMonth: String = sdf3.format(d)
 
             val filteredString =
+                if (getPlanetEventNumber() < getPlanetEventNumber2()){
                 if (getPlanetEventNumber() >= Integer.parseInt(dayOfMonth)) {
                     getPlanetEvent()
-                }else {"none"}
+                }else {"none"}}
+            else if (getPlanetEventNumber() > getPlanetEventNumber2()){
+                    if (getPlanetEventNumber2() >= Integer.parseInt(dayOfMonth)) {
+                        getPlanetEvent2()
+                    }else {"none"}}
+                else {"none"}
 
             return filteredString
         }
 
-        private fun filterPlanetNews2(): String {
-            val d = Date()
-            val sdf3 = SimpleDateFormat("d")
-            val dayOfMonth: String = sdf3.format(d)
 
-            val filteredString =
-                if (getPlanetEventNumber2() >= Integer.parseInt(dayOfMonth)) {
-                    getPlanetEvent2()
-                }else {"none"}
 
-            return filteredString
-        }
 
         private fun getPlanetEvent(): String {
             val d = Date()
