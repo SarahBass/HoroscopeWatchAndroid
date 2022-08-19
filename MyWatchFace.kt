@@ -911,7 +911,29 @@ class MyWatchFace : CanvasWatchFaceService() {
                     "2025 November" -> "Uranus opposition – November 21"
                     "2025 December" -> "December 14 - Geminids Meteor Shower"
 
+                    "2026 December" -> "December 14 - Geminids Meteor Shower"
+                    "2027 December" -> "December 14 - Geminids Meteor Shower"
+                    "2028 December" -> "December 14 - Geminids Meteor Shower"
+                    "2029 December" -> "December 14 - Geminids Meteor Shower"
+                    "2030 December" -> "December 14 - Geminids Meteor Shower"
 
+                    "2026 August" -> "August 13 - Perseids Meteor Shower"
+                    "2027 August" -> "August 13 - Perseids Meteor Shower"
+                    "2028 August" -> "August 13 - Perseids Meteor Shower"
+                    "2029 August" -> "August 13 - Perseids Meteor Shower"
+                    "2030 August" -> "August 13 - Perseids Meteor Shower"
+
+                    "2026 May" -> "May 7 - Eta Aquarids Meteor Shower"
+                    "2027 May" -> "May 7 - Eta Aquarids Meteor Shower"
+                    "2028 May" -> "May 7 - Eta Aquarids Meteor Shower"
+                    "2029 May" -> "May 7 - Eta Aquarids Meteor Shower"
+                    "2030 May" -> "May 7 - Eta Aquarids Meteor Shower"
+
+                    "2026 January" -> "January 4 - Quadrantids Meteor Shower"
+                    "2027 January" -> "January 4 - Quadrantids Meteor Shower"
+                    "2028 January" -> "January 4 - Quadrantids Meteor Shower"
+                    "2029 January" -> "January 4 - Quadrantids Meteor Shower"
+                    "2030 January" -> "January 4 - Quadrantids Meteor Shower"
                     else -> "none 0"
                 }
 
