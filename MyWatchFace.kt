@@ -478,8 +478,8 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             drawAnimation(canvas, bounds)
             //getToast()
             //drawStepsFace(canvas)
-            drawDates(canvas)
-            drawDatesTen(canvas)
+            drawDates(canvas, bounds)
+            drawDatesTen(canvas, bounds)
             //drawMonthFace(canvas)
             //drawMonth10(canvas, bounds)
             drawDay(canvas, bounds)
@@ -1968,25 +1968,26 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             val d = Date()
             val day: String = sdf.format(d)
 
-            var drawable : Int = when ((floor(( (Integer.parseInt(day)/10)).toDouble()).toInt())){
-                0 ->R.drawable.dateh0
-                1 ->R.drawable.dateh1
-                2 ->R.drawable.dateh2
-                3 ->R.drawable.dateh3
-                4 ->R.drawable.dateh4
-                5 ->R.drawable.dateh5
-                6 ->R.drawable.dateh6
-                7 ->R.drawable.dateh7
-                8 ->R.drawable.dateh8
-                9 ->R.drawable.dateh9
-                else -> R.drawable.dateh0}
+            var drawable: Int = when ((floor(((Integer.parseInt(day) / 10)).toDouble()).toInt())) {
+                0 -> R.drawable.dateh0
+                1 -> R.drawable.dateh1
+                2 -> R.drawable.dateh2
+                3 -> R.drawable.dateh3
+                4 -> R.drawable.dateh4
+                5 -> R.drawable.dateh5
+                6 -> R.drawable.dateh6
+                7 -> R.drawable.dateh7
+                8 -> R.drawable.dateh8
+                9 -> R.drawable.dateh9
+                else -> R.drawable.dateh0
+            }
 
 
             if (mAmbient) {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left -15 , bounds.top, bounds.right -15   , bounds.bottom)
+                val dst = Rect(bounds.left - 15, bounds.top, bounds.right - 15, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -1994,39 +1995,11 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                     dst,
                     null
                 )
-            }else{}
+            } else {
+            }
         }
 
-        private fun drawHeartRates(canvas: Canvas, bounds: Rect) {
-            val yourHeart = heartRate.roundToInt()
 
-            var drawable : Int = when (yourHeart % 10){
-                0 ->R.drawable.hearratet0
-                1 ->R.drawable.heartrate1
-                2 ->R.drawable.heartrate2
-                3 ->R.drawable.heartrate3
-                4 ->R.drawable.heartrate4
-                5 ->R.drawable.heartrate5
-                6 ->R.drawable.heartrate6
-                7 ->R.drawable.heartrate7
-                8 ->R.drawable.heartrate8
-                9 ->R.drawable.heartrate9
-                else -> R.drawable.hearratet0}
-
-            if (mAmbient) {
-                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
-
-                val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left  , bounds.top , bounds.right   , bounds.bottom )
-
-                canvas.drawBitmap(
-                    bitmap,
-                    src,
-                    dst,
-                    null
-                )
-            }else{}
-        }
 
         /**
          * Handle updating the time periodically in interactive mode.
