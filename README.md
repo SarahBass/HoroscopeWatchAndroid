@@ -10,13 +10,27 @@ WORK IN PROGRESS- NOT COMPLETE
 ----------
 Features:
 -----------
+> Moon Phases
+
+> Planet Updates
+
+> Almanac Moons
+
+> Ancient Astrology 
+
+> Winter, Fall, Summer, Spring Solstice & Equinox
+
+> Day/Night AM/PM
+
+> Month, Day, Date, Heart Rate, Steps 
+
 > Daily Background Change
 
 > Holiday Modes 
 
-> Animated Sprite Character
+> Animated Sprite Characters
 
-
+> Amazing Astrology Watch Ambient Mode
 
 -----------
 
