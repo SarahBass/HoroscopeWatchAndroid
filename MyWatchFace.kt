@@ -8,6 +8,10 @@ import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
@@ -22,8 +26,9 @@ import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
-
-
+import kotlin.math.roundToInt
+import android.util.Log
+import kotlin.math.floor
 
 /**
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
@@ -43,6 +48,9 @@ private const val SECOND_TICK_STROKE_WIDTH = 2f
 private const val CENTER_GAP_AND_CIRCLE_RADIUS = 4f
 
 private const val SHADOW_RADIUS = 6f
+private var counter: Int = 0
+private var heartRate: Float = 0f
+private var stepCount: Float = 0f
 
 /**
  * Analog watch face with a ticking second hand. In ambient mode, the second hand isn"t
@@ -59,14 +67,58 @@ private const val SHADOW_RADIUS = 6f
  */
 
 
-class MyWatchFace : CanvasWatchFaceService() {
+class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
+
+
+
+    override fun onCreate() {
+        Log.i("tag", "onStart Service ${this.application.applicationInfo}")
+
+        val mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        val mHeartRateSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)
+        mSensorManager.registerListener(this, mHeartRateSensor, SensorManager.SENSOR_DELAY_NORMAL, 5_000_000);
+
+        val mStepCounter = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
+        mSensorManager.registerListener(this, mStepCounter, SensorManager.SENSOR_DELAY_NORMAL, 5_000_000);
+
+        super.onCreate()
+    }
+
+    override fun onStart(intent: Intent?, startId: Int) {
+        Log.i("tag", "onStart Service $intent")
+
+        super.onStart(intent, startId)
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.i("tag", "onStart Service $intent")
+
+//        val CHANNEL_ID = "my_channel_01"
+//        val channel = NotificationChannel(
+//            CHANNEL_ID,
+//            "Channel human readable title",
+//            NotificationManager.IMPORTANCE_DEFAULT
+//        )
+//
+//        (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(
+//            channel
+//        )
+//
+//        val notification: Notification = Notification.Builder(this, CHANNEL_ID)
+//            .setContentTitle("")
+//            .setContentText("").build()
+//
+//        this.startForeground(1, notification)
+
+        return super.onStartCommand(intent, flags, startId)
+    }
 
     override fun onCreateEngine(): Engine {
         return Engine()
     }
 
-    private class EngineHandler(reference: Engine) : Handler() {
-        private val mWeakReference: WeakReference<Engine> = WeakReference(reference)
+    private class EngineHandler(reference: MyWatchFace.Engine) : Handler() {
+        private val mWeakReference: WeakReference<MyWatchFace.Engine> = WeakReference(reference)
 
         override fun handleMessage(msg: Message) {
             val engine = mWeakReference.get()
@@ -77,6 +129,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             }
         }
     }
+
 
     inner class Engine : CanvasWatchFaceService.Engine() {
 
@@ -148,8 +201,8 @@ class MyWatchFace : CanvasWatchFaceService() {
             val moonPercent : Double = newMoondifference / LUNAR_MONTH
 
             val moonString : String =
-                if (fullMoondifference in 0..1 ){"Full Moon"}
-            else if (newMoondifference in 0..1 ){"New Moon"}
+                if (fullMoondifference == 0){"Full Moon"}
+            else if (newMoondifference == 0 ){"New Moon"}
                 else if (Integer.parseInt(dayOfMonth) > (Integer.parseInt(getFullMoonDate()))) {"Waning " +
                         if ((moonPercent >= .05 && moonPercent < 0.25) || (moonPercent >= 0.75 && moonPercent < 0.95)){ "Crescent Moon" }
                         else if ((moonPercent >= 0.25 && moonPercent < 0.35)||(moonPercent >= 0.65 && moonPercent < 0.75) ){ "Half Moon"}
@@ -159,7 +212,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         else if ((moonPercent >= 0.25 && moonPercent < 0.35)||(moonPercent >= 0.65 && moonPercent < 0.75) ){ "Half Moon"}
                         else {"Gibbous Moon"}}
                 else{"Plain Moon"}
-               // }
+
             return moonString
         }
 
@@ -171,19 +224,27 @@ class MyWatchFace : CanvasWatchFaceService() {
                 color = Color.BLACK
             }
             mBackgroundBitmap = getAstrologyBackground()
-
-            /* Extracts colors from background image to improve watchface style. */
+/* Extracts colors from background image to improve watchface style. */
             Palette.from(mBackgroundBitmap).generate {
                 it?.let {
-                    mWatchHandHighlightColor = it.getVibrantColor(Color.RED)
+                    mWatchHandHighlightColor = it.getVibrantColor(Color.WHITE)
                     mWatchHandColor = it.getLightVibrantColor(Color.WHITE)
                     mWatchHandShadowColor = it.getDarkMutedColor(Color.BLACK)
                     updateWatchHandStyle()
                 }
-
-
             }
         }
+
+    private fun changeWandColor() {
+        /* Extracts colors from background image to improve watchface style. */
+        Palette.from(mBackgroundBitmap).generate {
+            it?.let {
+                mWatchHandHighlightColor = it.getVibrantColor(Color.WHITE)
+                mWatchHandColor = it.getLightVibrantColor(Color.WHITE)
+                mWatchHandShadowColor = it.getDarkMutedColor(Color.BLACK)
+                updateWatchHandStyle()
+            }
+        }}
 
         private fun initializeWatchFace() {
             /* Set defaults for colors */
@@ -377,7 +438,35 @@ class MyWatchFace : CanvasWatchFaceService() {
             grayPaint.colorFilter = filter
             canvas.drawBitmap(mBackgroundBitmap, 0f, 0f, grayPaint)
         }
+        private fun drawDay(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("EEE")
+            val d = Date()
+            val dayOfTheWeek: String = sdf.format(d)
+            var drawable : Int = when (dayOfTheWeek){
+                "Mon" ->R.drawable.monh
+                "Tues" ->R.drawable.tueh
+                "Wed" ->R.drawable.wedh
+                "Thu" ->R.drawable.thuh
+                "Fri" ->R.drawable.frih
+                "Sat" ->R.drawable.sath
+                "Sun" ->R.drawable.sunh
 
+                else -> R.drawable.sunh}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left, bounds.top, bounds.right, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
 
 
         override fun onDraw(canvas: Canvas, bounds: Rect) {
@@ -387,7 +476,22 @@ class MyWatchFace : CanvasWatchFaceService() {
             drawBackground(canvas)
             drawWatchFace(canvas)
             drawAnimation(canvas, bounds)
+            //getToast()
+            //drawStepsFace(canvas)
+            drawDates(canvas)
+            drawDatesTen(canvas)
+            //drawMonthFace(canvas)
+            //drawMonth10(canvas, bounds)
+            drawDay(canvas, bounds)
+            //drawDayTens(canvas, bounds)
+            //drawMoon(canvas, bounds)
+            //drawHoroscope(canvas, bounds)
+            //drawSolar(canvas, bounds)
+            drawHeartRates(canvas, bounds)
+            drawHeartRatesTens(canvas, bounds)
+            drawHeartRatesHundreds(canvas, bounds)
             initGrayBackgroundBitmap()
+            changeWandColor()
         }
 
         private fun drawBackground(canvas: Canvas) {
@@ -445,7 +549,7 @@ class MyWatchFace : CanvasWatchFaceService() {
 
             canvas.rotate(hoursRotation, mCenterX, mCenterY)
 
-            if ((mCalendar.get(Calendar.MINUTE) % 9 == 2)||(mCalendar.get(Calendar.MINUTE) % 9 == 1)) {
+            if ((counter == 2)||(counter == 1)) {
                 canvas.drawLine(
                     mCenterX,
                     mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
@@ -552,7 +656,25 @@ class MyWatchFace : CanvasWatchFaceService() {
          * Captures tap event (and tap type). The [WatchFaceService.TAP_TYPE_TAP] case can be
          * used for implementing specific logic to handle the gesture.
          */
+
         override fun onTapCommand(tapType: Int, x: Int, y: Int, eventTime: Long) {
+
+            //Shows different methods to call strings
+            when (tapType) {
+                TAP_TYPE_TOUCH -> {
+                    // The user has started touching the screen.
+                }
+                TAP_TYPE_TOUCH_CANCEL -> {
+                    // The user has started a different gesture or otherwise cancelled the tap.
+                }
+                TAP_TYPE_TAP -> {counter +=1}
+                    else -> {counter += 0}}
+                    if (counter > 8){counter = 0}
+
+            invalidate()
+        }
+/*
+        private fun getToast() {
             val frameTime = INTERACTIVE_UPDATE_RATE_MS
             val sdf = SimpleDateFormat("EEE")
             val sdf1 = SimpleDateFormat("EEEE")
@@ -572,59 +694,112 @@ class MyWatchFace : CanvasWatchFaceService() {
             val fullDateSpaces: String = sdf5.format(d)
             val timeSpecific : String = sdf6.format(d)
             val amPM : String = sdf7.format(d)
+            when (counter) {
 
-            //Shows different methods to call strings
-            when (tapType) {
-                TAP_TYPE_TOUCH -> {
-                    // The user has started touching the screen.
+                0 -> when (getHoroscope()) {
+                    "Aquarius" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope0,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Aries" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope1,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Cancer" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope2,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Capricorn" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope3,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Gemini" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope4,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Leo" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope5,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Libra" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope6,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Pisces" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope7,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Sagittarius" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope8,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Scorpio" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope9,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Taurus" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope10,
+                        Toast.LENGTH_SHORT
+                    )
+                    "Virgo" -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope11,
+                        Toast.LENGTH_SHORT
+                    )
+                    else -> Toast.makeText(
+                        applicationContext,
+                        R.string.horoscope2,
+                        Toast.LENGTH_SHORT
+                    )
                 }
-                TAP_TYPE_TOUCH_CANCEL -> {
-                    // The user has started a different gesture or otherwise cancelled the tap.
+                1 -> Toast.makeText(applicationContext, getAnimationCase(), Toast.LENGTH_SHORT)
+                2 -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
+                3 -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
+                4 -> if (getPlanetEventTYPE(filterPlanetNews()) == "none") {
+                    Toast.makeText(
+                        applicationContext,
+                        "$dayOfTheWeek , $fullDateSpaces",
+                        Toast.LENGTH_SHORT
+                    )
+                } else {
+                    Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
                 }
-                TAP_TYPE_TAP ->
-
-                    when (mCalendar.get(Calendar.MINUTE)%9) {
-
-                        0 -> when (getHoroscope()){
-                            "Aquarius" -> Toast.makeText(applicationContext, R.string.horoscope0, Toast.LENGTH_SHORT)
-                            "Aries" -> Toast.makeText(applicationContext, R.string.horoscope1, Toast.LENGTH_SHORT)
-                            "Cancer" -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)
-                            "Capricorn" -> Toast.makeText(applicationContext, R.string.horoscope3, Toast.LENGTH_SHORT)
-                            "Gemini" -> Toast.makeText(applicationContext, R.string.horoscope4, Toast.LENGTH_SHORT)
-                            "Leo" -> Toast.makeText(applicationContext, R.string.horoscope5, Toast.LENGTH_SHORT)
-                            "Libra" -> Toast.makeText(applicationContext, R.string.horoscope6, Toast.LENGTH_SHORT)
-                            "Pisces" -> Toast.makeText(applicationContext, R.string.horoscope7, Toast.LENGTH_SHORT)
-                            "Sagittarius" -> Toast.makeText(applicationContext, R.string.horoscope8, Toast.LENGTH_SHORT)
-                            "Scorpio" -> Toast.makeText(applicationContext, R.string.horoscope9, Toast.LENGTH_SHORT)
-                            "Taurus" -> Toast.makeText(applicationContext, R.string.horoscope10, Toast.LENGTH_SHORT)
-                            "Virgo" -> Toast.makeText(applicationContext, R.string.horoscope11, Toast.LENGTH_SHORT)
-                            else -> Toast.makeText(applicationContext, R.string.horoscope2, Toast.LENGTH_SHORT)}
-                        1 ->Toast.makeText(applicationContext, getAnimationCase(), Toast.LENGTH_SHORT)
-                        2 -> Toast.makeText(applicationContext, timeSpecific, Toast.LENGTH_SHORT)
-                        3 -> Toast.makeText(applicationContext, getMoonPhase(), Toast.LENGTH_SHORT)
-                        4 -> if(getPlanetEventTYPE(filterPlanetNews()) == "none"){
-                            Toast.makeText(applicationContext,"$dayOfTheWeek , $fullDateSpaces" , Toast.LENGTH_SHORT)
-                        }else{
-                            Toast.makeText(applicationContext, getPlanetEvent(), Toast.LENGTH_SHORT)
-                        }
-                        5 -> if(getPlanetEventTYPE(filterPlanetNews2()) == "none"){
-                            Toast.makeText(applicationContext,"$dayOfTheWeek , $fullDateSpaces" , Toast.LENGTH_SHORT)
-                        }else{
-                            Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
-                        }
-                        6 -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
-                        7 -> Toast.makeText(applicationContext, getPlanetEvent1() + ": "+ monthOfYear + " " + getFullMoonDate() , Toast.LENGTH_SHORT)
-                        8 -> Toast.makeText(applicationContext,
-                            "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT)
-                        else ->  Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)}
-
-                        .show()
-
+                5 -> if (getPlanetEventTYPE(filterPlanetNews2()) == "none") {
+                    Toast.makeText(
+                        applicationContext,
+                        "$dayOfTheWeek , $fullDateSpaces",
+                        Toast.LENGTH_SHORT
+                    )
+                } else {
+                    Toast.makeText(applicationContext, getPlanetEvent2(), Toast.LENGTH_SHORT)
+                }
+                6 -> Toast.makeText(applicationContext, getPlanetEvent3(), Toast.LENGTH_SHORT)
+                7 -> Toast.makeText(
+                    applicationContext,
+                    getPlanetEvent1() + ": " + monthOfYear + " " + getFullMoonDate(),
+                    Toast.LENGTH_SHORT
+                )
+                8 -> Toast.makeText(
+                    applicationContext,
+                    "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT
+                )
+                else -> Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)
             }
-            invalidate()
+
+                .show()
         }
-
-
+*/
         private fun getFullMoonDate(): String {
             val d = Date()
             val sdf0 = SimpleDateFormat("yyyy MMMM")
@@ -1148,12 +1323,13 @@ class MyWatchFace : CanvasWatchFaceService() {
 
 
         private fun getAstrologyBackground(): Bitmap {
-            val sdf2 = SimpleDateFormat("MMMM")
+
+        val frameTime = INTERACTIVE_UPDATE_RATE_MS
+        val sdf2 = SimpleDateFormat("MMMM")
             val d = Date()
             val monthOfYear: String = sdf2.format(d)
-
             val backgroundBitmap: Bitmap =
-               when (mCalendar.get(Calendar.MINUTE) % 9) {
+               when (counter) {
                     0-> when (getHoroscope()) {
                         "Aquarius" -> BitmapFactory.decodeResource(resources, R.drawable.aquarius)
                         "Aries" -> BitmapFactory.decodeResource(resources, R.drawable.aries)
@@ -1168,8 +1344,23 @@ class MyWatchFace : CanvasWatchFaceService() {
                         "Taurus" -> BitmapFactory.decodeResource(resources, R.drawable.taurus)
                         "Virgo" -> BitmapFactory.decodeResource(resources, R.drawable.virgo)
                         else -> BitmapFactory.decodeResource(resources, R.drawable.cancer) }
-                   1->  BitmapFactory.decodeResource(resources, R.drawable.icerainbow)
-                    2->  BitmapFactory.decodeResource(resources, R.drawable.icerainbow)
+                    1-> if (getAnimationCase() == "Happy Holidays!") { BitmapFactory.decodeResource(resources, R.drawable.jewishholiday)}
+                       else if (getAnimationCase() =="It's Christmas Season!"){ BitmapFactory.decodeResource(resources, R.drawable.december1)}
+                        else if (getAnimationCase() == "Happy New Year's Eve!"){ BitmapFactory.decodeResource(resources, R.drawable.newyear)}
+                    else if (getAnimationCase() == "Happy New Year!"){ BitmapFactory.decodeResource(resources, R.drawable.newyear)}
+                    else if (getAnimationCase() == "Happy Lunar New Year!"){ BitmapFactory.decodeResource(resources, R.drawable.chinese)}
+                    else if (getAnimationCase() == "Winter Season"){ BitmapFactory.decodeResource(resources, R.drawable.jewishholiday)}
+                    else if (monthOfYear == "September"){ BitmapFactory.decodeResource(resources, R.drawable.school0)}
+                    else if (monthOfYear == "October"){ BitmapFactory.decodeResource(resources, R.drawable.october1)}
+                    else if (monthOfYear == "November"){ BitmapFactory.decodeResource(resources, R.drawable.november1)}
+                    else if (monthOfYear == "February"){BitmapFactory.decodeResource(resources, R.drawable.feb14)}
+                    else if (monthOfYear == "March"){ BitmapFactory.decodeResource(resources, R.drawable.march17)}
+                    else if (monthOfYear == "April"){ BitmapFactory.decodeResource(resources, R.drawable.springflower)}
+                    else if (monthOfYear == "May"){ BitmapFactory.decodeResource(resources, R.drawable.motherday)}
+                    else if (monthOfYear == "June"){ BitmapFactory.decodeResource(resources, R.drawable.easter)}
+                    else if (monthOfYear == "July" || (monthOfYear == "August")){ BitmapFactory.decodeResource(resources, R.drawable.summerbeach)}
+                    else { BitmapFactory.decodeResource(resources, R.drawable.icerainbow)}
+                   2->  BitmapFactory.decodeResource(resources, R.drawable.icerainbow)
                     3 -> when(getMoonPhase()){
                         "New Moon" -> BitmapFactory.decodeResource(resources, R.drawable.newmoon)
                         "Waxing Crescent Moon" -> BitmapFactory.decodeResource(resources, R.drawable.rightcrescent)
@@ -1375,7 +1566,7 @@ class MyWatchFace : CanvasWatchFaceService() {
             val d = Date()
             val monthOfYear: String = sdf2.format(d)
             var drawable =
-                if (mCalendar.get(Calendar.MINUTE) % 9 == 1){
+                if (counter== 1){
                     if (getAnimationCase() == "Happy Holidays!") {
                             when (mCalendar.get(Calendar.SECOND) % 2) {
                                 0 -> R.drawable.jewishcandle0
@@ -1406,6 +1597,16 @@ class MyWatchFace : CanvasWatchFaceService() {
                             0 -> R.drawable.whitebright0
                             1-> R.drawable.whitebright1
                             else -> R.drawable.whitebright1}}
+                    else if (monthOfYear == "July"|| monthOfYear == "August"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.starfishcoconut0
+                            1-> R.drawable.starfishcoconut1
+                            else -> R.drawable.darkrainbow0}}
+                    else if (monthOfYear == "September"|| monthOfYear == "June"){
+                        when (mCalendar.get(Calendar.SECOND) % 2) {
+                            0 -> R.drawable.darkrainbow0
+                            1-> R.drawable.darkrainbow1
+                            else -> R.drawable.darkrainbow0}}
                     else if (monthOfYear == "October"){
                         when (mCalendar.get(Calendar.SECOND) % 2) {
                             0 -> R.drawable.pumpkin0
@@ -1452,7 +1653,7 @@ class MyWatchFace : CanvasWatchFaceService() {
                         11 -> R.drawable.rainbow3
                         else -> R.drawable.rainbow1}
                 }}
-                else if (mCalendar.get(Calendar.MINUTE) % 9 == 2){
+                else if (counter == 2){
               when (mCalendar.get(Calendar.SECOND) % 12) {
                 0 -> R.drawable.rainbow1
                 1-> R.drawable.rainbow2
@@ -1612,9 +1813,9 @@ class MyWatchFace : CanvasWatchFaceService() {
                     else -> R.drawable.hourjumps12}}}}
 
             if (mAmbient) {
-                if ((mCalendar.get(Calendar.MINUTE) % 9 == 2)||(mCalendar.get(Calendar.MINUTE) % 9 == 1)){
-                drawable = R.drawable.blackandwhitestar}
-                else{drawable = R.drawable.blank}
+
+                drawable = R.drawable.astrowatchbg
+
 
             }
 
@@ -1637,6 +1838,196 @@ class MyWatchFace : CanvasWatchFaceService() {
             }
         }
 
+        private fun drawHeartRates(canvas: Canvas, bounds: Rect) {
+            val yourHeart = heartRate.roundToInt()
+
+            var drawable : Int = when (yourHeart % 10){
+                0 ->R.drawable.heartrateh0
+                1 ->R.drawable.heartrateh1
+                2 ->R.drawable.heartrateh2
+                3 ->R.drawable.heartrateh3
+                4 ->R.drawable.heartrateh4
+                5 ->R.drawable.heartrateh5
+                6 ->R.drawable.heartrateh6
+                7 ->R.drawable.heartrateh7
+                8 ->R.drawable.heartrateh8
+                9 ->R.drawable.heartrateh9
+                else -> R.drawable.heartrateh0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top , bounds.right   , bounds.bottom )
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+        private fun drawHeartRatesTens(canvas: Canvas, bounds: Rect) {
+
+            val yourHeart = heartRate.roundToInt()
+
+            var drawable : Int = when ((floor(((yourHeart % 100) / 10).toDouble()).toInt())){
+                0 ->R.drawable.heartrateh0
+                1 ->R.drawable.heartrateh1
+                2 ->R.drawable.heartrateh2
+                3 ->R.drawable.heartrateh3
+                4 ->R.drawable.heartrateh4
+                5 ->R.drawable.heartrateh5
+                6 ->R.drawable.heartrateh6
+                7 ->R.drawable.heartrateh7
+                8 ->R.drawable.heartrateh8
+                9 ->R.drawable.heartrateh9
+                else -> R.drawable.heartrateh0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top , bounds.right -20  , bounds.bottom )
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun drawHeartRatesHundreds(canvas: Canvas, bounds: Rect) {
+
+            val yourHeart = heartRate.roundToInt()
+
+            var drawable : Int = when (floor((yourHeart / 100).toDouble()).toInt()){
+                0 ->R.drawable.heartrateh0
+                1 ->R.drawable.heartrateh1
+                2 ->R.drawable.heartrateh2
+                3 ->R.drawable.heartrateh3
+                4 ->R.drawable.heartrateh4
+                5 ->R.drawable.heartrateh5
+                6 ->R.drawable.heartrateh6
+                7 ->R.drawable.heartrateh7
+                8 ->R.drawable.heartrateh8
+                9 ->R.drawable.heartrateh9
+                else -> R.drawable.heartrateh0}
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top , bounds.right -40  , bounds.bottom )
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+        private fun drawDates(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("d")
+            val d = Date()
+            val day: String = sdf.format(d)
+
+            var drawable : Int = when( Integer.parseInt(day)%10){
+                0 ->R.drawable.dateh0
+                1 ->R.drawable.dateh1
+                2 ->R.drawable.dateh2
+                3 ->R.drawable.dateh3
+                4 ->R.drawable.dateh4
+                5 ->R.drawable.dateh5
+                6 ->R.drawable.dateh6
+                7 ->R.drawable.dateh7
+                8 ->R.drawable.dateh8
+                9 ->R.drawable.dateh9
+                else -> R.drawable.dateh0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun drawDatesTen(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("d")
+            val d = Date()
+            val day: String = sdf.format(d)
+
+            var drawable : Int = when ((floor(( (Integer.parseInt(day)/10)).toDouble()).toInt())){
+                0 ->R.drawable.dateh0
+                1 ->R.drawable.dateh1
+                2 ->R.drawable.dateh2
+                3 ->R.drawable.dateh3
+                4 ->R.drawable.dateh4
+                5 ->R.drawable.dateh5
+                6 ->R.drawable.dateh6
+                7 ->R.drawable.dateh7
+                8 ->R.drawable.dateh8
+                9 ->R.drawable.dateh9
+                else -> R.drawable.dateh0}
+
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left -15 , bounds.top, bounds.right -15   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun drawHeartRates(canvas: Canvas, bounds: Rect) {
+            val yourHeart = heartRate.roundToInt()
+
+            var drawable : Int = when (yourHeart % 10){
+                0 ->R.drawable.hearratet0
+                1 ->R.drawable.heartrate1
+                2 ->R.drawable.heartrate2
+                3 ->R.drawable.heartrate3
+                4 ->R.drawable.heartrate4
+                5 ->R.drawable.heartrate5
+                6 ->R.drawable.heartrate6
+                7 ->R.drawable.heartrate7
+                8 ->R.drawable.heartrate8
+                9 ->R.drawable.heartrate9
+                else -> R.drawable.hearratet0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top , bounds.right   , bounds.bottom )
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
         /**
          * Handle updating the time periodically in interactive mode.
          */
@@ -1648,5 +2039,23 @@ class MyWatchFace : CanvasWatchFaceService() {
                 mUpdateTimeHandler.sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs)
             }
         }
+    }
+    override fun onSensorChanged(event: SensorEvent?) {
+        val mSensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+
+        if (event?.sensor == mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE)) {
+            event?.values?.get(0)?.let {
+                heartRate = it
+            }
+        }
+
+        if (event?.sensor == mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)) {
+            event?.values?.get(0)?.let {
+                stepCount = it
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(event: Sensor?, p1: Int) {
     }
 }
