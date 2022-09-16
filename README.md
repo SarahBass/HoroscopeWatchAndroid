@@ -6,7 +6,7 @@ WORK IN PROGRESS- NOT COMPLETE
 ## TicWatch E-3 WEAR OS
 <img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/night.gif" width="300" height="300">
 
-
+<img src="https://github.com/SarahBass/HoroscopeWatchAndroid/blob/main/GITHUB_PNG/githubsample.png" width="300" height="300">
 ----------
 Features:
 -----------
