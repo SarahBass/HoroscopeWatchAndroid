@@ -467,6 +467,23 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 )
             }else{}
         }
+        private fun drawStepsFace(canvas: Canvas) {
+            if(mAmbient){
+                val steps: Int = (stepCount / 100).roundToInt()
+                val innerTickRadius = mCenterX - 38
+                val outerTickRadius = mCenterX -42
+                for (tickIndex in 0..steps) {
+                    val tickRot = (tickIndex.toDouble() * Math.PI * 2.0 / 105).toFloat()
+                    val innerX = Math.sin(tickRot.toDouble()).toFloat() * innerTickRadius
+                    val innerY = (-Math.cos(tickRot.toDouble())).toFloat() * innerTickRadius
+                    val outerX = Math.sin(tickRot.toDouble()).toFloat() * outerTickRadius
+                    val outerY = (-Math.cos(tickRot.toDouble())).toFloat() * outerTickRadius
+                    canvas.drawLine(
+                        mCenterX + innerX, mCenterY + innerY,
+                        mCenterX + outerX, mCenterY + outerY, mTickAndCirclePaint
+                    )
+                }}else{}
+        }
 
 
         override fun onDraw(canvas: Canvas, bounds: Rect) {
@@ -477,13 +494,12 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             drawWatchFace(canvas)
             drawAnimation(canvas, bounds)
             //getToast()
-            //drawStepsFace(canvas)
+            drawStepsFace(canvas)
             drawDates(canvas, bounds)
             drawDatesTen(canvas, bounds)
-            //drawMonthFace(canvas)
-            //drawMonth10(canvas, bounds)
+            drawMonths(canvas, bounds)
+            drawMonthsTen(canvas, bounds)
             drawDay(canvas, bounds)
-            //drawDayTens(canvas, bounds)
             //drawMoon(canvas, bounds)
             //drawHoroscope(canvas, bounds)
             //drawSolar(canvas, bounds)
@@ -1987,7 +2003,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left - 15, bounds.top, bounds.right - 15, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right - 15, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -1998,6 +2014,76 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             } else {
             }
         }
+
+        private fun drawMonths(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("M")
+            val d = Date()
+            val month: String = sdf.format(d)
+
+            var drawable : Int = when( Integer.parseInt(month)%10){
+                0 ->R.drawable.dateh0
+                1 ->R.drawable.dateh1
+                2 ->R.drawable.dateh2
+                3 ->R.drawable.dateh3
+                4 ->R.drawable.dateh4
+                5 ->R.drawable.dateh5
+                6 ->R.drawable.dateh6
+                7 ->R.drawable.dateh7
+                8 ->R.drawable.dateh8
+                9 ->R.drawable.dateh9
+                else -> R.drawable.dateh0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right-30   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun drawMonthsTen(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("M")
+            val d = Date()
+            val month: String = sdf.format(d)
+
+            var drawable: Int = when ((floor(((Integer.parseInt(month) / 10)).toDouble()).toInt())) {
+                0 -> R.drawable.dateh0
+                1 -> R.drawable.dateh1
+                2 -> R.drawable.dateh2
+                3 -> R.drawable.dateh3
+                4 -> R.drawable.dateh4
+                5 -> R.drawable.dateh5
+                6 -> R.drawable.dateh6
+                7 -> R.drawable.dateh7
+                8 -> R.drawable.dateh8
+                9 -> R.drawable.dateh9
+                else -> R.drawable.dateh0
+            }
+
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top, bounds.right - 45, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            } else {
+            }
+        }
+
 
 
 
