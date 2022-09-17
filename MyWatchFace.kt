@@ -485,6 +485,192 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 }}else{}
         }
 
+        private fun draw24HourClock(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("m")
+            val d = Date()
+            val minutes: String = sdf.format(d)
+
+            var drawable : Int = when (Integer.parseInt(minutes)%10){
+                1->R.drawable._4hour1
+                2 ->R.drawable._4hour2
+                3 ->R.drawable._4hour3
+                4 ->R.drawable._4hour4
+                5->R.drawable._4hour5
+                6 ->R.drawable._4hour6
+                7 ->R.drawable._4hour7
+                8 ->R.drawable._4hour8
+                9 ->R.drawable._4hour9
+                0 ->R.drawable._4hour0
+                else -> R.drawable._4hour0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top, bounds.right, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun draw24HourClockTens(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("m")
+            val d = Date()
+            val minutes: String = sdf.format(d)
+
+            var drawable : Int = when (Integer.parseInt(minutes)/10){
+                1->R.drawable._4hour1
+                2 ->R.drawable._4hour2
+                3 ->R.drawable._4hour3
+                4 ->R.drawable._4hour4
+                5->R.drawable._4hour5
+                6 ->R.drawable._4hour6
+                7 ->R.drawable._4hour7
+                8 ->R.drawable._4hour8
+                9 ->R.drawable._4hour9
+                0 ->R.drawable._4hour0
+                else -> R.drawable._4hour0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top, bounds.right -20, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun draw24HourClockHundreds(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("H")
+            val d = Date()
+            val hours: String = sdf.format(d)
+
+            var drawable : Int = when (Integer.parseInt(hours)%10){
+                1->R.drawable._4hour1
+                2 ->R.drawable._4hour2
+                3 ->R.drawable._4hour3
+                4 ->R.drawable._4hour4
+                5->R.drawable._4hour5
+                6 ->R.drawable._4hour6
+                7 ->R.drawable._4hour7
+                8 ->R.drawable._4hour8
+                9 ->R.drawable._4hour9
+                0 ->R.drawable._4hour0
+                else -> R.drawable._4hour0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top, bounds.right-40, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun draw24HourClockThousands(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("H")
+            val d = Date()
+            val hours: String = sdf.format(d)
+
+            var drawable : Int = when (Integer.parseInt(hours)/10){
+                1->R.drawable._4hour1
+                2 ->R.drawable._4hour2
+                3 ->R.drawable._4hour3
+                4 ->R.drawable._4hour4
+                5->R.drawable._4hour5
+                6 ->R.drawable._4hour6
+                7 ->R.drawable._4hour7
+                8 ->R.drawable._4hour8
+                9 ->R.drawable._4hour9
+                0 ->R.drawable._4hour0
+                else -> R.drawable._4hour0}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top, bounds.right-60, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+        private fun drawAMPM(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("a")
+            val d = Date()
+            val amPM: String = sdf.format(d)
+
+            var drawable : Int = when (amPM){
+                "AM" ->R.drawable.amh
+                "PM"->R.drawable.pmh
+                else -> R.drawable.pmh}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+        private fun drawAstrology(canvas: Canvas, bounds: Rect) {
+
+            var drawable : Int = when (getHoroscope()){
+                "Aries" -> R.drawable.astroaries
+                "Taurus" -> R.drawable.astrotaurus
+                "Gemini" -> R.drawable.astrogemini
+                "Cancer" -> R.drawable.astrocancer
+                "Leo" -> R.drawable.astroleo
+                "Virgo" -> R.drawable.astrowoman
+                "Libra" -> R.drawable.astrolibra
+                "Scorpio" ->R.drawable.astroscorpion
+                "Sagittarius" -> R.drawable.astrosagit
+                "Capricorn" -> R.drawable.astrocapricorn
+                "Aquarius" -> R.drawable.astrocups
+                "Pisces" -> R.drawable.astropices
+                else -> R.drawable.astropices}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
 
         override fun onDraw(canvas: Canvas, bounds: Rect) {
             val now = System.currentTimeMillis()
@@ -501,8 +687,13 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             drawMonthsTen(canvas, bounds)
             drawDay(canvas, bounds)
             //drawMoon(canvas, bounds)
-            //drawHoroscope(canvas, bounds)
+            drawAstrology(canvas, bounds)
             //drawSolar(canvas, bounds)
+            draw24HourClock(canvas, bounds)
+            draw24HourClockTens(canvas, bounds)
+            draw24HourClockHundreds(canvas, bounds)
+            draw24HourClockThousands(canvas, bounds)
+            drawAMPM(canvas, bounds)
             drawHeartRates(canvas, bounds)
             drawHeartRatesTens(canvas, bounds)
             drawHeartRatesHundreds(canvas, bounds)
