@@ -843,7 +843,6 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             drawBackground(canvas)
             drawWatchFace(canvas)
             drawAnimation(canvas, bounds)
-            //getToast()
             drawStepsFace(canvas)
             drawDates(canvas, bounds)
             drawDatesTen(canvas, bounds)
@@ -1013,13 +1012,17 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 TAP_TYPE_TOUCH_CANCEL -> {
                     // The user has started a different gesture or otherwise cancelled the tap.
                 }
-                TAP_TYPE_TAP -> {counter +=1}
+                TAP_TYPE_TAP -> { counter +=1
+                    getToast()}
+
+
                     else -> {counter += 0}}
-                    if (counter > 8){counter = 0}
+                    if (counter > 8){counter = 0 }
+           
 
             invalidate()
         }
-/*
+
         private fun getToast() {
             val frameTime = INTERACTIVE_UPDATE_RATE_MS
             val sdf = SimpleDateFormat("EEE")
@@ -1041,6 +1044,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             val timeSpecific : String = sdf6.format(d)
             val amPM : String = sdf7.format(d)
             when (counter) {
+
 
                 0 -> when (getHoroscope()) {
                     "Aquarius" -> Toast.makeText(
@@ -1145,7 +1149,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
 
                 .show()
         }
-*/
+
         private fun getFullMoonDate(): String {
             val d = Date()
             val sdf0 = SimpleDateFormat("yyyy MMMM")
