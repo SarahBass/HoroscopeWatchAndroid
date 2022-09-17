@@ -1140,9 +1140,76 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                     applicationContext,
                     "$dayOfTheWeek , $fullDateSpaces", Toast.LENGTH_SHORT
                 )
-                else -> Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)
+                else ->
+                    when (getHoroscope()) {
+                        "Aquarius" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope0,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Aries" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope1,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Cancer" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope2,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Capricorn" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope3,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Gemini" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope4,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Leo" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope5,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Libra" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope6,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Pisces" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope7,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Sagittarius" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope8,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Scorpio" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope9,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Taurus" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope10,
+                            Toast.LENGTH_SHORT
+                        )
+                        "Virgo" -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope11,
+                            Toast.LENGTH_SHORT
+                        )
+                        else -> Toast.makeText(
+                            applicationContext,
+                            R.string.horoscope2,
+                            Toast.LENGTH_SHORT
+                        )
+                    }
             }
-            
+
 
                 .show()
         }
