@@ -216,9 +216,6 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             return moonString
         }
 
-
-
-
         private fun initializeBackground() {
             mBackgroundPaint = Paint().apply {
                 color = Color.BLACK
@@ -552,7 +549,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
         }
 
         private fun draw24HourClockHundreds(canvas: Canvas, bounds: Rect) {
-            val sdf = SimpleDateFormat("H")
+            val sdf = SimpleDateFormat("h")
             val d = Date()
             val hours: String = sdf.format(d)
 
@@ -585,7 +582,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
         }
 
         private fun draw24HourClockThousands(canvas: Canvas, bounds: Rect) {
-            val sdf = SimpleDateFormat("H")
+            val sdf = SimpleDateFormat("h")
             val d = Date()
             val hours: String = sdf.format(d)
 
@@ -616,6 +613,119 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 )
             }else{}
         }
+
+        private fun AmericanClockHours(canvas: Canvas, bounds: Rect) {
+            val d = Date()
+            val sdf1 = SimpleDateFormat("m")
+
+            val minutes: String = sdf1.format(d)
+            val sdf = SimpleDateFormat("h")
+            val hours: String = sdf.format(d)
+
+            var drawable : Int =
+                if (Integer.parseInt(minutes) >29){
+                    when(hours){
+                    "12"->R.drawable.ahalf12
+                    "1" ->R.drawable.ahalf1
+                    "2" ->R.drawable.ahalf2
+                    "3" ->R.drawable.ahalf3
+                    "4"->R.drawable.ahalf4
+                    "5" ->R.drawable.ahalf5
+                    "6" ->R.drawable.ahalf6
+                    "7" ->R.drawable.ahalf7
+                    "8" ->R.drawable.ahalf8
+                    "9" ->R.drawable.ahalf9
+                    "10" ->R.drawable.ahalf10
+                    "11" ->R.drawable.ahalf11
+                        else -> R.drawable.ahalf12}
+                }else{
+                    when (hours){
+                "12"->R.drawable.americanhour12
+                "1" ->R.drawable.americanhour1
+                "2" ->R.drawable.americanhour2
+                "3" ->R.drawable.americanhour3
+                "4"->R.drawable.americanhour4
+                "5" ->R.drawable.americanhour5
+                "6" ->R.drawable.americanhour6
+                "7" ->R.drawable.americanhour7
+                "8" ->R.drawable.americanhour8
+                "9" ->R.drawable.americanhour9
+                "10" ->R.drawable.americanhour10
+                "11" ->R.drawable.americanhour11
+                        else -> R.drawable.americanhour12}}
+
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top, bounds.right, bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun AmericanClockMinutes(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("m")
+
+            val d = Date()
+            val minutes: String = sdf.format(d)
+
+
+            var drawable : Int =
+                if (Integer.parseInt(minutes)%5 > 2){
+                    when ((floor((Integer.parseInt(minutes) / 5).toDouble()).toInt())) {
+                    12->R.drawable.ahalf12
+                    1 ->R.drawable.ahalf1
+                    2 ->R.drawable.ahalf2
+                    3 ->R.drawable.ahalf3
+                    4->R.drawable.ahalf4
+                    5 ->R.drawable.ahalf5
+                    6 ->R.drawable.ahalf6
+                    7 ->R.drawable.ahalf7
+                    8 ->R.drawable.ahalf8
+                    9 ->R.drawable.ahalf9
+                    10 ->R.drawable.ahalf10
+                    11 ->R.drawable.ahalf11
+                    else -> R.drawable.ahalf12}
+                }else {
+                    when ((floor((Integer.parseInt(minutes) / 5).toDouble()).toInt())) {
+                        12 -> R.drawable.americanhour12
+                        1 -> R.drawable.americanhour1
+                        2 -> R.drawable.americanhour2
+                        3 -> R.drawable.americanhour3
+                        4 -> R.drawable.americanhour4
+                        5 -> R.drawable.americanhour5
+                        6 -> R.drawable.americanhour6
+                        7 -> R.drawable.americanhour7
+                        8 -> R.drawable.americanhour8
+                        9 -> R.drawable.americanhour9
+                        10 -> R.drawable.americanhour10
+                        11 -> R.drawable.americanhour11
+                        else -> R.drawable.americanhour12
+                    }
+                }
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left , bounds.top , bounds.right , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+
         private fun drawAMPM(canvas: Canvas, bounds: Rect) {
             val sdf = SimpleDateFormat("a")
             val d = Date()
@@ -672,6 +782,60 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             }else{}
         }
 
+        private fun drawMoon(canvas: Canvas, bounds: Rect) {
+
+            var drawable : Int = when (getMoonPhase()){
+                    "New Moon" -> R.drawable.moonh0
+                    "Waxing Crescent Moon"-> R.drawable.moonh1
+                "Waxing Half Moon"-> R.drawable.moonh2
+                    "Waxing Gibbous Moon"-> R.drawable.moonh3
+                    "Full Moon" -> R.drawable.moonh4
+                        "Waxing Gibbous Moon"-> R.drawable.moonh5
+                "Waning Half Moon"-> R.drawable.moonh6
+                    "Waning Crescent Moon"-> R.drawable.moonh7
+                else -> R.drawable.moonh3}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
+        private fun drawSuns(canvas: Canvas, bounds: Rect) {
+            val sdf = SimpleDateFormat("D")
+            val d = Date()
+            val daysinyear: String = sdf.format(d)
+            var drawable : Int = when (Integer.parseInt(daysinyear)){
+                79 -> R.drawable.sprinequi //"Spring Equinox March 20th"
+                172 -> R.drawable.summersol//"Summer Solstice June 21st"
+                265 -> R.drawable.fallequi//"Fall Equinox: September 22nd"
+                355 -> R.drawable.wintersol//"Winter Solstice : December 21st"
+                else -> R.drawable.blank}
+
+            if (mAmbient) {
+                val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
+
+                val src = Rect(0, 0, bitmap.height, bitmap.width)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right   , bounds.bottom)
+
+                canvas.drawBitmap(
+                    bitmap,
+                    src,
+                    dst,
+                    null
+                )
+            }else{}
+        }
+
         override fun onDraw(canvas: Canvas, bounds: Rect) {
             val now = System.currentTimeMillis()
             mCalendar.timeInMillis = now
@@ -686,13 +850,15 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             drawMonths(canvas, bounds)
             drawMonthsTen(canvas, bounds)
             drawDay(canvas, bounds)
-            //drawMoon(canvas, bounds)
+            drawMoon(canvas, bounds)
             drawAstrology(canvas, bounds)
-            //drawSolar(canvas, bounds)
+            drawSuns(canvas, bounds)
             draw24HourClock(canvas, bounds)
             draw24HourClockTens(canvas, bounds)
             draw24HourClockHundreds(canvas, bounds)
             draw24HourClockThousands(canvas, bounds)
+            AmericanClockHours(canvas, bounds)
+            AmericanClockMinutes(canvas, bounds)
             drawAMPM(canvas, bounds)
             drawHeartRates(canvas, bounds)
             drawHeartRatesTens(canvas, bounds)
@@ -717,35 +883,10 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
 
         private fun drawWatchFace(canvas: Canvas) {
 
-            /*
-             * Draw ticks. Usually you will want to bake this directly into the photo, but in
-             * cases where you want to allow users to select their own photos, this dynamically
-             * creates them on top of the photo.
-             */
-            val innerTickRadius = mCenterX - 10
-            val outerTickRadius = mCenterX
-           /* for (tickIndex in 0..11) {
-                val tickRot = (tickIndex.toDouble() * Math.PI * 2.0 / 12).toFloat()
-                val innerX = Math.sin(tickRot.toDouble()).toFloat() * innerTickRadius
-                val innerY = (-Math.cos(tickRot.toDouble())).toFloat() * innerTickRadius
-                val outerX = Math.sin(tickRot.toDouble()).toFloat() * outerTickRadius
-                val outerY = (-Math.cos(tickRot.toDouble())).toFloat() * outerTickRadius
-                canvas.drawLine(
-                    mCenterX + innerX, mCenterY + innerY,
-                    mCenterX + outerX, mCenterY + outerY, mTickAndCirclePaint
-                )
-            } */
-
-            /*
-             * These calculations reflect the rotation in degrees per unit of time, e.g.,
-             * 360 / 60 = 6 and 360 / 12 = 30.
-             */
             val seconds =
                 mCalendar.get(Calendar.SECOND) + mCalendar.get(Calendar.MILLISECOND) / 1000f
             val secondsRotation = seconds * 6f
-
             val minutesRotation = mCalendar.get(Calendar.MINUTE) * 6f
-
             val hourHandOffset = mCalendar.get(Calendar.MINUTE) / 2f
             val hoursRotation = mCalendar.get(Calendar.HOUR) * 30 + hourHandOffset
 
@@ -765,23 +906,19 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                     mHourPaint
                 )
             }else if (mAmbient) {
+
+            }else{}
+
+            if (!mAmbient) {
+                canvas.rotate(minutesRotation - hoursRotation, mCenterX, mCenterY)
                 canvas.drawLine(
                     mCenterX,
                     mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
                     mCenterX,
-                    mCenterY - sHourHandLength,
-                    mHourPaint
+                    mCenterY - sMinuteHandLength,
+                    mMinutePaint
                 )
-            }else{}
-            canvas.rotate(minutesRotation - hoursRotation, mCenterX, mCenterY)
-            canvas.drawLine(
-                mCenterX,
-                mCenterY - CENTER_GAP_AND_CIRCLE_RADIUS,
-                mCenterX,
-                mCenterY - sMinuteHandLength,
-                mMinutePaint
-            )
-
+            }
             /*
              * Ensure the "seconds" hand is drawn only when we are in interactive mode.
              * Otherwise, we only update the watch face once a minute.
@@ -807,6 +944,8 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             /* Restore the canvas" original orientation. */
             canvas.restore()
         }
+
+
 
         override fun onVisibilityChanged(visible: Boolean) {
             super.onVisibilityChanged(visible)
