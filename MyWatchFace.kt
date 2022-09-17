@@ -5,30 +5,26 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.*
-import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.support.wearable.watchface.CanvasWatchFaceService
 import android.support.wearable.watchface.WatchFaceService
 import android.support.wearable.watchface.WatchFaceStyle
-import android.text.Html
-import android.view.Gravity
+import android.util.Log
 import android.view.SurfaceHolder
 import android.widget.Toast
 import androidx.palette.graphics.Palette
-import com.google.android.gms.wearable.DataClient
-import com.google.android.gms.wearable.Wearable
 import java.lang.ref.WeakReference
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
-import kotlin.math.roundToInt
-import android.util.Log
 import kotlin.math.floor
+import kotlin.math.roundToInt
 
 /**
  * Updates rate in milliseconds for interactive mode. We update once a second to advance the
@@ -1018,7 +1014,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
 
                     else -> {counter += 0}}
                     if (counter > 8){counter = 0 }
-           
+
 
             invalidate()
         }
@@ -1146,6 +1142,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 )
                 else -> Toast.makeText(applicationContext, " ", Toast.LENGTH_SHORT)
             }
+            
 
                 .show()
         }
