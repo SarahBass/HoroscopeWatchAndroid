@@ -306,3 +306,12 @@ AndroidManifest.xml | Extra Code to bypass security to make the workflow better 
 MyWatchFace.kt | Kotlin/Java Code for Changing Background, using Clock rotation animations, samples BG colors
 ------------- | -------------
 Strings.xml      | Strings shown when clock is clicked
+
+## Connect Device with Android Debug Bridge :
+
+> Terminal Command: adb devices
+
+> Terminal Command : adb forward tcp:[#### localhost number] localabstract:/adb-hub
+
+> Terminal Command : adb connect localhost: [#### localhost number] 
+
