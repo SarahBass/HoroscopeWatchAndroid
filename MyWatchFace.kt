@@ -463,8 +463,8 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
         private fun drawStepsFace(canvas: Canvas) {
             if(mAmbient){
                 val steps: Int = (stepCount / 100).roundToInt()
-                val innerTickRadius = mCenterX - 38
-                val outerTickRadius = mCenterX -42
+                val innerTickRadius = mCenterX - 44
+                val outerTickRadius = mCenterX - 54
                 for (tickIndex in 0..steps) {
                     val tickRot = (tickIndex.toDouble() * Math.PI * 2.0 / 105).toFloat()
                     val innerX = Math.sin(tickRot.toDouble()).toFloat() * innerTickRadius
