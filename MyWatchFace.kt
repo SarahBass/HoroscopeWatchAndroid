@@ -2327,7 +2327,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left  , bounds.top , bounds.right -45  , bounds.bottom )
+                val dst = Rect(bounds.left  , bounds.top , bounds.right -47  , bounds.bottom )
 
                 canvas.drawBitmap(
                     bitmap,
@@ -2445,17 +2445,9 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             val month: String = sdf.format(d)
 
             var drawable: Int = when ((floor(((Integer.parseInt(month) / 10)).toDouble()).toInt())) {
-                0 -> R.drawable.dateh0
+                0 -> R.drawable.blank
                 1 -> R.drawable.dateh1
-                2 -> R.drawable.dateh2
-                3 -> R.drawable.dateh3
-                4 -> R.drawable.dateh4
-                5 -> R.drawable.dateh5
-                6 -> R.drawable.dateh6
-                7 -> R.drawable.dateh7
-                8 -> R.drawable.dateh8
-                9 -> R.drawable.dateh9
-                else -> R.drawable.dateh0
+                else -> R.drawable.blank
             }
 
 
@@ -2463,7 +2455,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right - 60, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right - 59, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
