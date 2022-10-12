@@ -1466,7 +1466,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                         "2022 July" -> "July 28: Jupiter begins retrograde motion" // Pluto at Opposition 20 Jul 2022
                         "2022 August" -> "Saturn in Opposition on August 14" //August 24, 2022: Uranus begins retrograde motion
                         "2022 September" -> "Jupiter at opposition on September 26" //Septemper 16, 2022: Neptune at opposition
-                        "2022 October" -> "Saturn ends retrograde motion" //Mars in Retrograde October 30, 2022
+                        "2022 October" -> "Saturn ends retrograde motion on October 11" //Mars in Retrograde October 30, 2022
                         "2022 November" -> "November 18: Leonid Meteor Shower" // 2022 Uranus opposition – November 9
                         "2022 December" -> "December 15 - Geminids Meteor Shower" //Dec 21: December Solstice
 
@@ -1581,11 +1581,11 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                     "2024 August" -> "August 13 - Perseids Meteor Shower"
                     "2024 September" -> "Fall Equinox September 24"
                     "2024 October" -> "October 22 - Orionids Meteor Shower"
-                    "2024 November" -> "Mercury visible at Sunset"
+                    "2024 November" -> "Mercury visible at Sunset until 30th"
                     "2024 December" -> "Winter Solstice Dec 21st"
 
                     "2025 January" -> "Mars at Opposition on January 16th"
-                    "2025 February" -> "none"
+                    "2025 February" -> "none 0"
                     "2025 March" -> "Spring Equinox March 20th"
                     "2025 April" -> "April 23rd - Lyrids Meteor Shower"
                     "2025 May" -> "May 7th - Eta Aquarids Meteor Shower"
