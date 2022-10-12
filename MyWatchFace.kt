@@ -437,7 +437,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             val dayOfTheWeek: String = sdf.format(d)
             var drawable : Int = when (dayOfTheWeek){
                 "Mon" ->R.drawable.monh
-                "Tues" ->R.drawable.tueh
+                "Tue" ->R.drawable.tueh
                 "Wed" ->R.drawable.wedh
                 "Thu" ->R.drawable.thuh
                 "Fri" ->R.drawable.frih
@@ -500,7 +500,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right , bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -533,7 +533,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right -20, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right -23, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -566,7 +566,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right-40, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right-56, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -585,21 +585,14 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             var drawable : Int = when (Integer.parseInt(hours)/10){
                 1->R.drawable._4hour1
                 2 ->R.drawable._4hour2
-                3 ->R.drawable._4hour3
-                4 ->R.drawable._4hour4
-                5->R.drawable._4hour5
-                6 ->R.drawable._4hour6
-                7 ->R.drawable._4hour7
-                8 ->R.drawable._4hour8
-                9 ->R.drawable._4hour9
-                0 ->R.drawable._4hour0
-                else -> R.drawable._4hour0}
+                0 ->R.drawable.blank
+                else -> R.drawable.blank}
 
             if (mAmbient) {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right-60, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right-80, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -783,11 +776,11 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
             var drawable : Int = when (getMoonPhase()){
                     "New Moon" -> R.drawable.moonh0
                     "Waxing Crescent Moon"-> R.drawable.moonh1
-                "Waxing Half Moon"-> R.drawable.moonh2
+                    "Waxing Half Moon"-> R.drawable.moonh2
                     "Waxing Gibbous Moon"-> R.drawable.moonh3
                     "Full Moon" -> R.drawable.moonh4
-                        "Waxing Gibbous Moon"-> R.drawable.moonh5
-                "Waning Half Moon"-> R.drawable.moonh6
+                    "Waning Gibbous Moon"-> R.drawable.moonh5
+                    "Waning Half Moon"-> R.drawable.moonh6
                     "Waning Crescent Moon"-> R.drawable.moonh7
                 else -> R.drawable.moonh3}
 
@@ -2228,7 +2221,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
 
             if (mAmbient) {
 
-                drawable = R.drawable.astrowatchbg
+                drawable = R.drawable.rainbowbgtime
 
 
             }
@@ -2303,7 +2296,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left  , bounds.top , bounds.right -20  , bounds.bottom )
+                val dst = Rect(bounds.left  , bounds.top , bounds.right -25  , bounds.bottom )
 
                 canvas.drawBitmap(
                     bitmap,
@@ -2334,7 +2327,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left  , bounds.top , bounds.right -40  , bounds.bottom )
+                val dst = Rect(bounds.left  , bounds.top , bounds.right -45  , bounds.bottom )
 
                 canvas.drawBitmap(
                     bitmap,
@@ -2401,7 +2394,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right - 15, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right - 18, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -2435,7 +2428,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left  , bounds.top, bounds.right-30   , bounds.bottom)
+                val dst = Rect(bounds.left  , bounds.top, bounds.right-40   , bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
@@ -2470,7 +2463,7 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 val bitmap = BitmapFactory.decodeResource(applicationContext.resources, drawable)
 
                 val src = Rect(0, 0, bitmap.height, bitmap.width)
-                val dst = Rect(bounds.left , bounds.top, bounds.right - 45, bounds.bottom)
+                val dst = Rect(bounds.left , bounds.top, bounds.right - 60, bounds.bottom)
 
                 canvas.drawBitmap(
                     bitmap,
