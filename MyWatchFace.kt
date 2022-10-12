@@ -1296,6 +1296,30 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 "2028 October" -> "3"
                 "2028 November" -> "2"
                 "2028 December" -> "1"
+                "2029 January" -> "29"
+                "2029 February" -> "28"
+                "2029 March" -> "29"
+                "2029 April" -> "28"
+                "2029 May" -> "27"
+                "2029 June" -> "25"
+                "2029 July" -> "25"
+                "2029 August" -> "23"
+                "2029 September" -> "22"
+                "2029 October" -> "22"
+                "2029 November" -> "20"
+                "2029 December" -> "20"
+                "2030 January" -> "19"
+                "2030 February" -> "17"
+                "2030 March" -> "19"
+                "2030 April" -> "17"
+                "2030 May" -> "15"
+                "2030 June" -> "14"
+                "2030 July" -> "13"
+                "2030 August" -> "11"
+                "2030 September" -> "11"
+                "2030 October" -> "11"
+                "2030 November" -> "9"
+                "2030 December" -> "9"
                 else -> "1"
             }
             return fullMoonDate
@@ -1396,7 +1420,33 @@ class MyWatchFace : CanvasWatchFaceService(), SensorEventListener {
                 "2028 October" -> 17
                 "2028 November" -> 16
                 "2028 December" -> 15
-                else -> 1
+
+                "2029 January" -> 14
+                "2029 February" -> 13
+                "2029 March" -> 14
+                "2029 April" -> 13
+                "2029 May" -> 13
+                "2029 June" -> 11
+                "2029 July" -> 11
+                "2029 August" -> 9
+                "2029 September" -> 8
+                "2029 October" -> 7
+                "2029 November" -> 5
+                "2029 December" -> 5
+
+                "2030 January" -> 3
+                "2030 February" -> 2
+                "2030 March" -> 3
+                "2030 April" -> 2
+                "2030 May" -> 2
+                "2030 June" -> 30
+                "2030 July" -> 30
+                "2030 August" -> 28
+                "2030 September" -> 27
+                "2030 October" -> 26
+                "2030 November" -> 24
+                "2030 December" -> 24
+                else -> 31
             }
             return newMoonDate.toString()
         }
